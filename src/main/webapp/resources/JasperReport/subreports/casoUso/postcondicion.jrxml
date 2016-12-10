@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="precondicion" pageWidth="469" pageHeight="792" orientation="Landscape" columnWidth="469" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8375933c-a369-47e6-baf9-9281fcccfbb4">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_casoUsoId" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select pp.redaccion from PostPrecondicion pp WHERE pp.precondicion = 0 AND pp.CasoUsoElementoid = $P{p_casoUsoId};]]>
+	</queryString>
+	<field name="redaccion" class="java.lang.String"/>
+	<variable name="v_redaccion" class="java.lang.String">
+		<variableExpression><![CDATA[mx.prisma.editor.bs.TokenBs.decodificarCadenaSinToken($F{redaccion})]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="127" height="20" uuid="0598d260-b228-425b-9e77-9375396f52b4"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Postcondiciones]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="18" y="0" width="451" height="14" uuid="d643e272-9095-4b3a-b8b1-9fb7c7dc7e2e"/>
+				<textFieldExpression><![CDATA[$V{v_redaccion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="18" height="14" uuid="83e8c034-4e56-409b-94e5-2abb6d0d0833"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[-]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

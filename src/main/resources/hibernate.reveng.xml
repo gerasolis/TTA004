@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+  <table-filter match-catalog="PRISMA" match-name="ValorEntrada"/>
+  <table-filter match-catalog="PRISMA" match-name="Escenario_ValorEntrada"/>
+  <table-filter match-catalog="PRISMA" match-name="Escenario"/>
+  <table-filter match-catalog="PRISMA" match-name="ValorMensajeParametro"/>
+  <table-filter match-catalog="PRISMA" match-name="Query"/>
+    <table-filter match-catalog="PRISMA" match-name="ValorEntradaTrayectoria"/>
+  
+  
+</hibernate-reverse-engineering>

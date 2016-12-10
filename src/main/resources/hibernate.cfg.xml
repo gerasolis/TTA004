@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="">
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/PRISMA</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="hibernate.enable_lazy_load_no_trans">true</property>
+		<property name="show_sql">false</property>
+		<mapping class="mx.prisma.admin.model.Colaborador" />
+		<mapping class="mx.prisma.admin.model.ColaboradorProyecto" />
+		<mapping class="mx.prisma.admin.model.EstadoProyecto" />
+		<mapping class="mx.prisma.admin.model.Proyecto" />
+		<mapping class="mx.prisma.admin.model.Rol" />
+		<mapping class="mx.prisma.admin.model.Telefono" />
+		<mapping class="mx.prisma.editor.model.Accion" />
+		<mapping class="mx.prisma.editor.model.Actor" />
+		<mapping class="mx.prisma.editor.model.Actualizacion" />
+		<mapping class="mx.prisma.editor.model.Atributo" />
+		<mapping class="mx.prisma.editor.model.Cardinalidad" />
+		<mapping class="mx.prisma.editor.model.CasoUso" />
+		<mapping class="mx.prisma.editor.model.CasoUsoActor" />
+		<mapping class="mx.prisma.editor.model.CasoUsoReglaNegocio" />
+		<mapping class="mx.prisma.editor.model.Elemento" />
+		<mapping class="mx.prisma.editor.model.Entidad" />
+		<mapping class="mx.prisma.editor.model.Entrada" />
+		<mapping class="mx.prisma.editor.model.EstadoElemento" />
+		<mapping class="mx.prisma.editor.model.Extension" />
+		<mapping class="mx.prisma.editor.model.Inclusion" />
+		<mapping class="mx.prisma.editor.model.InclusionId" />
+		<mapping class="mx.prisma.editor.model.Mensaje" />
+		<mapping class="mx.prisma.editor.model.MensajeParametro" />
+		<mapping class="mx.prisma.editor.model.Modulo" />
+		<mapping class="mx.prisma.editor.model.Operador" />
+		<mapping class="mx.prisma.editor.model.Paso" />
+		<mapping class="mx.prisma.editor.model.Pantalla" />
+		<mapping class="mx.prisma.editor.model.Parametro" />
+		<mapping class="mx.prisma.editor.model.PostPrecondicion" />
+		<mapping class="mx.prisma.editor.model.ReferenciaParametro" />
+		<mapping class="mx.prisma.editor.model.ReglaNegocio" />
+		<mapping class="mx.prisma.editor.model.Revision" />
+		<mapping class="mx.prisma.editor.model.Salida" />
+		<mapping class="mx.prisma.editor.model.Seccion" />
+		<mapping class="mx.prisma.editor.model.TerminoGlosario" />
+		<mapping class="mx.prisma.editor.model.TipoAccion" />
+		<mapping class="mx.prisma.editor.model.TipoComparacion" />
+		<mapping class="mx.prisma.editor.model.TipoDato" />
+		<mapping class="mx.prisma.editor.model.TipoParametro" />
+		<mapping class="mx.prisma.editor.model.TipoReglaNegocio" />
+		<mapping class="mx.prisma.editor.model.Trayectoria" />
+		<mapping class="mx.prisma.editor.model.UnidadTamanio" />
+		<mapping class="mx.prisma.editor.model.Verbo" />
+		<mapping class="mx.prisma.generadorPruebas.model.ConfiguracionBaseDatos" />
+		<mapping class="mx.prisma.generadorPruebas.model.ConfiguracionHttp" />
+		<mapping class="mx.prisma.generadorPruebas.model.ValorEntrada" />
+		<mapping class="mx.prisma.generadorPruebas.model.EscenarioValorEntrada" />
+		<mapping class="mx.prisma.generadorPruebas.model.Escenario" />
+		<mapping class="mx.prisma.generadorPruebas.model.ValorMensajeParametro" />
+		<mapping class="mx.prisma.generadorPruebas.model.Query" />
+		<mapping class="mx.prisma.generadorPruebas.model.ValorEntradaTrayectoria" />
+		<mapping class="mx.prisma.generadorPruebas.model.ValorAccionTrayectoria" />
+		<mapping class="mx.prisma.generadorPruebas.model.ValorMensajeParametroTrayectoria" />
+		<mapping class="mx.prisma.generadorPruebas.model.ValorPantallaTrayectoria" />
+		
+		
+	</session-factory>
+</hibernate-configuration>

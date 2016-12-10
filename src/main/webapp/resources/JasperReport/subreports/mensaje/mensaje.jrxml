@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mensaje" pageWidth="500" pageHeight="288" columnWidth="500" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d1849b9f-00df-401a-84c3-1265e9143528">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/lorena/git/AplicacionTTB064/src/main/webapp/resources/ireport/subreports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_proyectoId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT ele.id, ele.clave, ele.numero, ele.nombre, ele.descripcion, men.redaccion, men.parametrizado FROM Elemento ele
+INNER JOIN Mensaje men ON ele.id = men.Elementoid
+where ele.clave = 'MSG' AND ele.Proyectoid = $P{p_proyectoId};]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="clave" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="redaccion" class="java.lang.String"/>
+	<field name="parametrizado" class="java.lang.Boolean"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50">
+			<staticText>
+				<reportElement x="18" y="0" width="150" height="25" forecolor="#5F5F5F" uuid="cc4d92ed-c545-4fef-a258-f1a8f214637a"/>
+				<textElement>
+					<font size="20" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Mensajes]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="39" width="500" height="1" forecolor="#5F5F5F" backcolor="#5F5F5F" uuid="22db6210-e03e-464b-b9d7-1952705d3d92"/>
+			</rectangle>
+		</band>
+	</title>
+	<detail>
+		<band height="73" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="18" y="11" width="469" height="19" uuid="30dbc923-50a4-40af-9e11-20035382712c"/>
+				<textElement textAlignment="Left">
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clave} + $F{numero} + " " + $F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="18" y="49" width="469" height="21" uuid="377c9e6d-94ba-4be0-a530-1cf6539df464"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="14" y="34" width="473" height="1" forecolor="#BFBFBF" uuid="712731b0-954c-44f6-9fe3-a5658468bc82"/>
+			</line>
+		</band>
+		<band height="22">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="18" y="0" width="469" height="19" uuid="96dd86eb-4269-4b40-b351-578869b45590"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>Redacción:</b> " + $F{redaccion}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="20">
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="18" y="0" width="469" height="20" uuid="db421041-dd9f-4e24-af7d-6f6a53f04338"/>
+				<subreportParameter name="p_mensajeElementoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "mensaje/mensaje_parametro.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

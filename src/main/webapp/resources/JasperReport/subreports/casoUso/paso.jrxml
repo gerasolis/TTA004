@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="paso" pageWidth="469" pageHeight="792" columnWidth="469" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4b66177b-d550-4333-99fb-12fb7989d6ef">
+	<property name="ireport.zoom" value="2.143588810000003"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_trayectoriaId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/lorena/git/AplicacionTTB064/src/main/webapp/resources/ireport/subreports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_contextPath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT paso.numero, paso.realizaActor, paso.redaccion, paso.otroVerbo, ver.nombre, paso.Verboid
+FROM Paso paso
+LEFT JOIN Verbo ver ON paso.Verboid = ver.id
+WHERE paso.Trayectoriaid = $P{p_trayectoriaId}
+ORDER BY numero ASC;]]>
+	</queryString>
+	<field name="numero" class="java.lang.Integer"/>
+	<field name="realizaActor" class="java.lang.Boolean"/>
+	<field name="redaccion" class="java.lang.String"/>
+	<field name="otroVerbo" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="Verboid" class="java.lang.Integer"/>
+	<variable name="v_redaccionPaso" class="java.lang.String">
+		<variableExpression><![CDATA[mx.prisma.editor.bs.TokenBs.decodificarCadenaSinToken($F{redaccion})]]></variableExpression>
+	</variable>
+	<variable name="v_actor" class="java.lang.String"/>
+	<variable name="v_verbo" class="java.lang.String">
+		<variableExpression><![CDATA[$F{Verboid}.equals( 13 ) ? $F{otroVerbo} : $F{nombre}]]></variableExpression>
+	</variable>
+	<variable name="v_imagenRealiza" class="java.lang.String">
+		<variableExpression><![CDATA[$F{realizaActor} ? $P{p_contextPath} + "images/actor.png" : $P{p_contextPath} + "images/uc.png"]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="0" width="30" height="12" uuid="aa904dd8-a639-49f8-b50e-2b53ea7a00d9"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{numero} + ". "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="49" y="0" width="420" height="12" uuid="a97aad37-c705-47b5-abec-2658fda9a542"/>
+				<textFieldExpression><![CDATA[$V{v_verbo} + " " + $V{v_redaccionPaso}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="33" y="0" width="12" height="12" uuid="dc9207cc-a11e-4a96-8cb5-225870f3e50e"/>
+				<imageExpression><![CDATA[$V{v_imagenRealiza}]]></imageExpression>
+			</image>
+		</band>
+	</detail>
+</jasperReport>

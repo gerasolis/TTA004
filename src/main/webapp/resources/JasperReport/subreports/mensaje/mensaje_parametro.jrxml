@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mensaje_parametro" pageWidth="469" pageHeight="752" columnWidth="469" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e8f07769-a9d2-4f3a-a1ee-a345917c74d5">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_mensajeElementoId" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT par.nombre, par.descripcion FROM Mensaje_Parametro menpar
+INNER JOIN Parametro par ON menpar.Parametroid = par.id
+WHERE menpar.MensajeElementoid = $P{p_mensajeElementoId};]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<title>
+		<band height="20">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="15" uuid="30f9c2a2-4b16-4ba1-93aa-141870b89666"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Parámetros]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="0" y="0" width="469" height="20" uuid="16784c38-1831-4975-91bf-5b81367534f0"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>" + $F{nombre} + ".</b> " + $F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

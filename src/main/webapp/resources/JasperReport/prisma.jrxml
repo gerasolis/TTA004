@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prisma" pageWidth="612" pageHeight="800" columnWidth="500" leftMargin="56" rightMargin="56" topMargin="56" bottomMargin="56" uuid="4e67c746-4b2f-4cf9-a5d5-85d37e075565">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="336"/>
+	<style name="style1"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["subreports/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idProyecto" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_contextPath" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT proy.id, proy.clave, proy.nombre as proyectoNombre, proy.fechaInicioProgramada, proy.fechaInicio, proy.fechaTerminoProgramada, proy.fechaTermino, proy.descripcion, proy.presupuesto, proy.contraparte, est.nombre as estadNombre
+FROM Proyecto proy
+INNER JOIN EstadoProyecto est ON proy.EstadoProyectoid = est.id
+where proy.id = $P{idProyecto};]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="clave" class="java.lang.String"/>
+	<field name="proyectoNombre" class="java.lang.String"/>
+	<field name="fechaInicioProgramada" class="java.sql.Date"/>
+	<field name="fechaInicio" class="java.sql.Date"/>
+	<field name="fechaTerminoProgramada" class="java.sql.Date"/>
+	<field name="fechaTermino" class="java.sql.Date"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="presupuesto" class="java.lang.Double"/>
+	<field name="contraparte" class="java.lang.String"/>
+	<field name="estadNombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="500" height="20" forecolor="#CFCFCF" uuid="fa9b04d1-032d-4b00-a155-b3b11886f30a">
+					<printWhenExpression><![CDATA[!$V{PAGE_NUMBER}.equals(1)]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clave} + " " + $F{proyectoNombre}]]></textFieldExpression>
+				<hyperlinkAnchorExpression><![CDATA["title"]]></hyperlinkAnchorExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="65">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="0" width="500" height="50" forecolor="#909090" uuid="1ab7cbd1-2d57-47cd-97cf-edcd45b66f50"/>
+				<textElement>
+					<font size="20" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Proyecto " + $F{clave} + " " + $F{proyectoNombre}]]></textFieldExpression>
+				<hyperlinkAnchorExpression><![CDATA["title"]]></hyperlinkAnchorExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="170" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="34" width="500" height="20" uuid="bf02f574-70fe-452c-9a08-e65000ef2f27"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>Fecha de inicio programada: </b> " + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaInicioProgramada})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="54" width="500" height="20" uuid="af61a1a9-2082-4ee9-be19-ff03d118d9d4"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>Fecha de término programada: </b>" + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaTerminoProgramada})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="74" width="500" height="20" uuid="de742ff3-2389-4796-ba87-d4021b3fa967"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>Fecha de inicio: </b>" + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaInicio})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="0" y="94" width="500" height="20" uuid="e873e709-5d1d-450f-a8b8-8271249d3679"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>Fecha de término: </b>" + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaTermino})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="500" height="21" uuid="e90f1938-3277-4495-a670-195f1268a7f5"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="722" y="134" width="500" height="20" uuid="428a6a13-ac5f-400a-a6ff-8e4635d9c526"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>Presupuesto: </b>" + $F{presupuesto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="114" width="500" height="20" uuid="64ab329b-c2d1-45c5-8c58-1eb501994236"/>
+				<textElement markup="html"/>
+				<textFieldExpression><![CDATA["<b>Contraparte: </b>" + $F{contraparte}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="100">
+			<subreport>
+				<reportElement x="0" y="10" width="500" height="40" uuid="49edc4a5-8f25-4156-89e4-ca0d15561976"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "terminoGlosario/terminoGlosario.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="100">
+			<subreport>
+				<reportElement x="0" y="10" width="500" height="40" uuid="62c014f1-a440-47f4-9b8b-27c23630768a"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "actor/actor.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="100">
+			<subreport>
+				<reportElement x="0" y="10" width="500" height="40" uuid="a6d783f9-97d8-4dbc-8144-4d06afbdb94d"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "mensaje/mensaje.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="100">
+			<subreport>
+				<reportElement x="0" y="10" width="500" height="40" uuid="3a7dd622-f38d-4a99-854f-5f2b1836ad0f"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "entidad/entidad.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="100">
+			<subreport>
+				<reportElement x="0" y="10" width="500" height="40" uuid="de5a14ea-c8d6-41bf-9aa2-7d23952e85ea"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "reglaNegocio/reglaNegocio.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="100">
+			<subreport>
+				<reportElement x="0" y="10" width="500" height="40" uuid="d0348ac1-69d9-4446-bacc-1427eb31d6e4"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_contextPath">
+					<subreportParameterExpression><![CDATA[$P{p_contextPath}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "modulo/modulo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="22" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="1" width="500" height="20" uuid="333eef06-a803-4e80-b24c-0081051df8fa"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

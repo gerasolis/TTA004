@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"/> 
+	
+	<!-- Permite utilizar los recursos de global.properties -->
+	<constant name="struts.custom.i18n.resources" value="global" />
+
+	<!-- Activa el modo desarrollador -->
+	<constant name="struts.devMode" value="false" />
+
+	<!-- Permite definir mas de un ActionMapper, si el primero no obtiene una 
+		respuesta correcta, se utilizará el siguiente mapper -->
+	<constant name="struts.mapper.class" value="rest" />
+	<!-- <constant name="struts.mapper.composite" value="rest,struts" /> -->
+
+	<!-- struts2 busca paquetes que terminen, en su nombre, con las siguientes 
+		cadenas en busca de acciones -->
+	<constant name="struts.convention.package.locators" value="controller" />
+
+	<!-- Indica el sufijo del nombre de los archivos para las acciones no mapeadas 
+		explicitamente -->
+	<constant name="struts.convention.action.suffix" value="Ctrl" />
+
+	<!-- Mapea todas las acciones encontradas aun y cuando no exista la anotacion 
+		correspondiente -->
+	<constant name="struts.convention.action.mapAllMatches" value="true" />
+
+	<constant name="struts.convention.default.parent.package"
+		value="prisma" />
+
+	<!-- Ruta donde buscara los resultados -->
+	<constant name="struts.convention.result.path" value="/content" />
+
+	<!-- Se habilita el DMI -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+
+	<constant name="struts.mapper.idParameterName" value="idSel" />
+
+	<package name="prisma" extends="rest-default,json-default">
+		<interceptors>
+			<interceptor class="mx.prisma.controller.AccessInterceptor" name="loginInterceptor"/>
+			<interceptor name="workflow" class="org.apache.struts2.rest.RestWorkflowInterceptor" />
+			
+			<interceptor name="breadCrumbs" class="org.softwareforge.struts2.breadcrumb.BreadCrumbInterceptor">
+				  <param name="trail.maxCrumbs">6</param>
+				  <param name="trail.rewindMode">AUTO</param>                                                   
+				  <param name="trail.comparator">org.softwareforge.struts2.breadcrumb.NameComparator</param>  
+			</interceptor>
+
+			<!-- Define la pila de interceptores a ser aplicada a cada acción invocada -->
+			<interceptor-stack name="stack">
+				
+				<!-- Permite el mapeo de una excepción hacia un result code, es recomendado 
+					que sea el primer interceptor -->
+				<interceptor-ref name="exception" />	
+
+				<!-- Establece todas las propiedades de un action basada en las interfaces 
+					que esta implementa. Está diseñado para establecer todas las propiedades 
+					que podría llegar a requerir de servleContext, servletRequest -->
+				<interceptor-ref name="servletConfig" />
+
+				<!-- Configura el idioma especificado en una sesión como el de la petición. 
+					Además, también buscará el parámetro request_locale para el cambio de idioma -->
+				<interceptor-ref name="i18n" />
+
+				<interceptor-ref name="fileUpload" />
+
+				<!-- Permite la ejecución del método prepare -->
+				<interceptor-ref name="prepare" />
+
+				<!-- Hace disponibles todas las propiedades del action previo al action 
+					actual. -->
+				<interceptor-ref name="chain" />
+
+				<interceptor-ref name="profiling" />
+
+				<interceptor-ref name="actionMappingParams" />
+
+				<!-- Almacena los mensajes, mensajes de error y de error de campos en 
+					la sesión de HTTP, tal que permite que sean recuperables en un momento posterior. 
+					Permite que los mensajes estén disponibles para más de una petición http -->
+				<interceptor-ref name="store">
+					<!-- Indica que el interceptor siempre recuperará los mensajes almacenados; 
+						tras la ejecución de un action, si el result es una instancia de ServletRedirectResult, 
+						los mensajes serán almacenados automáticamente en la sesión http -->
+					<param name="operationMode">AUTOMATIC</param>
+				</interceptor-ref>
+
+				<!-- Si el action implementa modeldriven le permite poner en la pila 
+					de valores el modelo -->
+				<interceptor-ref name="modelDriven">
+					<!-- Indica que el modelo será refrescado en la pila de valores después 
+						de la ejecución de un action y antes de la ejecución del result. Esto es 
+						útil si se desea cambiar la instancia del modelo durante la fase de ejecución 
+						del action, como cuando se carga desde la capa de datos. -->
+					<param name="refreshModelBeforeResult">true</param>
+				</interceptor-ref>
+
+				<!-- Permite el manejo de checkboxes, estableciendo a false su valor 
+					en caso de ser unchecked -->
+				<interceptor-ref name="checkbox" />
+
+				<!-- Establece los parámetros del request sobre la pila de valores -->
+				<interceptor-ref name="params">
+					<!-- Parámetros excluidos, recomendado por struts -->
+					<param name="excludeParams">^struts\..*,_</param>
+				</interceptor-ref>
+
+				<interceptor-ref name="rest" />
+
+				<!-- Agrega mensajes de error a aquellos campos donde haya error de conversion 
+					de tipos -->
+				<interceptor-ref name="conversionError" />
+
+				<!-- Realiza la validación de todos aquellos métodos para los que exista 
+					un correspondiente validate, siempre y cuando los primeros estén anotados -->
+				<interceptor-ref name="validation">
+					<!-- Se excluyen los métodos -->
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,index,execute,deleteConfirm</param>
+				</interceptor-ref>
+
+				<interceptor-ref name="restWorkflow">
+					<param name="excludeMethods">input,back,cancel,browse,show,edit,editNew,deleteConfirm</param>
+				</interceptor-ref>
+
+				<!-- Provee de diferentes pantallas de depuración. Este interceptor solo 
+					se activa cuando la constante devMode está habilitada en la configuración 
+					de struts -->
+				<interceptor-ref name="debugging" />
+				
+				<interceptor-ref name="loginInterceptor"/>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="stack" />
+
+	
+	
+	<global-results>
+   		<result name="login" type="redirect">access/</result>
+	</global-results>
+	
+	</package>
+
+</struts>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="atributo" pageWidth="469" pageHeight="792" columnWidth="469" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4b66177b-d550-4333-99fb-12fb7989d6ef">
+	<property name="ireport.zoom" value="1.7715610000000013"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_entidadElementoId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/lorena/git/AplicacionTTB064/src/main/webapp/resources/ireport/subreports/"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT atr.nombre as atributoNombre, atr.descripcion, atr.obligatorio, atr.longitud, atr.formatoArchivo, atr.tamanioArchivo, atr.otroTipoDato, atr.TipoDatoid, atr.UnidadTamanioid, unitam.abreviatura FROM Atributo atr
+LEFT JOIN UnidadTamanio unitam ON atr.UnidadTamanioid =  unitam.id
+WHERE atr.EntidadElementoId = $P{p_entidadElementoId};]]>
+	</queryString>
+	<field name="atributoNombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="obligatorio" class="java.lang.Boolean"/>
+	<field name="longitud" class="java.lang.Integer"/>
+	<field name="formatoArchivo" class="java.lang.String"/>
+	<field name="tamanioArchivo" class="java.lang.Float"/>
+	<field name="otroTipoDato" class="java.lang.String"/>
+	<field name="TipoDatoid" class="java.lang.Integer"/>
+	<field name="UnidadTamanioid" class="java.lang.Integer"/>
+	<field name="abreviatura" class="java.lang.String"/>
+	<variable name="v_descripcionTipo" class="java.lang.String">
+		<variableExpression><![CDATA[$F{TipoDatoid}.equals( 1 ) ?
+"Es una frase o enunciado de " + $F{longitud} + " caracteres como máximo"
+: $F{TipoDatoid}.equals( 2 ) ?
+"Es un número con decimales de " + $F{longitud} + " dígitos como máximo (tomando en cuenta los decimales)"
+: $F{TipoDatoid}.equals( 3 ) ?
+"Es un número entero de " + $F{longitud} + " dígitos como máximo"
+: $F{TipoDatoid}.equals( 4 ) ?
+"Es un atributo que puede tomar el valor de falso o verdadero"
+: $F{TipoDatoid}.equals( 5 ) ?
+"Es una fecha"
+: $F{TipoDatoid}.equals( 6 ) ?
+"Es un documento digital en formato " + $F{formatoArchivo} + " de " + $F{tamanioArchivo} + " " + $F{abreviatura}
+: $F{TipoDatoid}.equals( 7 ) ?
+"Es un atributo de tipo " + $F{otroTipoDato}
+: "Error"]]></variableExpression>
+	</variable>
+	<variable name="v_descripcionObligatorio" class="java.lang.String">
+		<variableExpression><![CDATA[$F{obligatorio} ?
+"y es un dato obligatorio."
+: "y es un dato opcional."]]></variableExpression>
+	</variable>
+	<variable name="v_abreviaturaUnidadTamanio" class="java.lang.String"/>
+	<title>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="100" height="20" uuid="6644b008-944a-43af-8981-0660fba03c81"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Atributos]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="0" y="0" width="469" height="12" isRemoveLineWhenBlank="true" uuid="d2b9a2c8-ccbc-45f1-9b3e-914e4c37e2ae"/>
+				<textElement textAlignment="Justified" markup="html"/>
+				<textFieldExpression><![CDATA["<b>" + $F{atributoNombre} + ".</b> " + $F{descripcion} + " " + $V{v_descripcionTipo} + " " + $V{v_descripcionObligatorio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

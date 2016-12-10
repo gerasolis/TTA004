@@ -1,0 +1,55 @@
+<html><head><meta content="text/html; charset=UTF-8" http-equiv="Content-Type" /><title>PRISMA | Proyectos</title><link href="/prisma/resources/css/estilo.css" rel="stylesheet" /><link href="/prisma/resources/DataTables-1.10.7/media/css/jquery.dataTables.css" type="text/css" rel="stylesheet" /><link href="/prisma/resources/css/jquery.atwho.css" rel="stylesheet" />
+
+
+
+
+	<script type="text/javascript" src="/prisma/struts/js/base/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="/prisma/struts/js/base/jquery.ui.core.min.js?s2j=3.7.0"></script>
+  <script type="text/javascript" src="/prisma/struts/js/plugins/jquery.subscribe.min.js?s2j=3.7.0"></script>
+
+  <script type="text/javascript" src="/prisma/struts/js/struts2/jquery.struts2.min.js?s2j=3.7.0"></script>
+
+<script type="text/javascript">
+$(function() {
+	jQuery.struts2_jquery.version="3.7.0";
+  	jQuery.scriptPath = "/prisma/struts/";
+  jQuery.struts2_jquery.local = "es";
+  jQuery.struts2_jquery.gridLocal = "es";
+  jQuery.struts2_jquery.timeLocal = "es";
+	jQuery.ajaxSettings.traditional = true;
+
+	jQuery.ajaxSetup ({
+		cache: false
+	});
+	
+	jQuery.struts2_jquery.require("js/struts2/jquery.ui.struts2.min.js?s2j=3.7.0");
+	
+});
+</script>
+
+        	<link id="jquery_theme_link" rel="stylesheet" href="/prisma/resources/template/themes/smoothness-prisma/jquery-ui.css?s2j=3.7.0" type="text/css"/>
+<script type="text/javascript" charset="utf8" src="/prisma/content/editor/proyectos/js/index.js"></script>
+	
+	<script type="text/javascript" charset="utf8" src="/prisma/resources/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
+	<script type="text/javascript" charset="utf8" src="/prisma/resources/scripts/menu.js"></script>
+	<script type="text/javascript" charset="utf8" src="/prisma/resources/scripts/dataTable.js"></script>
+</head><body><div class="container"><div class="banner"><div class="logo">
+		<img src="/prisma/resources/images/logo4_124x25.png" alt="PRISMA"/>
+</div></div><div class="menuPrincipal">
+<div class="opcionesMenu">
+	<a class="menu" href="/prisma/proyectos">Proyectos</a>
+	<div class="opcionesSesion">
+		<a class="menuSesion" href="/prisma/access!logout">Cerrar sesión</a>
+	</div>
+</div></div><div class="menuSecundario"></div><div id="idAreaTrabajo" class="areaTrabajo"><h1>Gestionar Proyectos</h1><br />        
+<form id="proyectos" name="proyectos" onsubmit="return false;" action="/prisma/proyectos.xhtml" method="post" autocomplete="off"><div class="form"><table width="100%" cellspacing="0" class="tablaGestion" id="gestion"><thead><th style="width: 50%;">Proyecto</th><th style="width: 40%;">Líder</th><th style="width: 10%;">Acciones</th></thead><tbody><tr><td>SIG - Sistema de Informaci&oacute;n Geogr&aacute;fica</td><td>Sergio Ram&iacute;rez Camacho</td><td align="center">
+									
+									<a href="/prisma/proyectos!elegirColaboradores?idSel=1"><img src="/prisma/resources/images/icons/colaboradores.png" title="Elegir Colaboradores" class="button" id="" /></a>
+								
+								<a href="/prisma/proyectos!entrar?idSel=1"><img src="/prisma/resources/images/icons/entrar.png" title="Entrar al Proyecto" class="button" id="" /></a>
+								
+								<a href="/prisma/proyectos!descargarDocumento?idSel=1"><img src="/prisma/resources/images/icons/descargar.png" title="Descargar Documento" class="button" id="" /></a></td></tr><tr><td>SIGRA - Sistema de Informaci&oacute;n Radio&oacute;gica</td><td>Natalia Hern&aacute;ndez S&aacute;nchez</td><td align="center">
+								
+								<a href="/prisma/proyectos!entrar?idSel=2"><img src="/prisma/resources/images/icons/entrar.png" title="Entrar al Proyecto" class="button" id="" /></a>
+								
+								<a href="/prisma/proyectos!descargarDocumento?idSel=2"><img src="/prisma/resources/images/icons/descargar.png" title="Descargar Documento" class="button" id="" /></a></td></tr></tbody></table></div><br /><br /></form></div></div><input value="/prisma" id="rutaContexto" style="display: none;" type="text" /></body></html>

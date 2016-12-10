@@ -1,0 +1,591 @@
+@charset "UTF-8";
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 8/04/2015, 01:15:33 AM
+    Author     : natalia
+*/ 
+
+/*Iconos por http://dryicons.com*/
+/*Estilo general*/
+
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+	font-family: Verdana,Arial,sans-serif;    
+    /*background-color: #90ee90;*/
+}
+
+a {
+    cursor: pointer;
+}
+
+/*Banner*/
+.banner {
+	position: fixed;
+    right: 0px;
+    top: 0px;
+    width: 100%;
+    height: 0px;
+    z-index: 99;
+    background-color: white;
+    border-bottom: 1px solid #5f5f5f;;
+}
+/*Banner*/
+.info {
+	text-align: right;
+	font-size: 13px;
+	position: relative;
+    right: -20%;
+    top: 0px;
+    width: 80%;
+    z-index: 99;
+}
+
+.logo {
+	position: absolute;
+	right: 20px;
+	top: 10px;	
+}
+
+/*Área de trabajo*/
+.areaTrabajo {
+	position: absolute;
+	top: 40px;
+	/*left: 25%;*/
+	left: 10%;
+	padding: 30px;
+	width: 80%;
+	heigth: 100%;
+	z-index: 96;
+	visibility: hidden;
+	/*background-color: #3f3f3f;*/	
+}
+
+
+.btnMasGestion {
+	top: 90px;
+	right: 0px;
+}
+
+/*Información del proyecto*/
+
+.infoProyecto {
+	position: absolute;
+	top: 40px;
+	right: 0px;
+	font-size: 10px;
+	background-color: #3f3f3f;
+}
+
+/*Títulos*/
+h1 {
+    margin-left: auto;
+    margin-right: auto;
+    color: #7f7f7f;
+    background-color: white;
+    font-weight: 200;
+    font-size: 35px;
+}
+h3 {
+    color: #7f7f7f;
+    font-weight: 500;
+    font-size: 20px;
+    padding: 0px;
+}
+
+/*Estilo párrafo*/
+p.main {
+    text-align: justify;
+}
+ 
+/*Estilo tablas de gestión*/
+.btnMas th {
+	width: 24px;
+	background-color:black;
+}
+
+.tdAcciones {
+	margin-left: auto;
+    margin-right: auto;
+}
+
+.tablaGestion {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    /*border-radius: 10px;*/
+    border-collapse: collapse; 
+}
+
+.tablaGestion td, .tablaGestion th {
+    padding: 5px;
+    font-size: 12px;
+    /*border: 1px solid #bfbfbf;*/
+    /*border-radius: 10px;*/
+}
+.tdDescripcion td{
+	width: 200px;
+}
+
+/*Formularios*/
+.instrucciones {
+	font-size: 12px;
+	text-align: justify;
+	text-indent: 2em;
+}
+
+.formulario {
+	/*background-color: #e5e5e5;*/
+	border: 1px solid #D2D7D9;
+	position: relative;
+	border-radius: 5px;
+	margin: 15px;
+}
+
+.seccion {
+  	/*background-color: #0000ff;*/
+  	border: 0px;
+  	top: 0px;
+  	padding: 10px 10px 10px 10px;
+    text-align: left;
+    margin: 0.5%;
+}
+
+.subseccion {
+    position: relative;
+  	/*background-color: #e9e9e9;*/
+  	background-color: #ff0000;
+  	/*border: 1px solid #add8e6;*/
+  	border: 1px solid black;
+  	width: 100%;
+  	padding: 0px;
+}
+
+.tituloFormulario {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	color: #4d4d4d;
+	font-size: 15px;
+	width: 100%;
+	background-color: #bfbfbf;
+	min-height: 16px;
+}
+
+.subtituloFormulario {
+	position: relative;
+	top: 10px;
+	font-size: 13px;
+	width: 80%;
+	color: #4d4d4d;
+	min-height: 13px;
+	padding-bottom: 15px;
+}
+
+/*Mensajes*/
+.msjError {
+	background-color: red;
+	border: 1px;
+}
+
+/*Menús*/
+/*Menú sesión*/
+.menuSesion {
+	position: fixed;
+	right: 0px;
+	top: 35px;
+	font-size: 10px;
+}
+.opcionesSesion a{
+	background-color: #5f5f5f;
+    text-decoration: none;
+    color: white;
+    border-radius: 0 0 4px 4px;
+    padding: 5px 5px;
+}
+a.menu{
+    background-color: #5f5f5f;
+    padding: 13px 14px;
+    text-decoration: none;
+    color: white;
+}
+
+a.menu:hover {
+    color: #7f7f7f;
+}
+
+.menuPrincipal {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+    z-index: 98;
+    background-color: #5f5f5f;
+    height: 45px;
+    font-size: 14px;
+}
+
+.opcionesMenu{
+	margin-top: 15px;
+}
+
+.menuSecundario {
+	position: fixed;
+	left: 0px;
+	width: 10%;
+	top: 35px;
+	z-index: 97;
+	height: 100%;
+	/*background-color: #d7d7ff;*/
+	background-color: #bfbfbf;
+}
+
+.menuSuperiorCU {
+	width: 104.6%;
+	height: 35px;
+	background-color: rgb(0, 73, 144);
+	font-size: 14px;
+}
+
+a.menuCU{
+    background-color: rgb(0, 73, 144);
+    padding: 5px 6px;
+    text-decoration: none;
+    color: white;
+}
+
+a.menuCU:hover {
+    color: #1e90ff;
+}
+
+.opcionesMenuCU {
+	padding: 10px;
+}
+
+a.menuCUSel {
+	color: #79CDEF;
+	background-color: rgb(0, 73, 144);
+}
+a.menuCUSel:hover {
+	color: #1e90ff;
+	background-color: rgb(0, 73, 144);
+}
+/*Posiciones*/
+.derecha {
+	position: absolute;
+	right: 0px;
+}
+
+.izquierda {
+	position: absolute;
+	left: 0px;
+}
+
+.centro {
+	margin-left: auto;
+    margin-right: auto;
+}
+
+/*Formularios*/
+.obligatorio::before {
+	content: "*";
+	color: red;
+}
+
+.input-error {
+	border: solid 2pt #CB4721 !important;
+	text-align: left;
+	border-radius: 2px;
+	padding: 1px 0px 1px 0px;
+}
+
+.select-error {
+	color: #CB4721;
+}
+
+.label::after {
+	content: ":";
+}
+
+.link {
+	font-size:12px;
+	text-align: right; 
+	vertical-align: top; 
+	width: 200px;
+	max-width: 200px;
+	word-wrap: break-word;
+	
+}
+
+.label {
+	font-size:12px;
+	text-align: right; 
+	vertical-align: top;
+	min-width: 150px;
+	max-width: 200px;
+	word-wrap: break-word;
+	
+}
+
+.labelDerecho {
+	font-size:12px;
+	text-align: left; 
+	vertical-align: top; 
+	width: 400px;
+	max-width: 500px;
+	word-wrap: break-word;
+}
+
+.inputFormulario {
+	width: 50%;
+	min-width: 250px;
+}
+
+.inputFormularioGrande {
+	width: 70%;
+	min-width: 350px;
+}
+
+.inputFormularioExtraGrande {
+	width: 90%;
+	min-width: 500px;
+}
+
+.inputFormularioChico {
+	min-width: 100px;
+	max-width: 200px;
+}
+
+textarea { 
+	resize:none;  
+	min-height:80px; 
+	min-width:500px;
+}
+
+textfield {
+	vertical-align: top; 
+}
+
+.hide {
+	display: none;
+	visibility: hidden;
+}
+
+/*Token*/
+.listaToken {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size:11px;	
+}
+
+.listaNombre {
+	font-size:11px;
+	font-style: italic;
+}
+
+.listaElementoInteres {
+	font-size:12px;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.textoAyuda {
+	font-size:12px;
+	font-style: italic;
+	color: #7f7f7f;
+}
+
+.trayectoriaPrincipal {
+	background: #e8f2fe;
+}
+
+.errorformulario {
+	position: relative;
+	border-radius: 5px;
+	margin: 15px;
+	
+}
+
+.botonEditar {
+	text-align: left; 
+	vertical-align: top;	
+}
+
+.boton {
+	min-width: 80px; 
+}
+
+textarea[readonly=""] {
+    background-color:#E6E6E6;
+    color: #848484;
+    
+}
+
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+.oculto {
+	display: none;
+}
+
+.consulta {
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+.labelIzq::after {
+	content: ":";
+}
+
+.labelIzq {
+	font-size:12px;
+	text-align: left; 
+	vertical-align: top; 
+	width: 200px;
+}
+
+.tablaDescripcion {
+	/*background-color: #e5e5e5;*/
+	border: 1px solid #D2D7D9;
+	position: relative;
+	margin: auto;	
+}
+.tablaDescripcion td, .tablaDescripcion th {
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #D2D7D9;
+}
+.encabezadoTabla {
+	color: white;
+	background: #4d4d4d; 
+}
+
+a.referencia{
+	font-weight: bold;
+    text-decoration: none;
+    color: #004589;
+}
+
+a.referencia:hover {
+	font-weight: bold;
+    color: #7f7f7f;
+}
+
+.definicion {
+	padding-left: 2em;
+	text-indent: -2em;
+	text-align: justify;
+}
+
+.paso {
+	text-indent: 0em;
+}
+
+.imagen {
+	max-width: 80%;
+	margin: 20px;
+}
+
+.marcoImagen {
+	border-style: dashed;
+	border-color: #e5e5e5;
+	margin: 10px;
+	padding: 5px;
+}
+
+.observaciones {
+	font-size:12px;
+		padding-left: 2em;
+		padding-right: 2em;
+		
+	
+}
+
+.tituloObservaciones {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	color: #4d4d4d;
+	font-size: 15px;
+	width: 100%;
+	background-color: #d9a696;
+	min-height: 16px;
+}
+
+.btnEliminar {
+	position: relative;
+	vertical-align: top; 
+	text-align: right; 
+}
+
+.tablaConsulta {
+	min-width: 100%;
+	
+}
+
+.tablaConsulta th,td {
+	
+}
+
+.imagenAccion {
+	width: 200px;
+}
+
+.descripcionAccion {
+	padding-top: 10px;
+}
+
+.invisible {
+	display: none;
+}
+
+.genericFont {
+	font-family: Verdana,Arial,sans-serif;
+    font-size: 12px;
+}
+
+.filaCU3 {
+	background: #ffe5b4!important;
+}
+
+/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    100;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('images/gifs/cargando.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+.radiobotones {
+	padding-left: 12%;
+}
+
+.menuWizard {
+	padding-top: 5%;
+	padding-bottom: 5%;
+}
+
+.pregunta {
+	border: 1px solid #D2D7D9;
+	position: relative;
+	border-radius: 5px;
+	margin: 0.5%;
+	text-align: center;
+	padding: auto;	
+}
