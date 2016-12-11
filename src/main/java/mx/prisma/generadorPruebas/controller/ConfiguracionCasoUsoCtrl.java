@@ -1,8 +1,10 @@
 package mx.prisma.generadorPruebas.controller;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -37,6 +39,7 @@ import mx.prisma.editor.model.ReglaNegocio;
 import mx.prisma.editor.model.TerminoGlosario;
 import mx.prisma.editor.model.Trayectoria;
 import mx.prisma.generadorPruebas.bs.CuPruebasBs;
+import mx.prisma.generadorPruebas.bs.EjecutarPruebaBs;
 import mx.prisma.generadorPruebas.bs.GeneradorPruebasBs;
 import mx.prisma.generadorPruebas.bs.QueryBs;
 import mx.prisma.generadorPruebas.bs.ValorEntradaBs;
@@ -263,6 +266,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 		casoUso = CuBs.consultarCasoUso(idCUPruebaGenerada);
 		String ruta = (String) SessionManager.get("rutaPruebaGenerada");
 		
+		System.out.println("RUTA: "+ruta);
 		SessionManager.delete("rutaPruebaGenerada");
 		SessionManager.delete("idCUPruebaGenerada");
 		SessionManager.delete("pruebaGenerada");
@@ -272,20 +276,28 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 		type = "application/zip";
 		
 		String rutaFolder = ruta + casoUso.getId() + "/";
+		System.out.println("RUTA_folder: "+rutaFolder);
 
-				
+		
+		String rutaReporte = rutaFolder+"reporte/";
+		File file = new File(rutaReporte);
+		file.getParentFile().mkdirs();
+		EjecutarPruebaBs.ejecutarPruebaAutomatica(rutaReporte,casoUso,rutaFolder);
+		
+			
 		try {
 				FileUtil.zipIt(rutaFolder, ruta + filename);
 		    	
 		        File doc = new File(ruta + filename);
 		        this.fileInputStream = new FileInputStream(doc);
-		        File pruebaCU = new File(ruta);
-		        FileUtil.delete(pruebaCU);
+		        /*File pruebaCU = new File(ruta);
+		        FileUtil.delete(pruebaCU);*/
 	        } catch (Exception e) {
 	        	ErrorManager.agregaMensajeError(this, e);
 	        	return "cu";
 	        }
 			
+		
 	    return "documento";
 	}
 	
