@@ -30,7 +30,7 @@ public class EjecutarPruebaBs {
                 	String lineaErrores = line.substring(line.indexOf("{"), line.indexOf("}]}"))+"}]}";
                 	System.out.println(lineaErrores);
                 	//Ahora convertirlo a json y trabajarlo como tal.
-                	JSONObject json = (JSONObject) new JSONParser().parse(lineaErrores);
+                	//JSONObject json = (JSONObject) new JSONParser().parse(lineaErrores);
                 }
             }
 		} catch (Exception ioe) {
