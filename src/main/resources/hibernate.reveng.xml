@@ -7,7 +7,8 @@
   <table-filter match-catalog="PRISMA" match-name="Escenario"/>
   <table-filter match-catalog="PRISMA" match-name="ValorMensajeParametro"/>
   <table-filter match-catalog="PRISMA" match-name="Query"/>
-    <table-filter match-catalog="PRISMA" match-name="ValorEntradaTrayectoria"/>
+  <table-filter match-catalog="PRISMA" match-name="ValorEntradaTrayectoria"/>
+  <table-filter match-catalog="PRISMA" match-name="ErroresPrueba"/>
   
   
 </hibernate-reverse-engineering>

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.prisma.editor.model.CasoUso;
+import mx.prisma.generadorPruebas.dao.ErroresPruebaDAO;
+import mx.prisma.generadorPruebas.dao.ValorEntradaDAO;
+import mx.prisma.generadorPruebas.model.ErroresPrueba;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -43,35 +46,37 @@ public class EjecutarPruebaBs {
                 		System.out.println(results.getJSONObject(i).getJSONArray("data"));
                 		JSONArray as = results.getJSONObject(i).getJSONArray("data");
                 		
-                		List<String> list = new ArrayList<String>();
+                		//Ahora sólo falta insertar las cadenas en la bd.
+                		//UNA TABLA QUE ESTÉ RELACIONADA CON LA TABLA DE CASO DE USO.
+                		
+                		ErroresPrueba e = new ErroresPrueba();
+                		
+                		e.setTipoError(as.getString(0));
+                		e.setNumError(as.getInt(1));
+                		e.setPorcentaje(as.getDouble(2));
+                		e.setPorcentajeTodo(as.getDouble(3));
+                		e.setCasoUsoid(casoUso);
+                		if(i==0){
+	                		if(new ErroresPruebaDAO().obtenerErrores(e)!=null){
+	                			new ErroresPruebaDAO().eliminarErrores(e);
+	                		}
+                		}
+                		new ErroresPruebaDAO().registrarError(e);
+                		new ErroresPruebaDAO().modificarReporte(e);
+                		/*List<String> list = new ArrayList<String>();
                 		for (int n=0; n<as.size(); n++) {
                 		    list.add( as.getString(n));
                 		}
                 		for(String x : list){
                 			System.out.println(x);
-                		}
-                		//Ahora sólo falta insertar las cadenas en la bd.
+                			
+                		}*/	
+                		//Una vez registrado en la bd, borramos los archivos temporales.
                 	}
-                	
-                	/*
-                    for (JSONObject result : results.getValuesAs(JSONObject.class)) {
-                        System.out.print(result.getJsonObject("from").getString("name"));
-                        System.out.print(": ");
-                        System.out.println(result.getString("message", ""));
-                        System.out.println("-----------");
-                    }*/
-                	
-                	
-                	//System.out.println(jsonObj.getJSONObject("data"));
                 }
-            }
+    		}
 		} catch (Exception ioe) {
 			System.out.println (ioe);
-		}
-		
-		
-		/*Luego se entra al html y se saca la tabla con su info. Eso se guarda en la bd, y ya después se
-		  borran los archivos.*/
-		
+		}		
 	}
 }

@@ -290,8 +290,8 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 		    	
 		        File doc = new File(ruta + filename);
 		        this.fileInputStream = new FileInputStream(doc);
-		        /*File pruebaCU = new File(ruta);
-		        FileUtil.delete(pruebaCU);*/
+		        File pruebaCU = new File(ruta);
+		        FileUtil.delete(pruebaCU);
 	        } catch (Exception e) {
 	        	ErrorManager.agregaMensajeError(this, e);
 	        	return "cu";

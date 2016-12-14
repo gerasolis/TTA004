@@ -39,6 +39,7 @@ public class CasoUso extends Elemento implements java.io.Serializable {
 	private String redaccionSalidas;
 	private String redaccionReglasNegocio;
 	private Modulo modulo;
+	private boolean reporte;
 	private Set<CasoUsoActor> actores = new HashSet<CasoUsoActor>(0);
 	private Set<Salida> salidas = new HashSet<Salida>(0);
 	private Set<Entrada> entradas = new HashSet<Entrada>(0);
@@ -74,6 +75,16 @@ public class CasoUso extends Elemento implements java.io.Serializable {
 		this.modulo = modulo;
 	}
 	
+	public CasoUso(String redaccionActores,
+			String redaccionEntradas, String redaccionSalidas,
+			String redaccionReglasNegocio, Modulo modulo, boolean reporte) {
+		this.redaccionActores = redaccionActores;
+		this.redaccionEntradas = redaccionEntradas;
+		this.redaccionSalidas = redaccionSalidas;
+		this.redaccionReglasNegocio = redaccionReglasNegocio;
+		this.modulo = modulo;
+		this.reporte = reporte;
+	}
 	@StringLengthFieldValidator(message = "%{getText('MSG6',{'1000', 'caracteres'})}", trim = true, maxLength = "999", shortCircuit= true)
 	@Column(name = "redaccionActores", length = 999)
 	public String getRedaccionActores() {
@@ -123,7 +134,15 @@ public class CasoUso extends Elemento implements java.io.Serializable {
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
 	}
-	
+
+	@Column(name = "reporte")
+	public boolean getReporte() {
+		return this.reporte;
+	}
+
+	public void setReporte(boolean reporte) {
+		this.reporte = reporte;
+	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "casouso", cascade = CascadeType.ALL, orphanRemoval = false)
 	public Set<CasoUsoActor> getActores() {

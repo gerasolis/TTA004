@@ -129,6 +129,14 @@
 										src="${pageContext.request.contextPath}/resources/images/icons/pruebas.png" /></s:a>	
 								${blanks}
 							</s:if>
+							<s:if test="%{#cu.reporte == 1}">
+							<!-- Descargar pruebas -->			
+								<s:url var="urlGenerarReporte" value="%{#pageContext.request.contextPath}/configuracion-caso-uso!generarReporte?idCU=%{#cu.id}" method="post"/>
+								<s:a href="%{urlGenerarReporte}">
+								<img id="" class="button" title="Generar Reporte"
+										src="${pageContext.request.contextPath}/resources/images/icons/bar-chart.png" /></s:a>	
+								${blanks}
+							</s:if>
 					</td>
 				</tr>
 			</s:iterator>
