@@ -6,44 +6,42 @@
 		contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Configuración Trayectorias principal y alternativas</title>
+<title>Reporte de errores</title>
 <![CDATA[
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/generadorPruebas/configuracion/js/casosUsoPrevios.js"></script>	
 ]]>
 
 </head>
 <body>
-	<div class="menuWizard">
-	<img id="" src="${pageContext.request.contextPath}/resources/images/wizard/ww3.png" />
-	</div>
-
+	
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 	<br />
-
-	<p class="instrucciones">Para configurar el caso de uso <b><s:property value="casoUso.clave + casoUso.numero + ' ' + casoUso.nombre"/></b> es necesario que configure
-	las trayectorias se muestran a continuación.</p>
+	<h1>Reporte de errores </h1>
+	<p class="instrucciones">A continuación se presentan los errores generados en la prueba del <b><s:property value="casoUso.clave + casoUso.numero + ' ' + casoUso.nombre"/></b>.</p>
 	<s:form autocomplete="off" id="frmActor" theme="simple"
 		action="%{#pageContext.request.contextPath}/configuracion-trayectorias!configurar" method="post">
 		<s:hidden name="_method" value="put" />
 		<div class="formulario">
-			<div class="tituloFormulario">Trayectorias</div>
+			<div class="tituloFormulario">Errores</div>
 			<div class="seccion">
 				<table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
-				
 			 <thead>
 					<tr>
-						<th><s:text name="colTrayectoria"/></th>
-						<th style="width: 20%;"><s:text name="colEstado"/></th>
-						<th style="width: 20%;"><s:text name="colAcciones"/></th>
+						<th><s:text name="Tipo de error"/></th>
+						<th style="width: 20%;"><s:text name="Núm de error"/></th>
+						<th style="width: 20%;"><s:text name="Porcentaje"/></th>
+						<th style="width: 20%;"><s:text name="Porcentaje de todo"/></th>
 					</tr>
 				</thead>
 				<tbody>
-				<s:iterator value="ListTrayectoria" var="t">
+				<s:iterator value="ListErrores" var="e">
 					<tr class="${'filaCU'}${trayectoria.Id}">
-						<td><s:property value="'Trayectoria '+ #t.clave"/></td>
-						<td><s:property value="#t.Estado"/></td>
-						
+						<td><s:property value="#e.tipoError"/></td>
+						<td><s:property value="#e.numError"/></td>
+						<td><s:property value="#e.porcentaje"/></td>
+						<td><s:property value="#e.porcentajeTodo"/></td>
+						<!--
 						<td align="center">
 							<s:url var="urlConfigurarTrayectoria"
 								value="%{#pageContext.request.contextPath}/configuracion-trayectoria!prepararConfiguracion">
@@ -53,7 +51,7 @@
 								<img id="" class="button" title="Configurar Caso de uso"
 										src="${pageContext.request.contextPath}/resources/images/icons/configurar.png" />
 							</s:a>
-						</td>
+						</td>-->
 					  </tr>
 				</s:iterator>
 				</tbody>
@@ -63,6 +61,7 @@
 		
 		<br />
 		<div align="center">
+			<!-- 
 			<s:url var="urlAnterior"
 				value="%{#pageContext.request.contextPath}/configuracion-casos-uso-previos!prepararConfiguracion">
 			</s:url>
@@ -71,17 +70,13 @@
 				value="Anterior" />
 		
 			<s:submit class="boton" value="Finalizar"/>
-			
-			<!--  <input class="boton" type="button"
-				onclick="siguiente();"
-				value="Siguiente" />-->
-				
+			-->
 			<s:url var="urlGestionarCU"
 				value="%{#pageContext.request.contextPath}/cu">
 			</s:url>
 			<input class="boton" type="button"
 				onclick="location.href='${urlGestionarCU}'"
-				value="Cancelar" />
+				value="Listo" />
 				
 		</div>
 	</s:form>

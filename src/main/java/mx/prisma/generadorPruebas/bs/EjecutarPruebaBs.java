@@ -79,4 +79,10 @@ public class EjecutarPruebaBs {
 			System.out.println (ioe);
 		}		
 	}
+	
+	public static List<ErroresPrueba> consultarErroresxCasoUso(CasoUso casoUso){
+		List<ErroresPrueba> listErrores=null;
+		listErrores = new ErroresPruebaDAO().consultarErroresxCasoUso(casoUso);
+		return listErrores;
+	}
 }

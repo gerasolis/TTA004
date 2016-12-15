@@ -23,6 +23,7 @@ import mx.prisma.editor.bs.MensajeParametroBs;
 import mx.prisma.editor.bs.PantallaBs;
 import mx.prisma.editor.bs.ReferenciaParametroBs;
 import mx.prisma.editor.bs.TokenBs;
+import mx.prisma.editor.bs.TrayectoriaBs;
 import mx.prisma.editor.model.Accion;
 import mx.prisma.editor.model.Atributo;
 import mx.prisma.editor.model.CasoUso;
@@ -44,6 +45,7 @@ import mx.prisma.generadorPruebas.bs.GeneradorPruebasBs;
 import mx.prisma.generadorPruebas.bs.QueryBs;
 import mx.prisma.generadorPruebas.bs.ValorEntradaBs;
 import mx.prisma.generadorPruebas.bs.ValorMensajeParametroBs;
+import mx.prisma.generadorPruebas.model.ErroresPrueba;
 import mx.prisma.generadorPruebas.model.Query;
 import mx.prisma.generadorPruebas.model.ValorEntrada;
 import mx.prisma.generadorPruebas.model.ValorMensajeParametro;
@@ -65,6 +67,7 @@ import com.opensymphony.xwork2.Action;
 @ResultPath("/content/generadorPruebas/")
 @Results({
 	@Result(name = "pantallaConfiguracionCasoUso", type = "dispatcher", location = "configuracion/casoUso.jsp"),
+	@Result(name = "pantallaReporte", type = "dispatcher", location = "configuracion/reporte.jsp"),
 	@Result(name = "cu", type = "redirectAction", params = {
 			"actionName", "cu" }),
 	@Result(name = "modulos", type = "redirectAction", params = {
@@ -93,6 +96,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 	private String jsonReferenciasParametrosMensaje;
 	private String jsonPantallas;
 	private String jsonImagenesPantallasAcciones;
+	private List<ErroresPrueba> listErrores;
 	
 	private InputStream fileInputStream;
 	private String type;
@@ -118,9 +122,6 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 				resultado = Action.LOGIN;
 				return resultado;
 			}
-			
-			
-			
 			
 			//Se arman los json con los campos que se mostrarán en pantalla
 			if(jsonEntradas == null || jsonEntradas.isEmpty()) {
@@ -301,6 +302,23 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 	    return "documento";
 	}
 	
+	public String generarReporte() {
+		String resultado="";
+		try {
+			casoUso = CuBs.consultarCasoUso(idCU);
+			if (casoUso == null) {
+				resultado = "cu";
+				return resultado;
+			}
+			listErrores= EjecutarPruebaBs.consultarErroresxCasoUso(casoUso);
+			resultado = "pantallaReporte";
+		} catch (Exception e) {
+			ErrorManager.agregaMensajeError(this, e);
+			SessionManager.set(this.getActionErrors(), "mensajesError");
+			resultado = "cu";
+		}
+		return resultado;
+	}
 	private void modificarEntradas(boolean validarObligatorios) throws Exception {
 		if (jsonEntradas != null && !jsonEntradas.equals("")) {
 			List<Entrada> entradasVista = JsonUtil.mapJSONToArrayList(this.jsonEntradas, Entrada.class);
@@ -697,6 +715,13 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 		jsonImagenesPantallasAcciones = JsonUtil.mapListToJSON(imagenesPantallaAcciones);
 	}
 
+	public List<ErroresPrueba> getListErrores(){
+		return listErrores;
+	}
+	public void setListErrores(List<ErroresPrueba> listErrores){
+		this.listErrores = listErrores;
+	}
+	
 	public Colaborador getColaborador() {
 		return colaborador;
 	}

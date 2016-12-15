@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
 import mx.prisma.dao.GenericDAO;
+import mx.prisma.editor.model.CasoUso;
 import mx.prisma.editor.model.Entrada;
 import mx.prisma.generadorPruebas.model.ErroresPrueba;
 
@@ -30,6 +31,24 @@ public class ErroresPruebaDAO extends GenericDAO{
 			session.beginTransaction();
 			Query query = session.createQuery("from ErroresPrueba where CasoUsoid = :idCasoUso");
 			query.setParameter("idCasoUso", error.getCasoUsoid());
+			results = query.list();
+			session.getTransaction().commit();
+		}catch(HibernateException he){
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
+			return results;
+					
+		}
+	public List<ErroresPrueba> consultarErroresxCasoUso(CasoUso casoUso){
+		List<ErroresPrueba> results = null;
+		String valor = null;
+
+		try{
+			session.beginTransaction();
+			Query query = session.createQuery("from ErroresPrueba where CasoUsoid = :idCasoUso");
+			query.setParameter("idCasoUso", casoUso.getId());
 			results = query.list();
 			session.getTransaction().commit();
 		}catch(HibernateException he){
