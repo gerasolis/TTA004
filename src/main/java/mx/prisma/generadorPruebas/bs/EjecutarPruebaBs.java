@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.prisma.editor.model.CasoUso;
+import mx.prisma.editor.model.Modulo;
 import mx.prisma.generadorPruebas.dao.ErroresPruebaDAO;
 import mx.prisma.generadorPruebas.dao.ValorEntradaDAO;
 import mx.prisma.generadorPruebas.model.ErroresPrueba;
@@ -84,5 +85,17 @@ public class EjecutarPruebaBs {
 		List<ErroresPrueba> listErrores=null;
 		listErrores = new ErroresPruebaDAO().consultarErroresxCasoUso(casoUso);
 		return listErrores;
+	}
+	
+	public static List<ErroresPrueba> consultarErroresCasosUso(Modulo modulo){
+		List<ErroresPrueba> listErrores=null;
+		listErrores = new ErroresPruebaDAO().consultarErroresCasosUso(modulo);
+		return listErrores;
+	}
+	
+	public static List<CasoUso> consultarCasosUso(Modulo modulo){
+		List<CasoUso> listCasosUso=null;
+		listCasosUso = new ErroresPruebaDAO().consultarCasosUso(modulo);
+		return listCasosUso;
 	}
 }
