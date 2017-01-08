@@ -65,7 +65,7 @@
 		<mapping class="mx.prisma.generadorPruebas.model.ValorMensajeParametroTrayectoria" />
 		<mapping class="mx.prisma.generadorPruebas.model.ValorPantallaTrayectoria" />
 		<mapping class="mx.prisma.generadorPruebas.model.ErroresPrueba" />
-		
+		<mapping class="mx.prisma.generadorPruebas.model.Prueba" />
 		
 	</session-factory>
 </hibernate-configuration>

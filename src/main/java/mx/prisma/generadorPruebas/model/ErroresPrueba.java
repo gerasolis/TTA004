@@ -25,17 +25,17 @@ public class ErroresPrueba implements java.io.Serializable{
 	private int numError;
 	private double porcentaje;
 	private double porcentajeTodo;
-	private CasoUso CasoUsoid;
+	private Prueba pruebaid;
 	
 	public ErroresPrueba(){
 		
 	}
-	public ErroresPrueba(String tipoError,int numError,double porcentaje,double porcentajeTodo,CasoUso idCasoUso) {
+	public ErroresPrueba(String tipoError,int numError,double porcentaje,double porcentajeTodo,Prueba pruebaid) {
 		this.tipoError = tipoError;
 		this.numError = numError;
 		this.porcentaje = porcentaje;
 		this.porcentajeTodo = porcentajeTodo;
-		this.CasoUsoid = idCasoUso;
+		this.pruebaid = pruebaid;
 	}
 
 	@Id
@@ -86,13 +86,13 @@ public class ErroresPrueba implements java.io.Serializable{
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CasoUsoid", referencedColumnName = "Elementoid")		
-	public CasoUso getCasoUsoid() {
-		return this.CasoUsoid;
+    @JoinColumn(name = "Pruebaid", referencedColumnName = "id")		
+	public Prueba getPruebaid() {
+		return this.pruebaid;
 	}
 
-	public void setCasoUsoid(CasoUso CasoUsoid) {
-		this.CasoUsoid = CasoUsoid;
+	public void setPruebaid(Prueba pruebaid) {
+		this.pruebaid = pruebaid;
 	}
 
 }

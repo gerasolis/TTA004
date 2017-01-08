@@ -42,10 +42,12 @@ import mx.prisma.editor.model.Trayectoria;
 import mx.prisma.generadorPruebas.bs.CuPruebasBs;
 import mx.prisma.generadorPruebas.bs.EjecutarPruebaBs;
 import mx.prisma.generadorPruebas.bs.GeneradorPruebasBs;
+import mx.prisma.generadorPruebas.bs.PruebaBs;
 import mx.prisma.generadorPruebas.bs.QueryBs;
 import mx.prisma.generadorPruebas.bs.ValorEntradaBs;
 import mx.prisma.generadorPruebas.bs.ValorMensajeParametroBs;
 import mx.prisma.generadorPruebas.model.ErroresPrueba;
+import mx.prisma.generadorPruebas.model.Prueba;
 import mx.prisma.generadorPruebas.model.Query;
 import mx.prisma.generadorPruebas.model.ValorEntrada;
 import mx.prisma.generadorPruebas.model.ValorMensajeParametro;
@@ -97,6 +99,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 	private String jsonPantallas;
 	private String jsonImagenesPantallasAcciones;
 	private List<ErroresPrueba> listErrores;
+	private List<Prueba> listPruebas;
 	
 	private InputStream fileInputStream;
 	private String type;
@@ -310,7 +313,9 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 				resultado = "cu";
 				return resultado;
 			}
-			listErrores= EjecutarPruebaBs.consultarErroresxCasoUso(casoUso);
+			listPruebas = PruebaBs.consultarPruebasxCasoUso(casoUso);
+		    //listErrores= EjecutarPruebaBs.consultarErroresxCasoUso(casoUso);
+			listErrores = EjecutarPruebaBs.consultarErrores();
 			resultado = "pantallaReporte";
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
@@ -720,6 +725,13 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 	}
 	public void setListErrores(List<ErroresPrueba> listErrores){
 		this.listErrores = listErrores;
+	}
+	
+	public List<Prueba> getListPruebas(){
+		return listPruebas;
+	}
+	public void setListPruebas(List<Prueba> listPruebas){
+		this.listPruebas = listPruebas;
 	}
 	
 	public Colaborador getColaborador() {

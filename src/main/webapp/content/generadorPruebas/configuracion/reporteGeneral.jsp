@@ -20,9 +20,10 @@
 	<s:actionerror theme="jquery" />
 	<br />
 	<h1>Reporte general de errores </h1>
-	<p class="instrucciones">A continuación se presentan todos los casos de uso del módulo <b><s:property value="casoUso.clave + casoUso.numero + ' ' + casoUso.nombre"/></b>, 
+	<s:iterator value="Modulo" var="m">
+	<p class="instrucciones">A continuación se presentan todos los casos de uso del módulo <b><s:property value="#m.clave  + ' - ' +#m.nombre"/></b>, 
 	así como las pruebas ejecutadas en cada caso de uso y los errores detectados.</p>
-	
+	</s:iterator>
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	<s:iterator value="ListCasosUso" var="cu">
 		<s:if test="%{#cu.reporte == 1}">
@@ -34,32 +35,43 @@
 			        </a>
 			      </h4>
 			    </div>
-			    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-			      <div class="panel-body">
-				      <table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
-						 <thead>
-								<tr>
-									<th><s:text name="Tipo de error"/></th>
-									<th style="width: 20%;"><s:text name="Núm de error"/></th>
-									<th style="width: 20%;"><s:text name="Porcentaje"/></th>
-									<th style="width: 20%;"><s:text name="Porcentaje de todo"/></th>
-								</tr>
-							</thead>
-							<tbody>
-							<s:iterator value="ListErrores" var="e">
-								<s:if test="%{#cu.id == #e.casoUsoid.id}">
-									<tr class="${'filaCU'}${trayectoria.Id}">
-										<td><s:property value="#e.tipoError"/></td>
-										<td><s:property value="#e.numError"/></td>
-										<td><s:property value="#e.porcentaje"/></td>
-										<td><s:property value="#e.porcentajeTodo"/></td>
-									</tr>
-								</s:if>
-							</s:iterator>
-							</tbody>
-						</table>
-			      </div>
-			    </div>
+			   <s:iterator value="ListPruebas" var="p">
+			   		<s:if test="%{#cu.id == #p.casoUsoid.id}">
+			   			<div class="panel panel-default">
+						    <div class="panel-heading" role="tab" id="headingOne">
+						        <s:a role="button" data-toggle="collapse" data-parent="#accordion" href="#%{#p.id}" aria-expanded="true" aria-controls="collapseOne">
+						           <p class="instrucciones"><s:property value="'Prueba No. '+#p.id+' realizada el: '+#p.fecha"/></p>
+						        </s:a>
+			   				</div>
+						 <s:div id="%{#p.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+					      <div class="panel-body">
+						      <table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
+								 <thead>
+										<tr>
+											<th><s:text name="Tipo de error"/></th>
+											<th style="width: 20%;"><s:text name="Núm de error"/></th>
+											<th style="width: 20%;"><s:text name="Porcentaje"/></th>
+											<th style="width: 20%;"><s:text name="Porcentaje de todo"/></th>
+										</tr>
+									</thead>
+									<s:iterator value="ListErrores" var="e">
+					   					<s:if test="%{#p.id == #e.pruebaid.id}">
+											<tbody>
+													<tr class="${'filaCU'}${trayectoria.Id}">
+														<td><s:property value="#e.tipoError"/></td>
+														<td><s:property value="#e.numError"/></td>
+														<td><s:property value="#e.porcentaje"/></td>
+														<td><s:property value="#e.porcentajeTodo"/></td>
+													</tr>
+											</tbody>
+										</s:if>
+									</s:iterator>
+								</table>
+					      </div>
+					    </s:div>
+					  </div>
+			    	</s:if>
+				</s:iterator>
 			  </div>
 		  </s:if>	
 	 </s:iterator>
@@ -92,7 +104,7 @@
 			</table>
 			</div>
 		</div>
-		<br />
+		<br />-->
 		<div align="center">
 			<s:url var="urlGestionarCU"
 				value="%{#pageContext.request.contextPath}/cu">
@@ -101,7 +113,7 @@
 				onclick="location.href='${urlGestionarCU}'"
 				value="Listo" />	
 		</div>
-	</s:form>-->
+	<!--</s:form>-->
 </body>
 </html>
 </jsp:root>

@@ -4,14 +4,19 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import mx.prisma.editor.model.CasoUso;
 import mx.prisma.editor.model.Modulo;
 import mx.prisma.generadorPruebas.dao.ErroresPruebaDAO;
+import mx.prisma.generadorPruebas.dao.PruebaDAO;
 import mx.prisma.generadorPruebas.dao.ValorEntradaDAO;
 import mx.prisma.generadorPruebas.model.ErroresPrueba;
+import mx.prisma.generadorPruebas.model.Prueba;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -29,6 +34,14 @@ public class EjecutarPruebaBs {
             while ((line = in.readLine()) != null) {  
                 System.out.println(line);  
             } 
+            Prueba px = new Prueba();
+    		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    		Date date = new Date();
+    		px.setFecha(dateFormat.format(date));
+    		px.setCasoUsoid(casoUso);
+    		
+    		new PruebaDAO().registrarPrueba(px);
+    		new PruebaDAO().modificarReporte(px);
     		FileInputStream inn = new FileInputStream(rutaReporte+"content/js/dashboard.js");
     		BufferedReader in2 = new BufferedReader(new InputStreamReader(inn));  
     		line="";
@@ -43,6 +56,7 @@ public class EjecutarPruebaBs {
                 	JSONObject jsonObj = JSONObject.fromObject(lineaErorresObj);
                 	JSONArray results = jsonObj.getJSONArray("items");
                 	
+                	
                 	for(int i=0;i<results.size();i++){
                 		System.out.println(results.getJSONObject(i).getJSONArray("data"));
                 		JSONArray as = results.getJSONObject(i).getJSONArray("data");
@@ -50,28 +64,22 @@ public class EjecutarPruebaBs {
                 		//Ahora sólo falta insertar las cadenas en la bd.
                 		//UNA TABLA QUE ESTÉ RELACIONADA CON LA TABLA DE CASO DE USO.
                 		
-                		ErroresPrueba e = new ErroresPrueba();
                 		
+                		ErroresPrueba e = new ErroresPrueba();
                 		e.setTipoError(as.getString(0));
                 		e.setNumError(as.getInt(1));
                 		e.setPorcentaje(as.getDouble(2));
                 		e.setPorcentajeTodo(as.getDouble(3));
-                		e.setCasoUsoid(casoUso);
+                		e.setPruebaid(px);
+                		/*
                 		if(i==0){
 	                		if(new ErroresPruebaDAO().obtenerErrores(e)!=null){
 	                			new ErroresPruebaDAO().eliminarErrores(e);
 	                		}
-                		}
+                		}*/
                 		new ErroresPruebaDAO().registrarError(e);
-                		new ErroresPruebaDAO().modificarReporte(e);
-                		/*List<String> list = new ArrayList<String>();
-                		for (int n=0; n<as.size(); n++) {
-                		    list.add( as.getString(n));
-                		}
-                		for(String x : list){
-                			System.out.println(x);
-                			
-                		}*/	
+                		
+                		
                 		//Una vez registrado en la bd, borramos los archivos temporales.
                 	}
                 }
@@ -86,12 +94,16 @@ public class EjecutarPruebaBs {
 		listErrores = new ErroresPruebaDAO().consultarErroresxCasoUso(casoUso);
 		return listErrores;
 	}
-	
-	public static List<ErroresPrueba> consultarErroresCasosUso(Modulo modulo){
+	public static List<ErroresPrueba> consultarErrores(){
+		List<ErroresPrueba> listErrores=null;
+		listErrores = new ErroresPruebaDAO().consultarErrores();
+		return listErrores;
+	}
+	/*public static List<ErroresPrueba> consultarErroresCasosUso(Modulo modulo){
 		List<ErroresPrueba> listErrores=null;
 		listErrores = new ErroresPruebaDAO().consultarErroresCasosUso(modulo);
 		return listErrores;
-	}
+	}*/
 	
 	public static List<CasoUso> consultarCasosUso(Modulo modulo){
 		List<CasoUso> listCasosUso=null;

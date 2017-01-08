@@ -26,7 +26,7 @@ public class ErroresPruebaDAO extends GenericDAO{
 		}
 	}
 	
-	public List<ErroresPrueba> obtenerErrores(ErroresPrueba error){
+	/*public List<ErroresPrueba> obtenerErrores(ErroresPrueba error){
 		List<ErroresPrueba> results = null;
 		String valor = null;
 
@@ -34,6 +34,23 @@ public class ErroresPruebaDAO extends GenericDAO{
 			session.beginTransaction();
 			Query query = session.createQuery("from ErroresPrueba where CasoUsoid = :idCasoUso");
 			query.setParameter("idCasoUso", error.getCasoUsoid());
+			results = query.list();
+			session.getTransaction().commit();
+		}catch(HibernateException he){
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
+			return results;
+					
+		}*/
+	public List<ErroresPrueba> consultarErrores(){
+		List<ErroresPrueba> results = null;
+		String valor = null;
+
+		try{
+			session.beginTransaction();
+			Query query = session.createQuery("from ErroresPrueba");
 			results = query.list();
 			session.getTransaction().commit();
 		}catch(HibernateException he){
@@ -60,6 +77,7 @@ public class ErroresPruebaDAO extends GenericDAO{
 			return results;
 					
 	}
+	/*
 	public List<ErroresPrueba> consultarErroresCasosUso(Modulo modulo){
 		List<ErroresPrueba> results = null;
 		List<ErroresPrueba> results2 = new ArrayList<ErroresPrueba>();
@@ -92,7 +110,7 @@ public class ErroresPruebaDAO extends GenericDAO{
 			throw he;
 		}
 			return results2;
-	}
+	}*/
 	public List<CasoUso> consultarCasosUso(Modulo modulo){
 		 List<CasoUso> c = null;
 		try{
@@ -108,6 +126,7 @@ public class ErroresPruebaDAO extends GenericDAO{
 		}
 		return c;
 	}
+	/*
 	public void eliminarErrores(ErroresPrueba error){
 		try{
 			session.beginTransaction();
@@ -120,19 +139,5 @@ public class ErroresPruebaDAO extends GenericDAO{
 			session.getTransaction().rollback();
 			throw he;
 		}
-	}
-	
-	public void modificarReporte(ErroresPrueba error){
-		try{
-			session.beginTransaction();
-			Query query = session.createQuery("update from CasoUso set reporte = 1 where Elementoid = :idCasoUso");
-			query.setParameter("idCasoUso", error.getCasoUsoid());
-			query.executeUpdate();
-			session.getTransaction().commit();
-		}catch(HibernateException he){
-			he.printStackTrace();
-			session.getTransaction().rollback();
-			throw he;
-		}
-	}
+	}*/
 }

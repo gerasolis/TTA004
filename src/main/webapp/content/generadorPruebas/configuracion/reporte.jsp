@@ -9,6 +9,7 @@
 <title>Reporte de errores</title>
 <![CDATA[
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/generadorPruebas/configuracion/js/casosUsoPrevios.js"></script>	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 ]]>
 
 </head>
@@ -22,11 +23,13 @@
 	<s:form autocomplete="off" id="frmActor" theme="simple"
 		action="%{#pageContext.request.contextPath}/configuracion-trayectorias!configurar" method="post">
 		<s:hidden name="_method" value="put" />
-		<div class="formulario">
+		<div class="formulario" style="width: 100%;">
 			<div class="tituloFormulario">Errores</div>
+			<s:iterator value="ListPruebas" var="p">
 			<div class="seccion">
-				<table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
-			 <thead>
+				<p class="instrucciones"><s:property value="'Prueba No. '+#p.id+' realizada el: '+#p.fecha"/></p>
+				<table class="table tablaGestion" cellspacing="0" width="100%"> 
+			     <thead>
 					<tr>
 						<th><s:text name="Tipo de error"/></th>
 						<th style="width: 20%;"><s:text name="Núm de error"/></th>
@@ -34,29 +37,24 @@
 						<th style="width: 20%;"><s:text name="Porcentaje de todo"/></th>
 					</tr>
 				</thead>
-				<tbody>
+				
 				<s:iterator value="ListErrores" var="e">
-					<tr class="${'filaCU'}${trayectoria.Id}">
-						<td><s:property value="#e.tipoError"/></td>
-						<td><s:property value="#e.numError"/></td>
-						<td><s:property value="#e.porcentaje"/></td>
-						<td><s:property value="#e.porcentajeTodo"/></td>
-						<!--
-						<td align="center">
-							<s:url var="urlConfigurarTrayectoria"
-								value="%{#pageContext.request.contextPath}/configuracion-trayectoria!prepararConfiguracion">
-								<s:param name="idTrayectoria" value="%{#t.id}"></s:param>
-							</s:url>			
-							<s:a href="%{urlConfigurarTrayectoria}">
-								<img id="" class="button" title="Configurar Caso de uso"
-										src="${pageContext.request.contextPath}/resources/images/icons/configurar.png" />
-							</s:a>
-						</td>-->
-					  </tr>
+					<s:if test="%{#p.id == #e.pruebaid.id}">
+					  <tbody>
+						<tr>
+							<td><s:property value="#e.tipoError"/></td>
+							<td><s:property value="#e.numError"/></td>
+							<td><s:property value="#e.porcentaje"/></td>
+							<td><s:property value="#e.porcentajeTodo"/></td>
+					    </tr>
+				     </tbody>
+					</s:if>
 				</s:iterator>
-				</tbody>
+				
 			</table>
 			</div>
+		  </s:iterator>
+			
 		</div>
 		
 		<br />
