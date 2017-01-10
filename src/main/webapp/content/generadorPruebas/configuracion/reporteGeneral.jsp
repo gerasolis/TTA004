@@ -30,88 +30,59 @@
 			  <div class="panel panel-default">
 			    <div class="panel-heading" role="tab" id="headingOne">
 			      <h4 class="panel-title">
-			        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+			        <s:a role="button" data-toggle="collapse" data-parent="#accordion" href="#cu%{#cu.id}" aria-expanded="true" aria-controls="collapseOne">
 			          <s:property value="#cu.clave + #cu.numero + ' ' +#cu.nombre"/>
-			        </a>
+			        </s:a>
 			      </h4>
 			    </div>
-			   <s:iterator value="ListPruebas" var="p">
-			   		<s:if test="%{#cu.id == #p.casoUsoid.id}">
-			   			<div class="panel panel-default">
-						    <div class="panel-heading" role="tab" id="headingOne">
-						        <s:a role="button" data-toggle="collapse" data-parent="#accordion" href="#%{#p.id}" aria-expanded="true" aria-controls="collapseOne">
+			    <s:div id="cu%{#cu.id}" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+			   		<s:iterator value="ListPruebas" var="p">
+			   			<s:if test="%{#cu.id == #p.casoUsoid.id}">
+						    <div class="panel-heading" role="tab" id="collapseOne">
+						        <s:a role="button" data-toggle="collapse" href="#p%{#p.id}" aria-expanded="true" aria-controls="collapseOne">
 						           <p class="instrucciones"><s:property value="'Prueba No. '+#p.id+' realizada el: '+#p.fecha"/></p>
 						        </s:a>
 			   				</div>
-						 <s:div id="%{#p.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-					      <div class="panel-body">
-						      <table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
-								 <thead>
-										<tr>
-											<th><s:text name="Tipo de error"/></th>
-											<th style="width: 20%;"><s:text name="Núm de error"/></th>
-											<th style="width: 20%;"><s:text name="Porcentaje"/></th>
-											<th style="width: 20%;"><s:text name="Porcentaje de todo"/></th>
-										</tr>
-									</thead>
-									<s:iterator value="ListErrores" var="e">
-					   					<s:if test="%{#p.id == #e.pruebaid.id}">
-											<tbody>
-													<tr class="${'filaCU'}${trayectoria.Id}">
-														<td><s:property value="#e.tipoError"/></td>
-														<td><s:property value="#e.numError"/></td>
-														<td><s:property value="#e.porcentaje"/></td>
-														<td><s:property value="#e.porcentajeTodo"/></td>
-													</tr>
-											</tbody>
-										</s:if>
-									</s:iterator>
-								</table>
-					      </div>
-					    </s:div>
-					  </div>
-			    	</s:if>
-				</s:iterator>
+							 <s:div id="p%{#p.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+							      <div class="panel-body">
+								      <table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
+										 <thead>
+												<tr>
+													<th><s:text name="Tipo de error"/></th>
+													<th style="width: 20%;"><s:text name="Núm de error"/></th>
+													<th style="width: 20%;"><s:text name="Porcentaje"/></th>
+													<th style="width: 20%;"><s:text name="Porcentaje de todo"/></th>
+												</tr>
+											</thead>
+											<s:iterator value="ListErrores" var="e">
+							   					<s:if test="%{#p.id == #e.pruebaid.id}">
+													<tbody>
+															<tr>
+																<td><s:property value="#e.tipoError"/></td>
+																<td><s:property value="#e.numError"/></td>
+																<td><s:property value="#e.porcentaje"/></td>
+																<td><s:property value="#e.porcentajeTodo"/></td>
+															</tr>
+													</tbody>
+												</s:if>
+											</s:iterator>
+										</table>
+							      </div>
+						    </s:div>
+				    	</s:if>
+					</s:iterator>
+				</s:div>
 			  </div>
 		  </s:if>	
 	 </s:iterator>
 	</div>
-	<!--<s:form autocomplete="off" id="frmActor" theme="simple"
-		action="%{#pageContext.request.contextPath}/configuracion-trayectorias!configurar" method="post">
-		<s:hidden name="_method" value="put" />
-		<div class="formulario">
-			<div class="tituloFormulario">Errores</div>
-			<div class="seccion">
-				<table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
-			 <thead>
-					<tr>
-						<th><s:text name="Tipo de error"/></th>
-						<th style="width: 20%;"><s:text name="Núm de error"/></th>
-						<th style="width: 20%;"><s:text name="Porcentaje"/></th>
-						<th style="width: 20%;"><s:text name="Porcentaje de todo"/></th>
-					</tr>
-				</thead>
-				<tbody>
-				<s:iterator value="ListErrores" var="e">
-					<tr class="${'filaCU'}${trayectoria.Id}">
-						<td><s:property value="#e.tipoError"/></td>
-						<td><s:property value="#e.numError"/></td>
-						<td><s:property value="#e.porcentaje"/></td>
-						<td><s:property value="#e.porcentajeTodo"/></td>
-					</tr>
-				</s:iterator>
-				</tbody>
-			</table>
-			</div>
-		</div>
-		<br />-->
 		<div align="center">
 			<s:url var="urlGestionarCU"
 				value="%{#pageContext.request.contextPath}/cu">
 			</s:url>
 			<input class="boton" type="button"
 				onclick="location.href='${urlGestionarCU}'"
-				value="Listo" />	
+				value="Listo" />
 		</div>
 	<!--</s:form>-->
 </body>

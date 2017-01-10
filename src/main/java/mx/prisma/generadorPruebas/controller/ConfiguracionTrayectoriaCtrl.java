@@ -152,12 +152,13 @@ public class ConfiguracionTrayectoriaCtrl extends ActionSupportPRISMA {
 		
 				//if(trayectoria.getEstado().equals("Configurado")){
 					
-				listaIncidencias = null;		
+				listaIncidencias.clear();		
 				//}else if(trayectoria.getEstado().equals("No Configurado") ){
 					if(trayectoria.isAlternativa()){
 						System.out.println("Entra a GENERARVALORESTRAYECTORIA");
 						CuPruebasBs.generarValoresTrayectorias(casoUso.getEntradas(),reglas, trayectoria);
-						listaIncidencias=null;
+						listaIncidencias.clear();
+						System.out.println(listaIncidencias);
 					}
 					else{
 						System.out.println("Entra a GENERARVALORES");					

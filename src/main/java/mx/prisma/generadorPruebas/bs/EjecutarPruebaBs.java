@@ -42,45 +42,45 @@ public class EjecutarPruebaBs {
     		
     		new PruebaDAO().registrarPrueba(px);
     		new PruebaDAO().modificarReporte(px);
+    		System.out.println(rutaReporte);
     		FileInputStream inn = new FileInputStream(rutaReporte+"content/js/dashboard.js");
     		BufferedReader in2 = new BufferedReader(new InputStreamReader(inn));  
     		line="";
     		while ((line = in2.readLine()) != null) {  
                 if(line.indexOf("#errorsTable") != -1){
                 	System.out.println(line); 
-                	String lineaErrores = line.substring(line.indexOf("{"), line.indexOf("}]}"))+"}]}";
-                	System.out.println(lineaErrores);
-                	Object lineaErorresObj = lineaErrores;
-                	
-					//Ahora convertirlo a json y trabajarlo como tal.
-                	JSONObject jsonObj = JSONObject.fromObject(lineaErorresObj);
-                	JSONArray results = jsonObj.getJSONArray("items");
-                	
-                	
-                	for(int i=0;i<results.size();i++){
-                		System.out.println(results.getJSONObject(i).getJSONArray("data"));
-                		JSONArray as = results.getJSONObject(i).getJSONArray("data");
-                		
-                		//Ahora sólo falta insertar las cadenas en la bd.
-                		//UNA TABLA QUE ESTÉ RELACIONADA CON LA TABLA DE CASO DE USO.
-                		
-                		
-                		ErroresPrueba e = new ErroresPrueba();
-                		e.setTipoError(as.getString(0));
-                		e.setNumError(as.getInt(1));
-                		e.setPorcentaje(as.getDouble(2));
-                		e.setPorcentajeTodo(as.getDouble(3));
-                		e.setPruebaid(px);
-                		/*
-                		if(i==0){
-	                		if(new ErroresPruebaDAO().obtenerErrores(e)!=null){
-	                			new ErroresPruebaDAO().eliminarErrores(e);
-	                		}
-                		}*/
-                		new ErroresPruebaDAO().registrarError(e);
-                		
-                		
+                	try{
+	                	String lineaErrores = line.substring(line.indexOf("{"), line.indexOf("}]}"))+"}]}";
+	                	System.out.println(lineaErrores);
+	                	Object lineaErorresObj = lineaErrores;
+	                	
+						//Ahora convertirlo a json y trabajarlo como tal.
+	                	JSONObject jsonObj = JSONObject.fromObject(lineaErorresObj);
+	                	JSONArray results = jsonObj.getJSONArray("items");
+	                	
+	                	for(int i=0;i<results.size();i++){
+	                		System.out.println(results.getJSONObject(i).getJSONArray("data"));
+	                		JSONArray as = results.getJSONObject(i).getJSONArray("data");
+	                		
+	                		//Ahora sólo falta insertar las cadenas en la bd.
+	                		//UNA TABLA QUE ESTÉ RELACIONADA CON LA TABLA DE CASO DE USO.
+	                		
+	                		ErroresPrueba e = new ErroresPrueba();
+	                		e.setTipoError(as.getString(0));
+	                		e.setNumError(as.getInt(1));
+	                		e.setPorcentaje(as.getDouble(2));
+	                		e.setPorcentajeTodo(as.getDouble(3));
+	                		e.setPruebaid(px);
+	              
+                		    new ErroresPruebaDAO().registrarError(e);
+
                 		//Una vez registrado en la bd, borramos los archivos temporales.
+	                	}
+                	}catch (Exception e){
+                		ErroresPrueba x = new ErroresPrueba();
+                		x.setTipoError("No hay errores.");
+                		x.setPruebaid(px);
+                		new ErroresPruebaDAO().registrarError(x);
                 	}
                 }
     		}
