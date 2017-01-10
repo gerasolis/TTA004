@@ -162,6 +162,7 @@ public class ConfiguracionTrayectoriaCtrl extends ActionSupportPRISMA {
 					else{
 						System.out.println("Entra a GENERARVALORES");					
 						listaIncidencias=CuPruebasBs.generarValores(casoUso.getEntradas(), reglas);
+						System.out.println("listaIncidencias: "+listaIncidencias);
 					}
 				//}
 			if (casoUso == null) {
@@ -181,7 +182,7 @@ public class ConfiguracionTrayectoriaCtrl extends ActionSupportPRISMA {
 			//Se arman los json con los campos que se mostrarán en pantalla
 			
 			
-			if(listaIncidencias!=null){
+			if(!listaIncidencias.isEmpty()){
 				System.out.println("Entra al if de listaIncidencias");
 				resultado="desconocido";
 				

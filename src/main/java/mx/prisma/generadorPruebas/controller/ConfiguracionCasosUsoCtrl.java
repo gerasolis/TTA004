@@ -70,15 +70,26 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
     	try {
 			modulo = SessionManager.consultarModuloActivo();
 			listCasosUso = EjecutarPruebaBs.consultarCasosUso(modulo);
+			int i=0;
 			for (CasoUso casoUso : listCasosUso){
-				System.out.println("CU : "+casoUso.getNombre()+" , "+casoUso.getEstadoElemento().getNombre());
 				if (!casoUso.getEstadoElemento().getNombre().equals("Configurado")){
 					resultado = "error";
-					addActionMessage(getText("MSG43", new String[] { casoUso.getNombre(),
+					if (i==0){
+						addActionMessage(getText("MSG43", new String[] { "prueba",
+						"ejecutada"}));
+						
+			    	}
+					i=1;
+					addActionMessage(getText("MSG44", new String[] { casoUso.getNombre(),
 							"no", "configurado" }));
 					SessionManager.set(this.getActionMessages(), "mensajesAccion");
 				}else{
+				
 					//Empezamos a ejecutar la prueba para todos los casos de uso.
+					//Ejecutamos primero generarPrueba()
+					//Ejecutamos descargarPrueba()
+					//Utilizar el método de ejecutarPruebaAutomática(), pero para todos los casos de uso de listCasoUso.
+					
 				}
 			}
     	}catch (Exception e) {
@@ -86,6 +97,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 			SessionManager.set(this.getActionErrors(), "mensajesError");
 			resultado = "cu";
 		}
+    	
     	return resultado;
     }
     /*
