@@ -190,7 +190,7 @@ public class ValorEntradaTrayectoriaBs {
 								valorTrayectoria.setValido(false);
 								valorTrayectoria.setEntrada(entradaBD);
 								valorTrayectoria.setTrayectoria(trayectoria);
-								 System.out.println("Entro a ids no iguales");
+								 System.err.println("Entro a ids no iguales");
 
 							}
 							
@@ -211,7 +211,7 @@ public class ValorEntradaTrayectoriaBs {
 
 						} else {
 							valorTrayectoria.setValor(veVista.getValor());
-							valorTrayectoria.setId(veVista.getId());
+							valorTrayectoria.setId(veVista.getId()); //EN CUARENTENA
 							valorTrayectoria.setValido(false);
 							valorTrayectoria.setEntrada(entradaBD);
 							valorTrayectoria.setTrayectoria(trayectoria);

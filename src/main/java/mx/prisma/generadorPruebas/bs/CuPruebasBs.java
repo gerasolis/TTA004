@@ -175,8 +175,10 @@ public class CuPruebasBs {
 							System.out.println("Significa que la RN sí pertenece a la entrada.");
 							if(!arreglo[1]){
 								System.out.println("No se genera el valor.");
-								//valorCadenaInvalido = generarValor(entrada, reglaNegocio, reglasNegocio, true); //GENERAR MÉTODO PARA QUE LA CADENA VÁLIDA CUMPLA CON TODAS LAS REGLAS DE NEGOCIO.
-								listaIncidencias.add(entrada);
+								if (!listaIncidencias.contains(entrada)){
+									//valorCadenaInvalido = generarValor(entrada, reglaNegocio, reglasNegocio, true); //GENERAR MÉTODO PARA QUE LA CADENA VÁLIDA CUMPLA CON TODAS LAS REGLAS DE NEGOCIO.
+									listaIncidencias.add(entrada);
+								}
 								
 							}
 						 }
@@ -206,7 +208,16 @@ public class CuPruebasBs {
 							}
 						
 						
-					}
+					}/*
+					else if(entrada.getTerminoGlosario() != null) {
+						String valorCadenaInvalido = null;
+						ValorEntrada valorInvalidoBD = null;
+						if(ValorEntradaBs.consultarValor(entrada.getId()))
+						System.out.println("Entra a terminoGlosario");
+						valorCadenaInvalido = "1";
+						valorInvalidoBD.setValor(valorCadenaInvalido);
+						ValorEntradaBs.registrarValorEntrada(valorInvalidoBD);
+					}*/
 					
 				}
 		}

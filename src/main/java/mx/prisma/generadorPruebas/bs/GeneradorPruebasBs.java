@@ -907,13 +907,17 @@ public class GeneradorPruebasBs {
 				System.out.println("Entro a Regla negocio FORMATOCAMPO");
 
 				for (Entrada entrada : entradas) {
+					System.out.println("reglaNegocio.getAtributoExpReg().getId(): "+reglaNegocio.getAtributoExpReg().getId());
+					System.out.println("entrada.getAtributo().getId(): "+entrada.getAtributo().getId());
 					if(reglaNegocio.getAtributoExpReg().getId() == entrada.getAtributo().getId()){
+						System.out.println("ENTRA");
 						archivo += GeneradorPruebasBs.peticionHTTP(pasoActual, pasoRN, entrada, true);
 						archivo += GeneradorPruebasBs.contenedorCSV(pasoActual,	pasoRN, entrada, false);
 						archivo += GeneradorPruebasBs.asercion(AnalizadorPasosBs
 						.calcularPasoAlternativo(pasoRN));
 					}
 				}
+				System.out.println("sale for");
 			}
 			if (tipoRN == TipoReglaNegocioENUM.COMPATRIBUTOS) {
 				System.out.println("Entro a Regla negocio COMPATRIBUTOS");
@@ -929,7 +933,7 @@ public class GeneradorPruebasBs {
 				}
 			}
 		}
-						
+				System.out.println("archivo :"+archivo);		
 		return archivo;
 	}	
 	

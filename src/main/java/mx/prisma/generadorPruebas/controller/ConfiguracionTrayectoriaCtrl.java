@@ -143,6 +143,7 @@ public class ConfiguracionTrayectoriaCtrl extends ActionSupportPRISMA {
 				}
 			
 			Set<ReglaNegocio> reglas = new HashSet<ReglaNegocio>(0);
+			System.err.println(casoUso.getReglas().toString());
 			for(CasoUsoReglaNegocio curn : casoUso.getReglas()) {
 				reglas.add(curn.getReglaNegocio());
 			}
