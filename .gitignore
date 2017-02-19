@@ -1,0 +1,32 @@
+# Compiled source #
+###################
+*.vpp.working
+*.lb
+*.log
+*.gz
+*.aux
+*.lof
+*.out
+*.toc
+*.bbl
+*.blg
+*.jasper
+*.pdf
+/target/
+
+# OSX generated files #
+######################
+*.DS_Store
+*.DS_Store?
+*._*
+*.Spotlight-V100
+*.Trashes
+
+# Debian generated files #
+######################
+*.bak
+*~
+*.backup
+*.kate-swp
+*.bak~1
+/bin/
