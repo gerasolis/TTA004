@@ -20,13 +20,15 @@ public class ValorDesconocido implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String ruta;
+	private Integer valorGuion;
 
 	public ValorDesconocido() {
 	}
 
-	public ValorDesconocido(int id, String ruta) {
+	public ValorDesconocido(int id, String ruta, int valorGuion) {
 		this.id = id;
 		this.ruta = ruta;
+		this.valorGuion = valorGuion;
 	}
 
 
@@ -49,6 +51,15 @@ public class ValorDesconocido implements java.io.Serializable{
 
 	public void setRuta(String ruta) {
 		this.ruta = ruta;
+	}
+
+	@Column(name = "valorGuion")
+	public int getValorGuion() {
+		return this.valorGuion;
+	}
+
+	public void setValorGuion(int valorGuion) {
+		this.valorGuion = valorGuion;
 	}
 
 }

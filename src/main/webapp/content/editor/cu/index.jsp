@@ -109,26 +109,56 @@
 										src="${pageContext.request.contextPath}/resources/images/icons/solicitarCorrecciones.png" /></s:a>	
 								${blanks}
 							</s:if>
-							<!-- Pruebas de cu -->
-							<s:set var="configurable"><s:property value="@mx.prisma.generadorPruebas.controller.ConfiguracionGeneralCtrl@esConfigurable(#cu.id)"/></s:set>
-							<s:if test="%{#configurable}">
-								<s:url var="urlConfiguracion" value="%{#pageContext.request.contextPath}/configuracion-general!prepararConfiguracion">
-									<s:param name="idCU" value="%{#cu.id}"/>
-								</s:url>
-								<s:a href="%{urlConfiguracion}">
-									<img id="" class="button" title="Configurar Prueba"
-											src="${pageContext.request.contextPath}/resources/images/icons/configurar.png" />
+							
+							<!-- Verificamos que el CU tenga entradas -->
+							<s:set var="verificarEntradas"><s:property value="@mx.prisma.gestorEntradas.controller.ConfigurarEntradasCtrl@tieneEntradas(#cu.id)"/></s:set>
+							<s:if test="%{#verificarEntradas}">
+								<!-- Verificamos que las entradas ya estén configuradas -->
+								<s:set var="entradasConfiguradas"><s:property value="@mx.prisma.gestorEntradas.controller.ConfigurarEntradasCtrl@entradasConfiguradas(#cu.id)"/></s:set>
+								<s:if test="%{#entradasConfiguradas}">
+									<s:url var="urlEntradas" value="%{#pageContext.request.contextPath}/configurar-entradas!prepararConfiguracion">
+										<s:param name="idCU" value="%{#cu.id}"/>
+									</s:url>
+									<s:a href="%{urlEntradas}">
+										<img id="" class="button" title="Gestor de entradas"
+												src="${pageContext.request.contextPath}/resources/images/icons/entrada.png" />
+										${blanks}
+									</s:a>
 									${blanks}
-								</s:a>
+								</s:if>
 							</s:if>
-							<s:if test="%{#cu.estadoElemento.id == 7}">
-							<!-- Descargar pruebas -->			
-								<s:url var="urlDescargarPrueba" value="%{#pageContext.request.contextPath}/configuracion-caso-uso!generarPrueba?idCU=%{#cu.id}" method="post"/>
-								<s:a href="%{urlDescargarPrueba}" onclick="mostrarMensajeCargando();">
-								<img id="" class="button" title="Generar Prueba"
-										src="${pageContext.request.contextPath}/resources/images/icons/pruebas.png" /></s:a>	
-								${blanks}
-							</s:if>
+							<s:else>
+								<!-- Pruebas de cu (Primero hay que verificar que existan entradas registradas)-->
+								<s:set var="configurable"><s:property value="@mx.prisma.generadorPruebas.controller.ConfiguracionGeneralCtrl@esConfigurable(#cu.id)"/></s:set>
+								<s:if test="%{#configurable}">
+									<s:url var="urlConfiguracion" value="%{#pageContext.request.contextPath}/configuracion-general!prepararConfiguracion">
+										<s:param name="idCU" value="%{#cu.id}"/>
+									</s:url>
+									<s:a href="%{urlConfiguracion}">
+										<img id="" class="button" title="Configurar Prueba"
+												src="${pageContext.request.contextPath}/resources/images/icons/configurar.png" />
+										${blanks}
+									</s:a>
+									${blanks}
+									<!-- Guion de pruebas -->
+									<s:url var="urlGuionPrueba" value="%{#pageContext.request.contextPath}/configuracion-entradas!prepararConfiguracion">
+										<s:param name="idCU" value="%{#cu.id}"/>
+									</s:url>
+									<s:a href="%{urlGuionPrueba}">
+										<img id="" class="button" title="Guion de Prueba"
+												src="${pageContext.request.contextPath}/resources/images/icons/guion.png" />
+										${blanks}
+									</s:a>
+								</s:if>
+								<s:if test="%{#cu.estadoElemento.id == 7}">
+								<!-- Descargar pruebas -->			
+									<s:url var="urlDescargarPrueba" value="%{#pageContext.request.contextPath}/configuracion-caso-uso!generarPrueba?idCU=%{#cu.id}" method="post"/>
+									<s:a href="%{urlDescargarPrueba}" onclick="mostrarMensajeCargando();">
+									<img id="" class="button" title="Generar Prueba"
+											src="${pageContext.request.contextPath}/resources/images/icons/pruebas.png" /></s:a>	
+									${blanks}
+								</s:if>
+							</s:else>
 					</td>
 				</tr>
 			</s:iterator>

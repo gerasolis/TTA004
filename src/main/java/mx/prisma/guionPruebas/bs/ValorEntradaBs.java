@@ -1,4 +1,4 @@
-package mx.prisma.generadorPruebas.bs;
+package mx.prisma.guionPruebas.bs;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,7 @@ import mx.prisma.editor.model.Trayectoria;
 import mx.prisma.generadorPruebas.dao.ValorDesconocidoDAO;
 
 
-public class ValorDesconocidoBs {
+public class ValorEntradaBs {
 	public static void crearArchivo(List<File> entradas, List<String> idAtributos, List<String> nombreArchivos) throws IOException{
 		int i=0;
 		//System.out.println("ARCHIVO: "+getUploadFileName());
@@ -25,7 +25,7 @@ public class ValorDesconocidoBs {
 		}
 		for(File entrada : entradas){
 			System.out.println("RUTA: "+entrada.getAbsolutePath());
-			File fichero_entrada = new File("/Users/enyamartinez/Desktop/Mi PRISMA/AplicacionTTB064-master/src/main/webapp/resources/archivos/desconocidos/"+nombreArchivos.get(i));
+			File fichero_entrada = new File("/Users/enyamartinez/Desktop/Mi PRISMA/AplicacionTTB064-master/src/main/webapp/resources/archivos/guion/"+nombreArchivos.get(i));
 			InputStream in = new FileInputStream(entrada);
 			FileOutputStream out = new FileOutputStream(fichero_entrada);
 			
@@ -44,7 +44,7 @@ public class ValorDesconocidoBs {
 			if(new ValorDesconocidoDAO().consultarDesconocido(entradasBD.get(i))){//Si la entrada, ya está registrada, se borra.
 				new ValorDesconocidoDAO().borrarRuta(entradasBD.get(i));
 			}
-			new ValorDesconocidoDAO().registraRuta(nuevaRuta,entradasBD.get(i),0);
+			new ValorDesconocidoDAO().registraRuta(nuevaRuta,entradasBD.get(i),1);
 			i++;
 		}
 	}
