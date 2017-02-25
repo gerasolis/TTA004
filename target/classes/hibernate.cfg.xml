@@ -66,6 +66,8 @@
 		<mapping class="mx.prisma.generadorPruebas.model.ValorPantallaTrayectoria" />
 		<mapping class="mx.prisma.generadorPruebas.model.ErroresPrueba" />
 		<mapping class="mx.prisma.generadorPruebas.model.Prueba" />
+		<mapping class="mx.prisma.guionPruebas.model.Sinonimo" />
+		<mapping class="mx.prisma.guionPruebas.model.VerboSinonimo" />
 		
 	</session-factory>
 </hibernate-configuration>

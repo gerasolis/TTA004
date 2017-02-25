@@ -1,5 +1,6 @@
 package mx.prisma.generadorPruebas.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import mx.prisma.dao.GenericDAO;
@@ -25,7 +26,7 @@ public class ValorEntradaDAO extends GenericDAO {
 		}
 		
 	}
-
+	
 	public ValorEntrada consultarValorValido(Entrada entrada) {
 		List<ValorEntrada> results = null;
 		

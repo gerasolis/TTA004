@@ -30,6 +30,11 @@ public class ValorEntrada implements java.io.Serializable {
 	private ReglaNegocio reglaNegocio;
 	private String valor;
 	private Boolean valido;
+	private Boolean correcto;
+	private Boolean registrado;
+	private Boolean aleatorio;
+	private Boolean insercion;
+	private Boolean modificacion;
 
 	public ValorEntrada() {
 	}
@@ -47,7 +52,18 @@ public class ValorEntrada implements java.io.Serializable {
 		this.valor = valor;
 		this.valido = valido;
 	}
-
+	
+	public ValorEntrada(Entrada entrada, String valor, Boolean valido,
+			Boolean correcto, Boolean registrado, Boolean aleatorio, Boolean insercion, Boolean modificacion){
+		this.entrada = entrada;
+		this.valor = valor;
+		this.valido = valido;
+		this.correcto = correcto;
+		this.registrado = registrado;
+		this.aleatorio = aleatorio;
+		this.insercion = insercion;
+		this.modificacion = modificacion;
+	}
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
@@ -96,6 +112,51 @@ public class ValorEntrada implements java.io.Serializable {
 
 	public void setValido(Boolean valido) {
 		this.valido = valido;
+	}
+	
+	@Column(name = "correcto")
+	public Boolean getCorrecto(){
+		return this.correcto;
+	}
+	
+	public void setCorrecto(Boolean correcto){
+		this.correcto = correcto;
+	}
+	
+	@Column(name = "registrado")
+	public Boolean getRegistrado(){
+		return this.registrado;
+	}
+	
+	public void setRegistrado(Boolean registrado){
+		this.registrado = registrado;
+	}
+	
+	@Column(name = "aleatorio")
+	public Boolean getAleatorio() {
+		return aleatorio;
+	}
+	
+	public void setAleatorio(Boolean aleatorio) {
+		this.aleatorio = aleatorio;
+	}
+	
+	@Column(name = "insercion")
+	public Boolean getInsercion(){
+		return this.insercion;
+	}
+	
+	public void setInsercion(Boolean insercion){
+		this.insercion = insercion;
+	}
+	
+	@Column(name = "modificacion")
+	public Boolean getModificacion() {
+		return modificacion;
+	}
+	
+	public void setModificacion(Boolean modificacion) {
+		this.modificacion = modificacion;
 	}
 
 }

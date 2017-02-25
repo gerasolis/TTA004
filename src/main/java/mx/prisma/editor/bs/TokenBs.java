@@ -1211,6 +1211,93 @@ public class TokenBs {
 		return redaccion;
 
 	}
+	
+	//Función que retorna el objeto con su id
+	public static Object obtenerTokenObjeto(String redaccion) {
+		System.out.println("ENTRA AL OBTENER TOKEN OBJETO");
+		if (redaccion == null || redaccion.isEmpty()) {
+			System.out.println("ENTRA AL SIN INFO");
+			return "Sin información";
+		}
+		redaccion = redaccion.substring(1);
+		System.out.println("OBTIENE EL SUBSTRING DE REDACCION");
+		ArrayList<String> tokens = TokenBs.procesarTokenIpunt(redaccion);
+		System.out.println("PROCESA EL TOKEN");
+		Object resultado = new Object();
+		System.out.println("CREA RESULTADO "+tokens.size());
+		for (String token : tokens) {
+			System.out.println("ENTRA AL FOR DE TOKENS ");
+			ArrayList<String> segmentos = TokenBs.segmentarToken(token);
+			String tokenReferencia = segmentos.get(0);
+			switch (ReferenciaEnum.getTipoReferencia(tokenReferencia)) {
+			case ACCION:
+				resultado = new AccionDAO().consultarAccion(Integer
+						.parseInt(segmentos.get(1)));
+				break;
+			case ACTOR:
+				resultado = new ActorDAO().consultarActor(Integer
+						.parseInt(segmentos.get(1)));
+				break;
+			case ATRIBUTO:
+				resultado = new AtributoDAO().consultarAtributo(Integer
+						.parseInt(segmentos.get(1)));
+				break;
+			case CASOUSO:
+				resultado = new CasoUsoDAO().consultarCasoUso(Integer
+						.parseInt(segmentos.get(1)));
+				break;
+			case ENTIDAD: // ENT.ID -> ENT.NOMBRE_ENT
+				resultado = new EntidadDAO().consultarEntidad(Integer
+						.parseInt(segmentos.get(1)));
+				break;
+			case TERMINOGLS:
+				resultado = new TerminoGlosarioDAO()
+						.consultarTerminoGlosario(Integer.parseInt(segmentos
+								.get(1)));
+				break;
+			case PANTALLA: 
+				resultado = new PantallaDAO().consultarPantalla(Integer
+						.parseInt(segmentos.get(1)));
+				break;
+
+			case MENSAJE: 
+				System.out.println("ENTRA A MENSAJES ");
+				resultado = new MensajeDAO().consultarMensaje(Integer
+						.parseInt(segmentos.get(1)));
+				break;
+			case REGLANEGOCIO:
+				System.out.println("ENTRO A RN");
+				resultado = new ReglaNegocioDAO()
+						.consultarReglaNegocio(Integer.parseInt(segmentos
+								.get(1)));
+				System.out.println("RN = "+resultado.toString());
+				break;
+			case TRAYECTORIA:
+				resultado = new TrayectoriaDAO()
+						.consultarTrayectoria(Integer.parseInt(segmentos.get(1)));
+				break;
+
+			case PASO:
+				resultado = new PasoDAO().consultarPaso(Integer
+						.parseInt(segmentos.get(1)));
+				break;
+				
+			case PARAMETRO:
+				resultado = new ParametroDAO().consultarParametro(Integer
+						.parseInt(segmentos.get(1)));
+				break;
+			default:
+				break;
+
+			}
+			return resultado;
+		}
+
+		redaccion = redaccion.replace("\n", "<br/>");
+		redaccion = redaccion.replace("\r", "<br/>");
+		return redaccion;
+
+	}
 
 	/*
 	 * El método ArrayList<String> segmentarToken(String @token) construye un
@@ -2075,6 +2162,18 @@ public class TokenBs {
 				|| pila.equals(tokenGLS) || pila.equals(tokenATR)
 				|| pila.equals(tokenP) || pila.equals(tokenTray)
 				|| pila.equals(tokenACC) || pila.equals(tokenPARAM)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean esToken_(String pila) {
+		if (pila.contains(tokenRN) || pila.contains(tokenENT)
+				|| pila.contains(tokenCU) || pila.contains(tokenIU)
+				|| pila.contains(tokenMSG) || pila.contains(tokenACT)
+				|| pila.contains(tokenGLS) || pila.contains(tokenATR)
+				|| pila.contains(tokenP) || pila.contains(tokenTray)
+				|| pila.contains(tokenACC) || pila.contains(tokenPARAM)) {
 			return true;
 		}
 		return false;
