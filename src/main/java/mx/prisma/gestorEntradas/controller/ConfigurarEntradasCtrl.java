@@ -33,8 +33,17 @@ import mx.prisma.util.SessionManager;
 @ResultPath("/content/gestorEntradas/")
 @Results({
 	@Result(name = "pantallaEntradas", type = "dispatcher", location = "entradasGuion.jsp"),
-	@Result(name = ActionSupportPRISMA.SUCCESS, type = "redirectAction", params = {
-				"actionName", "cu" })})
+	@Result(name = "error_1", type = "redirectAction", params = {
+			"actionName", "cu" }),
+	@Result(name = "cu", type = "redirectAction", params = {
+			"actionName", "cu" }),
+	@Result(name = "modulos", type = "redirectAction", params = {
+			"actionName", "modulos" }),
+	@Result(name = "documento", type = "stream", params = { 
+	        "contentType", "${type}", 
+	        "inputName", "fileInputStream", 
+	        "bufferSize", "1024", 
+	        "contentDisposition", "attachment;filename=\"${filename}\""})})
 
 public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	
@@ -53,7 +62,9 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	
 	// Lista de registros
 	private List<Atributo> listEntradas = new ArrayList<Atributo>();
-	private List<File> file;
+	private List<File> vci;
+	private List<File> vcm;
+	private List<File> vi;
 	private List<String> idAtributo;
 	private List<String> filename;
 		
@@ -160,17 +171,44 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 					return resultado;
 				}
 				
-				//Guardamos las entradas en la base de datos
-				if(getUpload()==null){
+				//Guardamos los valores correctos (insertar) 
+				if(getVci()==null){
 					resultado="error_1";
 					addActionMessage(getText("MSG42", new String[] { "No",
 							"ingresado", "archivo txt" }));
 					SessionManager.set(this.getActionMessages(), "mensajesAccion");
 					//SessionManager.set(this.casoUso.getId(), "casoUsoId");
-					
 				}else{
-					ValorEntradaBs.crearArchivo(getUpload(),getIdAtributo(),getUploadFileName());
-					resultado="pantallaEntradasScript";
+					ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),getUploadFileName(),2);
+					resultado="cu";
+					addActionMessage(getText("MSG41", new String[] { "Los",
+							"txt", "registrado" }));
+					SessionManager.set(this.getActionMessages(), "mensajesAccion");
+				}
+				//Guardamos los valores correctos (modificar) 
+				if(getVcm()==null){
+					resultado="error_1";
+					addActionMessage(getText("MSG42", new String[] { "No",
+							"ingresado", "archivo txt" }));
+					SessionManager.set(this.getActionMessages(), "mensajesAccion");
+					//SessionManager.set(this.casoUso.getId(), "casoUsoId");
+				}else{
+					ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),getUploadFileName(),3);
+					resultado="cu";
+					addActionMessage(getText("MSG41", new String[] { "Los",
+							"txt", "registrado" }));
+					SessionManager.set(this.getActionMessages(), "mensajesAccion");
+				}
+				//Guardamos los valores incorrectos
+				if(getVci()==null){
+					resultado="error_1";
+					addActionMessage(getText("MSG42", new String[] { "No",
+							"ingresado", "archivo txt" }));
+					SessionManager.set(this.getActionMessages(), "mensajesAccion");
+					//SessionManager.set(this.casoUso.getId(), "casoUsoId");
+				}else{
+					ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),getUploadFileName(),4);
+					resultado="cu";
 					addActionMessage(getText("MSG41", new String[] { "Los",
 							"txt", "registrado" }));
 					SessionManager.set(this.getActionMessages(), "mensajesAccion");
@@ -229,14 +267,30 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 		return chttp;
 	}
 	
-	public void setUpload(List<File> file) {
-		this.file = file;
+	public void setVci(List<File> vci) {
+		this.vci = vci;
 	}
 	
-	public List<File> getUpload() {
-		return file;
+	public List<File> getVci() {
+		return vci;
 	}
 
+	public void setVcm(List<File> vcm) {
+		this.vcm = vcm;
+	}
+	
+	public List<File> getVcm() {
+		return vcm;
+	}
+	
+	public void setVi(List<File> vi) {
+		this.vi = vi;
+	}
+	
+	public List<File> getVi() {
+		return vi;
+	}
+	
 	public List<String> getIdAtributo(){
 		return idAtributo;
 	}

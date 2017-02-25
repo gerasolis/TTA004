@@ -64,7 +64,8 @@
 		<mapping class="mx.prisma.generadorPruebas.model.ValorAccionTrayectoria" />
 		<mapping class="mx.prisma.generadorPruebas.model.ValorMensajeParametroTrayectoria" />
 		<mapping class="mx.prisma.generadorPruebas.model.ValorPantallaTrayectoria" />
-		
+		<mapping class="mx.prisma.guionPruebas.model.Sinonimo" />
+		<mapping class="mx.prisma.guionPruebas.model.VerboSinonimo" />
 		
 	</session-factory>
 </hibernate-configuration>

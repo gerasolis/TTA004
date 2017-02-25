@@ -30,7 +30,6 @@ div.upload input {
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 
-	<s:form autocomplete="off" theme="simple" onsubmit="return false;">
 	<div class="form">
 		<s:form autocomplete="off" id="frmActor" theme="simple"
 		action="%{#pageContext.request.contextPath}/configurar-entradas!anadirValoresEntradas" enctype="multipart/form-data" method="post">
@@ -56,9 +55,9 @@ div.upload input {
 						<td></td>
 						<td></td>
 						<td></td>
-						<td><div class="upload"><s:file name="upload" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
-						<td><div class="upload"><s:file name="upload" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
-						<td><div class="upload"><s:file name="upload" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
+						<td><div class="upload"><s:file name="vci" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
+						<td><div class="upload"><s:file name="vcm" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
+						<td><div class="upload"><s:file name="vi" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
 					</tr>
 				</s:iterator>
 				</tbody>
@@ -88,7 +87,6 @@ div.upload input {
 	</div>
 	
 	<s:hidden name="pruebaGenerada" id="pruebaGenerada" value="%{pruebaGenerada}"/>
-	</s:form>
 	<div class = "invisible">
 	<!-- EMERGENTE CONFIRMAR ELIMINACIÓN -->
 	<sj:dialog id="confirmarEliminacionDialog" title="Confirmación" autoOpen="false"

@@ -1,5 +1,6 @@
 package mx.prisma.editor.dao;
 
+import java.util.Iterator;
 import java.util.List;
 
 import mx.prisma.bs.ReferenciaEnum;
@@ -80,5 +81,37 @@ public class EntradaDAO extends GenericDAO {
 			throw he;
 		}
 		
+	}
+	
+	public Entrada obtenerEntrada(String idAtributo){
+		@SuppressWarnings("unchecked")
+		List<Entrada> results = null;
+		Entrada result = null;
+
+		try {
+			session.beginTransaction();
+			
+			Query query = session.createSQLQuery("SELECT * from Entrada where Atributoid="+idAtributo);
+		
+			List <Object>result_1 =  query.list();
+			session.getTransaction().commit();
+			Iterator itr = result_1.iterator();
+			while(itr.hasNext()){
+				result = new Entrada();
+			   Object[] obj = (Object[]) itr.next();
+			   result.setId(Integer.parseInt(String.valueOf(obj[0])));
+			}
+			
+			System.out.println("Result de la pantalla: "+result.toString());
+			//session.getTransaction().commit();
+		} catch (HibernateException he) {
+			he.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		if (result==null){
+			return null;
+		} else 
+			return result;
+
 	}
 }

@@ -58,7 +58,7 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 	List<String> instrucciones = new ArrayList<String>();
 	
 	//Función para mostrar la pantalla del guión de prueba
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "null" })
 	public String mostrarGuion() throws Exception {
 		System.out.println("Entramos al guion");
 		Map<String, Object> session = null;
@@ -100,60 +100,39 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 		Trayectoria trayectoriaPrincipal = GuionPruebasBs.trayectoriaPrincipal(casoUso);
 		//Consultamos los pasos de la trayectoria principal
 		List<Paso> pasos = TrayectoriaBs.obtenerPasos_(trayectoriaPrincipal.getId());
-		//Obtenemos el total de pasos de la trayectora principal
-		int tpasos = pasos.size();
-		//Consultamos las entradas del caso de uso
-		Set<Entrada> entradas = casoUso.getEntradas();
 		
-		for(int i=0; i<tpasos; i++){
-			//Consultamos el paso actual
-			Paso paso = pasos.get(i);
-			
-			//Obtenemos los tokens del paso
-			List<String> tokens = GuionPruebasBs.obtenerTokens(paso);
-			
-			//Comparación de los tokens
-			for(String token : tokens){
-				//Si el actor es el USUARIO
-				if(paso.isRealizaActor()){
-					if(!GuionPruebasBs.compararTokenUsuario(paso, token, entradas).equals(""))
-						instrucciones.add(GuionPruebasBs.compararTokenUsuario(paso, token, entradas));
-				}
-				//Si el actor es el SISTEMA
-				else{
-					if(!GuionPruebasBs.compararTokenSistema(paso, token).equals(""))
-						instrucciones.add(GuionPruebasBs.compararTokenSistema(paso, token));
-				}
-			}
-		}
-			
-			
-			//Si el actor no ingresa datos en el paso
-			/*if(!AnalizadorPasosBs.isActorIngresaDatos(paso)){
-				//Obtenemos los tokens del paso
-				List<String> tokens = GuionPruebasBs.obtenerTokens(paso);
-				
-				//Comparación de los tokens
-				for(String token : tokens){
-					if(!GuionPruebasBs.compararToken(paso, token).equals(""))
-						instrucciones.add(GuionPruebasBs.compararToken(paso, token));
-				}
-			}
-			//Si el actor ingresa datos en el paso
-			else{
-				//Consultamos las entradas del caso de uso
+		// Lista de las instrucciones
+				List<String> instrucciones = null;
+
+				// Obtenemos el total de pasos de la trayectora principal
+				int tpasos = pasos.size();
+				// Consultamos las entradas del caso de uso
 				Set<Entrada> entradas = casoUso.getEntradas();
-				
-				for(Entrada entrada : entradas){
-					//Buscamos el valor de la entrada
-					//ValorEntrada valorEntrada = ValorEntradaBs.consultarValorValido(entrada);
-					//instrucciones.add("Ingrese en el campo "+entrada.getAtributo().getNombre()+": "+valorEntrada.getValor());
+
+				for (int i = 0; i < tpasos; i++) {
+					// Consultamos el paso actual
+					Paso paso = pasos.get(i);
 					
-					//Falta definir cómo se obtendrán los valores de entrada en caso de que no se utilicen los aleatorios
-					instrucciones.add("Ingrese en el campo "+entrada.getAtributo().getNombre()+": ");
+					System.out.println(paso.getNumero()+": "+paso.getRedaccion());
+
+					// Obtenemos los tokens del paso
+					List<String> tokens = GuionPruebasBs.obtenerTokens(paso);
+
+					// Comparación de los tokens
+					for (String token : tokens) {
+						// Si el actor es el USUARIO
+						if (paso.isRealizaActor()) {
+							if (!GuionPruebasBs.compararTokenUsuario(paso, token, entradas).equals(""))
+								instrucciones.add(GuionPruebasBs.compararTokenUsuario(paso, token, entradas));
+						}
+						// Si el actor es el SISTEMA
+						else {
+							if (!GuionPruebasBs.compararTokenSistema(paso, token).equals(""))
+								instrucciones.add(GuionPruebasBs.compararTokenSistema(paso, token));
+						}
+					}
 				}
-			}*/
-		
+			
 		//Si existen mensajes, se eliminan para que no aparezcan en la nueva pantalla
 		@SuppressWarnings("unchecked")
 		Collection<String> msjs = (Collection<String>) SessionManager.get("mensajesAccion");
