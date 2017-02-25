@@ -10,8 +10,13 @@ import org.hibernate.Query;
 import mx.prisma.dao.GenericDAO;
 import mx.prisma.editor.model.CasoUso;
 import mx.prisma.editor.model.Entrada;
+import mx.prisma.editor.model.Mensaje;
 import mx.prisma.editor.model.Modulo;
+import mx.prisma.editor.model.Pantalla;
+import mx.prisma.editor.model.Paso;
 import mx.prisma.generadorPruebas.model.ErroresPrueba;
+import mx.prisma.generadorPruebas.model.Prueba;
+import mx.prisma.generadorPruebas.model.ValorMensajeParametro;
 
 public class ErroresPruebaDAO extends GenericDAO{
 	public void registrarError(ErroresPrueba error) {
@@ -61,6 +66,58 @@ public class ErroresPruebaDAO extends GenericDAO{
 			return results;
 					
 		}
+
+	public List<Pantalla> consultarPantallas(){
+		List<Pantalla> results = null;
+		String valor = null;
+
+		try{
+			session.beginTransaction();
+			Query query = session.createQuery("from Pantalla");
+			results = query.list();
+			session.getTransaction().commit();
+		}catch(HibernateException he){
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
+			return results;
+					
+		}
+	public List<Mensaje> consultarMensajes(){
+		List<Mensaje> results = null;
+		String valor = null;
+
+		try{
+			session.beginTransaction();
+			Query query = session.createQuery("from Mensaje");
+			results = query.list();
+			session.getTransaction().commit();
+		}catch(HibernateException he){
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
+			return results;
+					
+		}
+	public List<ValorMensajeParametro> consultarValorMensajeParametros(){
+		List<ValorMensajeParametro> results = null;
+		String valor = null;
+
+		try{
+			session.beginTransaction();
+			Query query = session.createQuery("from ValorMensajeParametro");
+			results = query.list();
+			session.getTransaction().commit();
+		}catch(HibernateException he){
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
+			return results;
+					
+		}
 	public List<ErroresPrueba> consultarErroresxCasoUso(CasoUso casoUso){
 		List<ErroresPrueba> results = null;
 		try{
@@ -76,6 +133,21 @@ public class ErroresPruebaDAO extends GenericDAO{
 		}
 			return results;
 					
+	}
+	public void modificarError(ErroresPrueba e){
+		try{
+			session.beginTransaction();
+			Query query = session.createQuery("update from ErroresPrueba set Mensajeid = :idMensaje, Pasoid = :idPaso where id = :idError");
+			query.setParameter("idError", e.getId());
+			query.setParameter("idMensaje", e.getMensajeid());
+			query.setParameter("idPaso", e.getPasoid());
+			query.executeUpdate();
+			session.getTransaction().commit();
+		}catch(HibernateException he){
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
 	}
 	/*
 	public List<ErroresPrueba> consultarErroresCasosUso(Modulo modulo){

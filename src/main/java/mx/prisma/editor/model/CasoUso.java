@@ -39,6 +39,7 @@ public class CasoUso extends Elemento implements java.io.Serializable {
 	private String redaccionSalidas;
 	private String redaccionReglasNegocio;
 	private Modulo modulo;
+	//private Elemento elemento;
 	private boolean reporte;
 	private Set<CasoUsoActor> actores = new HashSet<CasoUsoActor>(0);
 	private Set<Salida> salidas = new HashSet<Salida>(0);
@@ -134,7 +135,17 @@ public class CasoUso extends Elemento implements java.io.Serializable {
 	public void setModulo(Modulo modulo) {
 		this.modulo = modulo;
 	}
+	/*
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "Elementoid")
+	public Elemento getElemento() {
+		return this.elemento;
+	}
 
+	public void setElemento(Elemento elemento) {
+		this.elemento = elemento;
+	}
+*/
 	@Column(name = "reporte")
 	public boolean getReporte() {
 		return this.reporte;

@@ -7,11 +7,13 @@ import java.util.Set;
 
 import mx.prisma.editor.dao.PasoDAO;
 import mx.prisma.editor.dao.ReferenciaParametroDAO;
+import mx.prisma.editor.dao.TrayectoriaDAO;
 import mx.prisma.editor.model.Extension;
 import mx.prisma.editor.model.Modulo;
 import mx.prisma.editor.model.Paso;
 import mx.prisma.editor.model.PostPrecondicion;
 import mx.prisma.editor.model.ReferenciaParametro;
+import mx.prisma.editor.model.Trayectoria;
 import mx.prisma.util.PRISMAException;
 
 public class PasoBs {
@@ -96,5 +98,20 @@ public class PasoBs {
 					new String[] { "El", "paso" });
 		}
 		return paso;
+	}
+	public static List<ReferenciaParametro> obtenerReferencias(Integer id){
+		Trayectoria trayectoria = null;
+		List<ReferenciaParametro> listReferenciaParametro=null;
+		try{
+			listReferenciaParametro = new PasoDAO().obtenerReferencias(id);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		if (listReferenciaParametro == null) {
+			throw new PRISMAException(
+					"No se pueden consultar los pasos por el id.", "MSG16",
+					new String[] { "La", "trayectoria" });
+		}
+		return listReferenciaParametro;
 	}
 }

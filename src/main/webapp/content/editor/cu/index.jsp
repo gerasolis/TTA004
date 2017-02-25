@@ -132,7 +132,7 @@
 							<s:if test="%{#cu.reporte == 1}">
 							<!-- Descargar pruebas -->			
 								<s:url var="urlGenerarReporte" value="%{#pageContext.request.contextPath}/configuracion-caso-uso!generarReporte?idCU=%{#cu.id}" method="post"/>
-								<s:a href="%{urlGenerarReporte}">
+								<s:a href="%{urlGenerarReporte}" onclick="mostrarMensajeCargando();">
 								<img id="" class="button" title="Generar Reporte"
 										src="${pageContext.request.contextPath}/resources/images/icons/bar-chart.png" /></s:a>	
 								${blanks}
@@ -148,7 +148,7 @@
 	<br />
 	<div align="center">
 		<button class="boton" 
-			onclick="location.href='${pageContext.request.contextPath}/configuracion-casos-uso!generarReporteGeneral'">
+			onclick="mostrarMensajeCargando();location.href='${pageContext.request.contextPath}/configuracion-casos-uso!generarReporteGeneral'">
 			<s:text name="Ver reporte general"></s:text>
 		</button>
 		<button class="boton" 

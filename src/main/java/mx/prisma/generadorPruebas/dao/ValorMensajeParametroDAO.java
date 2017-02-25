@@ -73,4 +73,20 @@ public class ValorMensajeParametroDAO extends GenericDAO {
 		}
 		return valor;
 	}
+	public List<ValorMensajeParametro> consultarValores_(Integer id) throws HibernateException {		
+		List<ValorMensajeParametro> listValorMensajeParametro = null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from ValorMensajeParametro where Mensaje_Parametroid= :id");
+			query.setParameter("id", id);
+			listValorMensajeParametro = query.list();
+			session.getTransaction().commit();
+		} catch (HibernateException he) {
+			he.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		
+		return listValorMensajeParametro;
+
+	}
 }

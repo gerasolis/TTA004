@@ -13,6 +13,8 @@ import javax.persistence.Table;
 
 import mx.prisma.editor.model.CasoUso;
 import mx.prisma.editor.model.Entrada;
+import mx.prisma.editor.model.Mensaje;
+import mx.prisma.editor.model.Paso;
 import mx.prisma.editor.model.ReglaNegocio;
 
 @Entity
@@ -26,16 +28,20 @@ public class ErroresPrueba implements java.io.Serializable{
 	private double porcentaje;
 	private double porcentajeTodo;
 	private Prueba pruebaid;
+	private Mensaje mensajeid;
+	private Paso pasoid;
 	
 	public ErroresPrueba(){
 		
 	}
-	public ErroresPrueba(String tipoError,int numError,double porcentaje,double porcentajeTodo,Prueba pruebaid) {
+	public ErroresPrueba(String tipoError,int numError,double porcentaje,double porcentajeTodo,Prueba pruebaid,Mensaje mensajeid,Paso pasoid) {
 		this.tipoError = tipoError;
 		this.numError = numError;
 		this.porcentaje = porcentaje;
 		this.porcentajeTodo = porcentajeTodo;
 		this.pruebaid = pruebaid;
+		this.mensajeid = mensajeid;
+		this.pasoid = pasoid;
 	}
 
 	@Id
@@ -94,5 +100,24 @@ public class ErroresPrueba implements java.io.Serializable{
 	public void setPruebaid(Prueba pruebaid) {
 		this.pruebaid = pruebaid;
 	}
+	
+	@OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Mensajeid", referencedColumnName = "Elementoid")		
+	public Mensaje getMensajeid() {
+		return this.mensajeid;
+	}
 
+	public void setMensajeid(Mensaje mensajeid) {
+		this.mensajeid = mensajeid;
+	}
+	
+	@OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "Pasoid", referencedColumnName = "id")		
+	public Paso getPasoid() {
+		return this.pasoid;
+	}
+
+	public void setPasoid(Paso pasoid) {
+		this.pasoid = pasoid;
+	}
 }

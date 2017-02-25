@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import static java.nio.charset.StandardCharsets.*;
 
 import mx.prisma.admin.model.Colaborador;
 import mx.prisma.admin.model.Proyecto;
@@ -19,8 +20,10 @@ import mx.prisma.editor.bs.CuBs;
 import mx.prisma.editor.bs.ElementoBs.Estado;
 import mx.prisma.editor.bs.ElementoBs;
 import mx.prisma.editor.bs.EntradaBs;
+import mx.prisma.editor.bs.MensajeBs;
 import mx.prisma.editor.bs.MensajeParametroBs;
 import mx.prisma.editor.bs.PantallaBs;
+import mx.prisma.editor.bs.PasoBs;
 import mx.prisma.editor.bs.ReferenciaParametroBs;
 import mx.prisma.editor.bs.TokenBs;
 import mx.prisma.editor.bs.TrayectoriaBs;
@@ -100,7 +103,10 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 	private String jsonImagenesPantallasAcciones;
 	private List<ErroresPrueba> listErrores;
 	private List<Prueba> listPruebas;
-	
+	private List<Pantalla> listPantallas;
+	private List<Mensaje> listMensajes;
+	private Set<Entrada> listEntradas;
+	private List<ValorMensajeParametro> listMensajeValorParametro;
 	private InputStream fileInputStream;
 	private String type;
     private String filename;
@@ -307,6 +313,9 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 	
 	public String generarReporte() {
 		String resultado="";
+		int contador2=0;
+		String cadena="";
+		String cadenaUsar="";
 		try {
 			casoUso = CuBs.consultarCasoUso(idCU);
 			if (casoUso == null) {
@@ -314,8 +323,123 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 				return resultado;
 			}
 			listPruebas = PruebaBs.consultarPruebasxCasoUso(casoUso);
-		    //listErrores= EjecutarPruebaBs.consultarErroresxCasoUso(casoUso);
 			listErrores = EjecutarPruebaBs.consultarErrores();
+			listPantallas = EjecutarPruebaBs.consultarPantallas();
+			listMensajes = EjecutarPruebaBs.consultarMensajes();
+			listMensajeValorParametro = EjecutarPruebaBs.consultarValorMensajeParametros();
+			listEntradas = casoUso.getEntradas();
+			//Sacamos pantalla de CU primero.
+			for(Trayectoria t : casoUso.getTrayectorias()){
+				for(Paso p : TrayectoriaBs.obtenerPasos(t.getId())){
+					if(p.getRedaccion().contains(TokenBs.tokenMSG)){
+						for(ReferenciaParametro rp : PasoBs.obtenerReferencias(p.getId())){
+							if(rp.getTipoParametro().getId() == 6){
+								Mensaje m = MensajeBs.consultarMensaje(rp.getElementoDestino().getId());
+								//System.out.println(m.getRedaccion());
+								//Aquí sustituyo los token y comparo con los mensajes de la prueba.
+								//primero cuento la cantidad de tokens sólo si es de tipo parametrizado.
+								if(m.isParametrizado()){
+									cadena = m.getRedaccion();
+									contador2=0;
+									while(cadena.indexOf("PARAM")!=-1){
+										cadena = cadena.substring(cadena.indexOf("PARAM")+"PARAM".length(),cadena.length());
+										contador2++;
+									}
+									System.out.println(contador2);
+									for(int z=0;z<contador2;z++){
+										if(z==0){
+											cadenaUsar = m.getRedaccion();
+										}
+										for(MensajeParametro mp : MensajeParametroBs.consultarMensajeParametro_(m.getId())){
+											for(ValorMensajeParametro v : ValorMensajeParametroBs.consultarValores_(mp.getId())){
+												if(v.getReferenciaParametro().getPaso().getRedaccion().equals(p.getRedaccion())){
+													//System.out.println(v.getValor());
+													
+													if(v.getMensajeParametro().getParametro().getNombre().equals("DETERMINADO")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"$PARAM·1", v.getValor());
+													}else if(v.getMensajeParametro().getParametro().getNombre().equals("ENTIDAD")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·2", v.getValor());	
+													}else if(v.getMensajeParametro().getParametro().getNombre().equals("OPERACIÓN")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·3", v.getValor());
+													}else if(v.getMensajeParametro().getParametro().getNombre().equals("TIPO_DATO")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·4", v.getValor());
+													}else if(v.getMensajeParametro().getParametro().getNombre().equals("TAMAÑO")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·5", v.getValor());
+													}else if(v.getMensajeParametro().getParametro().getNombre().equals("UNIDAD_TIPO_DATO")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·6", v.getValor());
+													}else if(v.getMensajeParametro().getParametro().getNombre().equals("VALOR")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·7", v.getValor());
+													}else if(v.getMensajeParametro().getParametro().getNombre().equals("ATRIBUTO")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·8", v.getValor());
+													}else if(v.getMensajeParametro().getParametro().getNombre().equals("CONTRASEÑA")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·9", v.getValor());
+													}else if(v.getMensajeParametro().getParametro().getNombre().equals("NOMBRE")){
+														cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·10", v.getValor());	
+													}
+												}
+											}
+											
+										}
+									}
+									System.out.println("*********************************");
+									System.out.println("CADENA A USAR: "+cadenaUsar);
+									System.out.println("*********************************");
+									//Comparamos la cadena con las cadenas de los mensajes de error.
+									for (ErroresPrueba liste : listErrores){
+										byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
+										String value = new String(ptext, UTF_8); 
+										try{
+											String[] prueba = value.split("/");
+											System.out.println("ERROR: "+prueba[1]);
+											if(cadenaUsar.equals(prueba[1])){
+												System.out.println("ENTRA");
+												liste.setMensajeid(m);
+												liste.setPasoid(p);
+												EjecutarPruebaBs.modificarError(liste);
+											}
+
+										}catch(Exception e){
+											if(cadenaUsar.equals(value)){
+												System.out.println("ENTRA");
+												liste.setMensajeid(m);
+												liste.setPasoid(p);
+												EjecutarPruebaBs.modificarError(liste);
+											}
+										} 
+									}
+									cadenaUsar="";
+						
+								}else{
+									cadena = m.getRedaccion();
+									for (ErroresPrueba liste : listErrores){
+										byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
+										String value = new String(ptext, UTF_8); 
+										try{
+											String[] prueba = value.split("/");
+											System.out.println("ERROR: "+prueba[1]);
+											if(cadena.equals(prueba[1])){
+												System.out.println("ENTRA");
+												liste.setMensajeid(m);
+												liste.setPasoid(p);
+												EjecutarPruebaBs.modificarError(liste);
+											}
+
+										}catch(Exception e){
+											if(cadena.equals(value)){
+												System.out.println("ENTRA");
+												liste.setMensajeid(m);
+												liste.setPasoid(p);
+												EjecutarPruebaBs.modificarError(liste);
+											}
+										} 
+									}
+								}//aquí acaba el else
+							}
+						}
+					}
+				}
+			}
+
 			resultado = "pantallaReporte";
 		} catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
@@ -726,7 +850,25 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 	public void setListErrores(List<ErroresPrueba> listErrores){
 		this.listErrores = listErrores;
 	}
+	public Set<Entrada> getListEntradas(){
+		return listEntradas;
+	}
+	public void setListEntradas(Set<Entrada> listEntradas){
+		this.listEntradas = listEntradas;
+	}
 	
+	public List<Pantalla> getListPantallas(){
+		return listPantallas;
+	}
+	public void setListPantallas(List<Pantalla> listPantallas){
+		this.listPantallas = listPantallas;
+	}
+	public List<Mensaje> getListMensajes(){
+		return listMensajes;
+	}
+	public void setListMensajes(List<Mensaje> listMensajes){
+		this.listMensajes = listMensajes;
+	}
 	public List<Prueba> getListPruebas(){
 		return listPruebas;
 	}

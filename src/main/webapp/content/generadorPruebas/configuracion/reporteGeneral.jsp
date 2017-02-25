@@ -48,20 +48,49 @@
 								      <table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
 										 <thead>
 												<tr>
+													<th><s:text name="CU"/></th>
+													<th><s:text name="Pantalla"/></th>
+													<th><s:text name="Trayectoria"/></th>
+													<th><s:text name="Paso"/></th>
+													<th><s:text name="Entrada"/></th>
+													<th><s:text name="Dato"/></th>
+													<th><s:text name="Mensaje"/></th>
 													<th><s:text name="Tipo de error"/></th>
 													<th style="width: 20%;"><s:text name="Núm de error"/></th>
-													<th style="width: 20%;"><s:text name="Porcentaje"/></th>
-													<th style="width: 20%;"><s:text name="Porcentaje de todo"/></th>
+													<!--<th style="width: 20%;"><s:text name="Porcentaje"/></th>
+													<th style="width: 20%;"><s:text name="Porcentaje de todo"/></th>-->
 												</tr>
 											</thead>
 											<s:iterator value="ListErrores" var="e">
 							   					<s:if test="%{#p.id == #e.pruebaid.id}">
 													<tbody>
 															<tr>
+																<td><s:property value="#e.pruebaid.CasoUsoid.clave + ' '+ #e.pruebaid.CasoUsoid.numero + ' '+#e.pruebaid.CasoUsoid.nombre"/></td>
+																<s:iterator value="ListPantallas" var="pan">
+																	<s:if test="%{#pan.numero == #e.pruebaid.CasoUsoid.numero}">
+																		<td><s:property value="#pan.clave + ' ' + #pan.numero+ ' '+#pan.nombre"/></td>
+																	</s:if>
+																</s:iterator>
+																<s:if test="%{#e.pasoid.trayectoria.alternativa == 0}">
+																	<td><s:property value="#e.pasoid.trayectoria.clave"/></td>
+																</s:if>	
+																<s:else>
+																	<td><s:property value="#e.pasoid.trayectoria.clave + ': ' + #e.pasoid.trayectoria.condicion"/></td>
+																</s:else>
+																<td><s:property value="#e.pasoid.redaccion"/></td>
+																<td>
+																	<ul>
+																		<s:iterator value="ListEntradas" var="en">
+																			<li><s:property value="#en.atributo.nombre"/></li>
+																		</s:iterator>
+																	</ul>
+																</td>
+																<td><s:property value="#e.pruebaid.casouso.id"/></td>
+																<td><s:property value="#e.mensajeid.clave + ' ' + #e.mensajeid.numero"/></td>
 																<td><s:property value="#e.tipoError"/></td>
 																<td><s:property value="#e.numError"/></td>
-																<td><s:property value="#e.porcentaje"/></td>
-																<td><s:property value="#e.porcentajeTodo"/></td>
+																<!--<td><s:property value="#e.porcentaje"/></td>
+																<td><s:property value="#e.porcentajeTodo"/></td>-->
 															</tr>
 													</tbody>
 												</s:if>

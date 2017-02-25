@@ -11,12 +11,15 @@ import java.util.Date;
 import java.util.List;
 
 import mx.prisma.editor.model.CasoUso;
+import mx.prisma.editor.model.Mensaje;
 import mx.prisma.editor.model.Modulo;
+import mx.prisma.editor.model.Pantalla;
 import mx.prisma.generadorPruebas.dao.ErroresPruebaDAO;
 import mx.prisma.generadorPruebas.dao.PruebaDAO;
 import mx.prisma.generadorPruebas.dao.ValorEntradaDAO;
 import mx.prisma.generadorPruebas.model.ErroresPrueba;
 import mx.prisma.generadorPruebas.model.Prueba;
+import mx.prisma.generadorPruebas.model.ValorMensajeParametro;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -98,6 +101,25 @@ public class EjecutarPruebaBs {
 		List<ErroresPrueba> listErrores=null;
 		listErrores = new ErroresPruebaDAO().consultarErrores();
 		return listErrores;
+	}
+	public static List<Pantalla> consultarPantallas(){
+		List<Pantalla> listPantallas=null;
+		listPantallas = new ErroresPruebaDAO().consultarPantallas();
+		return listPantallas;
+	}
+	public static List<Mensaje> consultarMensajes(){
+		List<Mensaje> listMensajes=null;
+		listMensajes = new ErroresPruebaDAO().consultarMensajes();
+		return listMensajes;
+	}
+
+	public static List<ValorMensajeParametro> consultarValorMensajeParametros(){
+		List<ValorMensajeParametro> listValorMensajeParametro=null;
+		listValorMensajeParametro = new ErroresPruebaDAO().consultarValorMensajeParametros();
+		return listValorMensajeParametro;
+	}
+	public static void modificarError(ErroresPrueba e){
+		new ErroresPruebaDAO().modificarError(e);
 	}
 	/*public static List<ErroresPrueba> consultarErroresCasosUso(Modulo modulo){
 		List<ErroresPrueba> listErrores=null;

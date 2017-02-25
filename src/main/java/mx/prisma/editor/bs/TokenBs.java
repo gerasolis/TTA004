@@ -1326,18 +1326,18 @@ public class TokenBs {
 		int indiceInicial = 0;
 		int indiceFinal = 0;
 		indiceInicial = cadena.indexOf(cadena_sustituir, indiceInicial);
-		System.out.println("indiceInicial1 :"+indiceInicial);
+		//System.out.println("indiceInicial1 :"+indiceInicial);
 		while (indiceInicial != -1) {
 			indiceFinal = indiceInicial + cadena_sustituir.length() - 1;
-			System.out.println("indiceFinalWhile: "+indiceFinal);
+			//System.out.println("indiceFinalWhile: "+indiceFinal);
 			if (indiceFinal + 1  == cadena.length()
 					|| !ignore(cadena.charAt(indiceFinal + 1))) {
 				cadenaFinal = cadena.substring(0,
 						(indiceInicial != 0) ? indiceInicial : 0)
 						+ cadena_sustituta
 						+ cadena.substring(indiceFinal + 1, cadena.length());
-				System.out.println("cadena.substring(indiceFinal + 1, cadena.length()): "+cadena.substring(indiceFinal + 1, cadena.length()));
-				System.out.println("CadenaFinal: "+cadenaFinal);
+				//System.out.println("cadena.substring(indiceFinal + 1, cadena.length()): "+cadena.substring(indiceFinal + 1, cadena.length()));
+				//System.out.println("CadenaFinal: "+cadenaFinal);
 				indiceInicial = cadenaFinal.indexOf(cadena_sustituir, indiceInicial + cadena_sustituta.length());
 				cadena = cadenaFinal;
 			} else {
