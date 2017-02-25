@@ -118,6 +118,24 @@ public class ErroresPruebaDAO extends GenericDAO{
 			return results;
 					
 		}
+	public List<Entrada> consultarEntradas(){
+		List<Entrada> results = null;
+		String valor = null;
+
+		try{
+			session.beginTransaction();
+			Query query = session.createQuery("from Entrada where Atributoid <> 'NULL'");
+			results = query.list();
+			session.getTransaction().commit();
+		}catch(HibernateException he){
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
+			return results;
+					
+		}
+	
 	public List<ErroresPrueba> consultarErroresxCasoUso(CasoUso casoUso){
 		List<ErroresPrueba> results = null;
 		try{

@@ -10,6 +10,8 @@
   <table-filter match-catalog="PRISMA" match-name="ValorEntradaTrayectoria"/>
   <table-filter match-catalog="PRISMA" match-name="ErroresPrueba"/>
   <table-filter match-catalog="PRISMA" match-name="Prueba"/>
+  <table-filter match-catalog="PRISMA" match-name="Sinonimo"/>
+  <table-filter match-catalog="PRISMA" match-name="Verbo_Sinonimo"/>
   
   
   

@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import mx.prisma.editor.model.CasoUso;
+import mx.prisma.editor.model.Entrada;
 import mx.prisma.editor.model.Mensaje;
 import mx.prisma.editor.model.Modulo;
 import mx.prisma.editor.model.Pantalla;
@@ -131,5 +132,11 @@ public class EjecutarPruebaBs {
 		List<CasoUso> listCasosUso=null;
 		listCasosUso = new ErroresPruebaDAO().consultarCasosUso(modulo);
 		return listCasosUso;
+	}
+	
+	public static List<Entrada> consultarEntradas(){
+		List<Entrada> listEntradas=null;
+		listEntradas = new ErroresPruebaDAO().consultarEntradas();
+		return listEntradas;
 	}
 }

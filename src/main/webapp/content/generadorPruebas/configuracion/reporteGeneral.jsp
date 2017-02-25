@@ -13,7 +13,9 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/generadorPruebas/configuracion/js/bootstrap.min.js"></script>	
 ]]>
-
+<style>
+	th {text-align: center;}
+</style>
 </head>
 <body>
 	<s:actionmessage theme="jquery" />
@@ -81,14 +83,16 @@
 																<td>
 																	<ul>
 																		<s:iterator value="ListEntradas" var="en">
-																			<li><s:property value="#en.atributo.nombre"/></li>
+																			<s:if test="%{#en.CasoUso.id == #e.pruebaid.CasoUsoid.id}">
+																				<li><s:property value="#en.Atributo.nombre"/></li>
+																			</s:if>
 																		</s:iterator>
 																	</ul>
 																</td>
 																<td><s:property value="#e.pruebaid.casouso.id"/></td>
 																<td><s:property value="#e.mensajeid.clave + ' ' + #e.mensajeid.numero"/></td>
 																<td><s:property value="#e.tipoError"/></td>
-																<td><s:property value="#e.numError"/></td>
+																<td><p align="center"><s:property value="#e.numError"/></p></td>
 																<!--<td><s:property value="#e.porcentaje"/></td>
 																<td><s:property value="#e.porcentajeTodo"/></td>-->
 															</tr>

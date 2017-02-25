@@ -3,6 +3,7 @@ package mx.prisma.generadorPruebas.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -56,7 +57,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	private List<Prueba> listPruebas;
 	private List<Pantalla> listPantallas;
 	private List<Mensaje> listMensajes;
-	private Set<Entrada> listEntradas;
+	private List<Entrada> listEntradas;
 	private List<ValorMensajeParametro> listMensajeValorParametro;
 	
     public String generarReporteGeneral() {
@@ -64,6 +65,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 		String cadena="";
 		String cadenaUsar="";
 		String resultado="";
+		listEntradas = new ArrayList<Entrada>();
 		try {
 			modulo = SessionManager.consultarModuloActivo();
 			
@@ -78,7 +80,10 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 			listPantallas = EjecutarPruebaBs.consultarPantallas();
 			listMensajes = EjecutarPruebaBs.consultarMensajes();
 			listMensajeValorParametro = EjecutarPruebaBs.consultarValorMensajeParametros();
-			//listEntradas = casoUso.getEntradas(); Sacar toda la lista de entradas y hacer la relación en el front.
+			listEntradas = EjecutarPruebaBs.consultarEntradas(); //Sacar toda la lista de entradas y hacer la relación en el front.
+			for(Entrada e : listEntradas){
+				System.out.println(e.getCasoUso().getId()+"------------------------------------------------");
+			}
 			//Sacamos pantalla de CU primero.
 			for(CasoUso casoUso : EjecutarPruebaBs.consultarCasosUso(modulo)){
 				if(casoUso.getReporte()){
@@ -300,6 +305,27 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 		
 	    return "documento";
 	}*/
+   
+	public List<Entrada> getListEntradas(){
+		return listEntradas;
+	}
+	public void setListEntradas(List<Entrada> listEntradas){
+		this.listEntradas = listEntradas;
+	}
+	
+	public List<Pantalla> getListPantallas(){
+		return listPantallas;
+	}
+	public void setListPantallas(List<Pantalla> listPantallas){
+		this.listPantallas = listPantallas;
+	}
+	public List<Mensaje> getListMensajes(){
+		return listMensajes;
+	}
+	public void setListMensajes(List<Mensaje> listMensajes){
+		this.listMensajes = listMensajes;
+	}
+    
     public Modulo getModulo(){
     	return modulo;
     }
