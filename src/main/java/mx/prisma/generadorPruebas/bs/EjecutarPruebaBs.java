@@ -78,7 +78,9 @@ public class EjecutarPruebaBs {
 	              
                 		    new ErroresPruebaDAO().registrarError(e);
 
-                		//Una vez registrado en la bd, borramos los archivos temporales.
+                		    //Una vez registrado en la bd, borramos los archivos temporales.
+                		    String comando2 = "rm /Users/gerasolis/Downloads/apache-jmeter-3.0/bin/Test.jtl";
+                            Process p2 = Runtime.getRuntime().exec(comando2);
 	                	}
                 	}catch (Exception e){
                 		ErroresPrueba x = new ErroresPrueba();
