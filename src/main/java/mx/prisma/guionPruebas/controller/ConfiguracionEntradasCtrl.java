@@ -23,8 +23,10 @@ import mx.prisma.editor.model.Modulo;
 import mx.prisma.editor.model.Trayectoria;
 import mx.prisma.generadorPruebas.bs.ConfiguracionGeneralBs;
 import mx.prisma.generadorPruebas.bs.ValorDesconocidoBs;
+import mx.prisma.generadorPruebas.dao.ValorEntradaDAO;
 import mx.prisma.generadorPruebas.model.ConfiguracionBaseDatos;
 import mx.prisma.generadorPruebas.model.ConfiguracionHttp;
+import mx.prisma.generadorPruebas.model.ValorEntrada;
 import mx.prisma.guionPruebas.bs.ValorEntradaBs;
 import mx.prisma.util.ActionSupportPRISMA;
 import mx.prisma.util.ErrorManager;
@@ -61,6 +63,7 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 	private List<String> filename;
 	private List<String> idAtributo;
 	private List<Atributo>listaAtributo = new ArrayList<Atributo>();
+	private List<List<ValorEntrada>> listaValorEntrada = new ArrayList<List<ValorEntrada>>();
 	
     //Función para mostrar la pantalla de configuración de entradas o el guion de prueba
 	public String prepararConfiguracion() {
@@ -105,6 +108,8 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 				//Mostramos la pantalla para cargar los archivos de las entradas
 				for(Entrada entrada: casoUso.getEntradas()){
 					listaAtributo.add(entrada.getAtributo());
+					ValorEntradaDAO vedao = new ValorEntradaDAO();
+					listaValorEntrada.add(vedao.consultarValores(entrada));
 				}
 				resultado = "pantallaEntradas";
 			//Si no
@@ -277,5 +282,13 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 	}
 	public void setListaAtributo(List<Atributo> listaAtributo) {
 		this.listaAtributo = listaAtributo;
+	}
+	
+	public List<List<ValorEntrada>> getListaValorEntrada() {
+		return listaValorEntrada;
+	}
+	
+	public void setListaValorEntrada(List<List<ValorEntrada>> listaValorEntrada) {
+		this.listaValorEntrada = listaValorEntrada;
 	}
 }

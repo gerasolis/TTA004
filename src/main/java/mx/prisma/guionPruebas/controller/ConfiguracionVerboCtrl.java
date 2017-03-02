@@ -84,7 +84,6 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 	private String instruccion;
 	
     //Función para mostrar la pantalla de configuración de entradas o el guion de prueba
-	@SuppressWarnings("null")
 	public String prepararConfiguracion() {
 		SessionManager.delete("mensajesAccion");
         Map<String, Object> session = null;
@@ -154,18 +153,18 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 							//Si el actor es el USUARIO
 							if(paso.isRealizaActor()){
 								System.out.println("ACTOR");
-								if(!GuionPruebasBs.compararTokenUsuario(paso, token, entradas).equals("")){
+								if(!GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas).equals("")){
 									System.out.println("ACTOR");
-									instruccion = GuionPruebasBs.compararTokenUsuario(paso, token, entradas);
+									instruccion = GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas);
 								}
 							}
 							//Si el actor es el SISTEMA
 							else{
 								System.out.println("SISTEMA");
-								instruccion = GuionPruebasBs.compararTokenSistema(paso, token);
-								if(!GuionPruebasBs.compararTokenSistema(paso, token).equals("")){
+								instruccion = GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token);
+								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token).equals("")){
 									System.out.println("SISTEMA");
-									instruccion = GuionPruebasBs.compararTokenSistema(paso, token);
+									instruccion = GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token);
 									System.out.println("INSTRUCCION"+instruccion);
 								}
 							}

@@ -58,7 +58,6 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 	List<String> instrucciones = new ArrayList<String>();
 	
 	//Función para mostrar la pantalla del guión de prueba
-	@SuppressWarnings({ "unchecked", "null" })
 	public String mostrarGuion() throws Exception {
 		System.out.println("Entramos al guion");
 		Map<String, Object> session = null;
@@ -102,12 +101,16 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 		List<Paso> pasos = TrayectoriaBs.obtenerPasos_(trayectoriaPrincipal.getId());
 		
 		// Lista de las instrucciones
-				List<String> instrucciones = null;
+				//List<String> instrucciones = null;
 
 				// Obtenemos el total de pasos de la trayectora principal
 				int tpasos = pasos.size();
 				// Consultamos las entradas del caso de uso
 				Set<Entrada> entradas = casoUso.getEntradas();
+				
+				//Agregamos la instrucción la url del CU (Ingrese a la siguiente url ...)
+				//Pantalla pantalla = CasoUsoPantallaDAO.
+				//instrucciones.add("Ingrese a la siguiente url: ");
 
 				for (int i = 0; i < tpasos; i++) {
 					// Consultamos el paso actual
@@ -122,13 +125,13 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 					for (String token : tokens) {
 						// Si el actor es el USUARIO
 						if (paso.isRealizaActor()) {
-							if (!GuionPruebasBs.compararTokenUsuario(paso, token, entradas).equals(""))
-								instrucciones.add(GuionPruebasBs.compararTokenUsuario(paso, token, entradas));
+							if (!GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas).equals(""))
+								instrucciones.add(GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas));
 						}
 						// Si el actor es el SISTEMA
 						else {
-							if (!GuionPruebasBs.compararTokenSistema(paso, token).equals(""))
-								instrucciones.add(GuionPruebasBs.compararTokenSistema(paso, token));
+							if (!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token).equals(""))
+								instrucciones.add(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token));
 						}
 					}
 				}

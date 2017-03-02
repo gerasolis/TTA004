@@ -51,12 +51,12 @@
 								<s:set var="pregunta"><s:property value="@mx.prisma.guionPruebas.controller.GuionPruebasCtrl@esInstruccion(instrucciones[#incr.index])"/></s:set>
 								<s:if test="%{pregunta}">
 									<td colspan="4" class="ui-widget">
-										<s:property value="#incr.index+1 + '. ' + instrucciones[#incr.index]"/>
+										${instrucciones[incr.index]}
 									</td>
 								</s:if>
 								<s:else>
 									<td class="ui-widget">
-										<s:property value="#incr.index+1 + '. ' + instrucciones[#incr.index]"/>
+										${instrucciones[incr.index]}
 									</td><td></td><td></td><td></td>
 								</s:else>
 							</tr>
