@@ -161,10 +161,10 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 							//Si el actor es el SISTEMA
 							else{
 								System.out.println("SISTEMA");
-								instruccion = GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token);
-								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token).equals("")){
+								instruccion = GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso);
+								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).equals("")){
 									System.out.println("SISTEMA");
-									instruccion = GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token);
+									instruccion = GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso);
 									System.out.println("INSTRUCCION"+instruccion);
 								}
 							}

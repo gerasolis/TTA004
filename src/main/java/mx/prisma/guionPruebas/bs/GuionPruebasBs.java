@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import mx.prisma.editor.bs.EntradaBs;
 import mx.prisma.editor.bs.ReglaNegocioBs;
 import mx.prisma.editor.bs.TokenBs;
+import mx.prisma.editor.bs.TrayectoriaBs;
 import mx.prisma.editor.dao.ReglaNegocioDAO;
+import mx.prisma.editor.dao.TrayectoriaDAO;
 import mx.prisma.editor.model.Atributo;
 import mx.prisma.editor.model.CasoUso;
 import mx.prisma.editor.model.Entidad;
@@ -220,7 +222,7 @@ public class GuionPruebasBs {
 		return instruccion;
 	}
 
-	public static String compararTokenSistema(String actionContext, Paso paso, String token) {
+	public static String compararTokenSistema(String actionContext, Paso paso, String token, CasoUso casoUso) {
 		String instruccion = "";
 		
 		// Si es una acción (ACC·#)
@@ -345,6 +347,40 @@ public class GuionPruebasBs {
 			} else if (paso.getVerbo().getNombre().equals("Muestra")) {
 				instruccion = "¿Se muestra correctamente el mensaje " + mensaje + ": " + redaccionMensaje.getRedaccion()
 						+ "?";
+			}
+		}
+		if (token.contains(TokenBs.tokenTray)) {
+			//Obtenemos la trayectoria
+			Trayectoria trayectoria = (Trayectoria) TokenBs.obtenerTokenObjeto(" "+token);
+			//Consultamos los pasos de la trayectoria alternativa
+			List<Paso> pasosT = TrayectoriaBs.obtenerPasos_(trayectoria.getId());
+			// Obtenemos el total de pasos de la trayectora principal
+			int tpasos = pasosT.size();
+			// Consultamos las entradas del caso de uso
+			Set<Entrada> entradas = casoUso.getEntradas();
+			
+			for (int i = 0; i < tpasos; i++) {
+				// Consultamos el paso actual
+				Paso pasoA = pasosT.get(i);
+				
+				System.out.println(pasoA.getNumero()+": "+pasoA.getRedaccion());
+
+				// Obtenemos los tokens del paso
+				List<String> tokens = GuionPruebasBs.obtenerTokens(pasoA);
+
+				// Comparación de los tokens
+				for (String tokenA : tokens) {
+					// Si el actor es el USUARIO
+					if (paso.isRealizaActor()) {
+						if (!GuionPruebasBs.compararTokenUsuario(actionContext, pasoA, tokenA, entradas).equals(""))
+							instruccion = GuionPruebasBs.compararTokenUsuario(actionContext, pasoA, tokenA, entradas);
+					}
+					// Si el actor es el SISTEMA
+					else {
+						if (!GuionPruebasBs.compararTokenSistema(actionContext, pasoA, tokenA, casoUso).equals(""))
+							instruccion = GuionPruebasBs.compararTokenSistema(actionContext, pasoA, tokenA, casoUso);
+					}
+				}
 			}
 		}
 		return instruccion;

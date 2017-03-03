@@ -64,6 +64,7 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 	private List<String> idAtributo;
 	private List<Atributo>listaAtributo = new ArrayList<Atributo>();
 	private List<List<ValorEntrada>> listaValorEntrada = new ArrayList<List<ValorEntrada>>();
+	private List<String> valorSel;
 	
     //Función para mostrar la pantalla de configuración de entradas o el guion de prueba
 	public String prepararConfiguracion() {
@@ -163,21 +164,10 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 				return resultado;
 			}
 			
-			//Guardamos las entradas en la base de datos
-			if(getUpload()==null){
-				resultado="error_1";
-				addActionMessage(getText("MSG42", new String[] { "No",
-						"ingresado", "archivo txt" }));
-				SessionManager.set(this.getActionMessages(), "mensajesAccion");
-				//SessionManager.set(this.casoUso.getId(), "casoUsoId");
-				
-			}else{
-				ValorEntradaBs.crearArchivo(getUpload(),getIdAtributo(),getUploadFileName());
-				resultado="pantallaVerbos";
-				addActionMessage(getText("MSG41", new String[] { "Los",
-						"txt", "registrado" }));
-				SessionManager.set(this.getActionMessages(), "mensajesAccion");
-			}
+			//Cambiamos el status de seleccionada en ValorEntrada
+			ValorEntradaBs.cambiarStatus(valorSel, casoUso);
+			
+			resultado="pantallaVerbos";
 			
 			} catch(Exception e) {
 				ErrorManager.agregaMensajeError(this, e);
@@ -290,5 +280,13 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 	
 	public void setListaValorEntrada(List<List<ValorEntrada>> listaValorEntrada) {
 		this.listaValorEntrada = listaValorEntrada;
+	}
+	
+	public List<String> getValorSel() {
+		return valorSel;
+	}
+	
+	public void setValorSel(List<String> valorSel) {
+		this.valorSel = valorSel;
 	}
 }

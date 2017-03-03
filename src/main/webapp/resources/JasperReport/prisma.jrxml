@@ -180,6 +180,22 @@ where proy.id = $P{idProyecto};]]>
 				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "modulo/modulo.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
+		<band height="100">
+			<subreport>
+				<reportElement x="0" y="10" width="500" height="40" uuid="d0348ac1-69d9-4446-bacc-1427eb31d6e4"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_contextPath">
+					<subreportParameterExpression><![CDATA[$P{p_contextPath}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "modulo/modulo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
 	</detail>
 	<pageFooter>
 		<band height="22" splitType="Stretch">

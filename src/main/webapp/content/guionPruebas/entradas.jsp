@@ -31,8 +31,9 @@
 				<s:iterator value="ListaAtributo" var="t" status="indice">
 					<s:property value="'Entrada '+ #t.nombre"/>
 					<p class="instrucciones">
-					<s:select list="listaValorEntrada[#indice.index]" listValue="valor" cssClass="inputFormulario" name="%{'Valor'+#t.nombre}" id="%{'Valor'+#t.nombre}" 
-       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione el valor para esta entrada"></s:select>
+					<s:select list="listaValorEntrada[#indice.index]" listValue="valor" cssClass="inputFormulario" name="valorSel" id="valor" 
+       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione el valor para esta entrada"
+       						listKey="valor"></s:select>
 					</p>
 				</s:iterator>
 			</div>

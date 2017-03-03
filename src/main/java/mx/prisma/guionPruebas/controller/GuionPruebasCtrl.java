@@ -130,8 +130,8 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 						}
 						// Si el actor es el SISTEMA
 						else {
-							if (!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token).equals(""))
-								instrucciones.add(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token));
+							if (!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).equals(""))
+								instrucciones.add(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso));
 						}
 					}
 				}

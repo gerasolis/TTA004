@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+
 import mx.prisma.editor.dao.EntradaDAO;
+import mx.prisma.editor.model.CasoUso;
 import mx.prisma.editor.model.Entrada;
 import mx.prisma.editor.model.ReglaNegocio;
 import mx.prisma.editor.model.Trayectoria;
@@ -99,6 +102,25 @@ public class ValorEntradaBs {
 				new ValorDesconocidoDAO().borrarRuta(entradasBD.get(i));
 			}
 			new ValorDesconocidoDAO().registraRuta(nuevaRuta,entradasBD.get(i),1);
+			i++;
+		}
+	}
+
+	public static void cambiarStatus(List<String> valor, CasoUso casoUso) {
+		Set<Entrada> entradas = casoUso.getEntradas();
+		int i=0;
+		for(Entrada entrada : entradas){
+			ValorEntradaDAO vedao = new ValorEntradaDAO();
+			for(ValorEntrada ve : vedao.consultarValores(entrada)){
+				System.out.println(ve.getValor()+"-"+valor.get(i));
+				if(ve.getValor().equals(valor.get(i))){
+					ve.setSeleccionada(true);
+				}else{
+					ve.setSeleccionada(false);
+				}
+				vedao = new ValorEntradaDAO();
+				vedao.registrarValorEntrada(ve);
+			}
 			i++;
 		}
 	}

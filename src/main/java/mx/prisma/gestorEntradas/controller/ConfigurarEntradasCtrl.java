@@ -122,7 +122,6 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	
 	public static boolean tieneEntradas(int id) {
 		CasoUso casoUso = CuBs.consultarCasoUso(id);
-		System.out.println("Entra a tieneEntradas");
 		try {
 			if(casoUso.getEntradas().size()>0){
 				return true;
