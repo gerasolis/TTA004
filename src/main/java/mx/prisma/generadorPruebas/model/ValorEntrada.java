@@ -35,6 +35,7 @@ public class ValorEntrada implements java.io.Serializable {
 	private Boolean aleatorio;
 	private Boolean insercion;
 	private Boolean modificacion;
+	private Boolean seleccionada;
 
 	public ValorEntrada() {
 	}
@@ -63,6 +64,19 @@ public class ValorEntrada implements java.io.Serializable {
 		this.aleatorio = aleatorio;
 		this.insercion = insercion;
 		this.modificacion = modificacion;
+	}
+	
+	public ValorEntrada(Entrada entrada, String valor, Boolean valido, Boolean correcto, Boolean registrado,
+			Boolean aleatorio, Boolean insercion, Boolean modificacion, Boolean seleccionada){
+		this.entrada = entrada;
+		this.valor = valor;
+		this.valido = valido;
+		this.correcto = correcto;
+		this.registrado = registrado;
+		this.aleatorio = aleatorio;
+		this.insercion = insercion;
+		this.modificacion = modificacion;
+		this.seleccionada = seleccionada;
 	}
 
 	@Id
@@ -159,4 +173,12 @@ public class ValorEntrada implements java.io.Serializable {
 		this.modificacion = modificacion;
 	}
 
+	@Column(name = "seleccionada")
+	public Boolean getSeleccionada() {
+		return seleccionada;
+	}
+	
+	public void setSeleccionada(Boolean seleccionada) {
+		this.seleccionada = seleccionada;
+	}
 }
