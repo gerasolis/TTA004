@@ -24,6 +24,8 @@ import mx.prisma.editor.model.Paso;
 import mx.prisma.editor.model.ReglaNegocio;
 import mx.prisma.editor.model.Trayectoria;
 import mx.prisma.generadorPruebas.dao.ValorDesconocidoDAO;
+import mx.prisma.generadorPruebas.dao.ValorEntradaDAO;
+import mx.prisma.generadorPruebas.model.ValorEntrada;
 
 public class GuionPruebasBs {
 
@@ -222,23 +224,23 @@ public class GuionPruebasBs {
 		return instruccion;
 	}
 
-	public static String compararTokenSistema(String actionContext, Paso paso, String token, CasoUso casoUso) {
-		String instruccion = "";
+	public static List<String> compararTokenSistema(String actionContext, Paso paso, String token, CasoUso casoUso) {
+		List<String> instruccion = new ArrayList<String>();
 		
 		// Si es una acción (ACC·#)
 		if (token.contains(TokenBs.tokenACC)) {
 			String accion = TokenBs.agregarReferencias(actionContext, token,"_blank");
 			// Comparamos el verbo
 			if (paso.getVerbo().getNombre().equals("Ejecuta")) {
-				instruccion = "¿Se ejecutó correctamente " + accion + "?";
+				instruccion.add("¿Se ejecutó correctamente " + accion + "?");
 				System.out.println(instruccion);
 			} else if (paso.getVerbo().getNombre().equals("Reproduce")) {
-				instruccion = "¿Se reprodujo correctamente " + accion + "?";
+				instruccion.add("¿Se reprodujo correctamente " + accion + "?");
 				System.out.println(instruccion);
 			} else if (paso.getVerbo().getNombre().equals("Habilita")) {
-				instruccion = "¿Se habilitó correctamente el botón " + accion + "?";
+				instruccion.add("¿Se habilitó correctamente el botón " + accion + "?");
 			} else if (paso.getVerbo().getNombre().equals("Oculta")) {
-				instruccion = "¿Se ocultó correctamente " + accion + "?";
+				instruccion.add("¿Se ocultó correctamente " + accion + "?");
 			}
 		}
 		// Si es un atributo (ATR·#)
@@ -246,35 +248,35 @@ public class GuionPruebasBs {
 			String atributo = TokenBs.agregarReferencias(actionContext, token,"_blank");
 			// Comparamos el verbo
 			if (paso.getVerbo().getNombre().equals("Mueve")) {
-				instruccion = "¿Se movió correctamente el campo " + atributo + "?";
+				instruccion.add("¿Se movió correctamente el campo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Habilita")) {
-				instruccion = "¿Se habilitó correctamente el campo " + atributo + "?";
+				instruccion.add("¿Se habilitó correctamente el campo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Oculta")) {
-				instruccion = "¿Se ocultó correctamente el campo " + atributo + "?";
+				instruccion.add("¿Se ocultó correctamente el campo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Calcula")) {
-				instruccion = "¿Se calculó correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se calculó correctamente el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Crea")) {
-				instruccion = "¿Se creó correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se creó correctamente el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Descarga")) {
-				instruccion = "¿Se descargó correctamente?";
+				instruccion.add("¿Se descargó correctamente?");
 			} else if (paso.getVerbo().getNombre().equals("Busca")) {
-				instruccion = "¿Se buscó correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se buscó correctamente el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Registra")) {
-				instruccion = "¿Se registró correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se registró correctamente el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Modifica")) {
-				instruccion = "¿Se modificó correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se modificó correctamente el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Elimina")) {
-				instruccion = "¿Se eliminó correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se eliminó correctamente el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Restablece")) {
-				instruccion = "¿Se restableció correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se restableció correctamente el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Sustituye")) {
-				instruccion = "¿Se sustituyó correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se sustituyó correctamente el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Envía")) {
-				instruccion = "¿Se envió correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se envió correctamente el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Muestra")) {
-				instruccion = "¿Se muestra correctamente la información en el atributo " + atributo + "?";
+				instruccion.add("¿Se muestra correctamente la información en el atributo " + atributo + "?");
 			} else if (paso.getVerbo().getNombre().equals("Verifica")) {
-				instruccion = "¿Se verificó correctamente el atributo " + atributo + "?";
+				instruccion.add("¿Se verificó correctamente el atributo " + atributo + "?");
 			}
 		}
 		// Si es un entidad (ENT·#)
@@ -282,31 +284,31 @@ public class GuionPruebasBs {
 			String entidad = TokenBs.agregarReferencias(actionContext, token,"_blank");
 			// Comparamos el verbo
 			if (paso.getVerbo().getNombre().equals("Mueve")) {
-				instruccion = "¿Se movió correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se movió correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Habilita")) {
-				instruccion = "¿Se habilitó correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se habilitó correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Oculta")) {
-				instruccion = "¿Se ocultó correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se ocultó correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Crea")) {
-				instruccion = "¿Se creó correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se creó correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Busca")) {
-				instruccion = "¿Se buscó correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se buscó correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Registra")) {
-				instruccion = "¿Se registró correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se registró correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Modifica")) {
-				instruccion = "¿Se modificó correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se modificó correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Elimina")) {
-				instruccion = "¿Se eliminó correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se eliminó correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Restablece")) {
-				instruccion = "¿Se restableció correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se restableció correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Sustituye")) {
-				instruccion = "¿Se sustituyó correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se sustituyó correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Envía")) {
-				instruccion = "¿Se envió correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se envió correctamente la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Muestra")) {
-				instruccion = "¿Se muestra correctamente la información en la entidad " + entidad + "?";
+				instruccion.add("¿Se muestra correctamente la información en la entidad " + entidad + "?");
 			} else if (paso.getVerbo().getNombre().equals("Verifica")) {
-				instruccion = "¿Se verificó correctamente la entidad " + entidad + "?";
+				instruccion.add("¿Se verificó correctamente la entidad " + entidad + "?");
 			}
 		}
 		// Si es una pantalla (IU·#)
@@ -314,13 +316,13 @@ public class GuionPruebasBs {
 			String pantalla = TokenBs.agregarReferencias(actionContext, token,"_blank");
 			// Comparamos el verbo
 			if (paso.getVerbo().getNombre().equals("Habilita")) {
-				instruccion = "¿Se habilitó correctamente la pantalla " + pantalla + "?";
+				instruccion.add("¿Se habilitó correctamente la pantalla " + pantalla + "?");
 			} else if (paso.getVerbo().getNombre().equals("Oculta")) {
-				instruccion = "¿Se ocultó correctamente la pantalla " + pantalla + "?";
+				instruccion.add("¿Se ocultó correctamente la pantalla " + pantalla + "?");
 			} else if (paso.getVerbo().getNombre().equals("Accede") || paso.getVerbo().getNombre().equals("Muestra")) {
-				instruccion = "¿Se muestra correctamente la pantalla " + pantalla + "?";
+				instruccion.add("¿Se muestra correctamente la pantalla " + pantalla + "?");
 			} else if (paso.getVerbo().getNombre().equals("Envía")) {
-				instruccion = "¿Se envió correctamente la pantalla " + pantalla + "?";
+				instruccion.add("¿Se envió correctamente la pantalla " + pantalla + "?");
 			}
 		}
 		// Si es una regla de negocio (RN·#)
@@ -331,7 +333,7 @@ public class GuionPruebasBs {
 			ReglaNegocio redaccionRN = (ReglaNegocio) TokenBs.obtenerTokenObjeto(" " + token);
 			// Comparamos el verbo
 			if (paso.getVerbo().getNombre().equals("Verifica")) {
-				instruccion = "¿Se cumple la regla de negocio " + rn + ": " + redaccionRN.getRedaccion() + "?";
+				instruccion.add("¿Se cumple la regla de negocio " + rn + ": " + redaccionRN.getRedaccion() + "?");
 			}
 		}
 		// Si es un mensaje (MSG·#)
@@ -342,11 +344,11 @@ public class GuionPruebasBs {
 			Mensaje redaccionMensaje = (Mensaje) TokenBs.obtenerTokenObjeto(" " + token);
 			// Comparamos el verbo
 			if (paso.getVerbo().getNombre().equals("Envía")) {
-				instruccion = "¿Se envió correctamente el mensaje " + mensaje + ": " + redaccionMensaje.getRedaccion()
-						+ "?";
+				instruccion.add("¿Se envió correctamente el mensaje " + mensaje + ": " + redaccionMensaje.getRedaccion()
+						+ "?");
 			} else if (paso.getVerbo().getNombre().equals("Muestra")) {
-				instruccion = "¿Se muestra correctamente el mensaje " + mensaje + ": " + redaccionMensaje.getRedaccion()
-						+ "?";
+				instruccion.add("¿Se muestra correctamente el mensaje " + mensaje + ": " + redaccionMensaje.getRedaccion()
+						+ "?");
 			}
 		}
 		if (token.contains(TokenBs.tokenTray)) {
@@ -363,7 +365,7 @@ public class GuionPruebasBs {
 				// Consultamos el paso actual
 				Paso pasoA = pasosT.get(i);
 				
-				System.out.println(pasoA.getNumero()+": "+pasoA.getRedaccion());
+				System.out.println("PASO ALTERNATIvo: "+pasoA.getNumero()+": "+pasoA.getRedaccion());
 
 				// Obtenemos los tokens del paso
 				List<String> tokens = GuionPruebasBs.obtenerTokens(pasoA);
@@ -373,12 +375,12 @@ public class GuionPruebasBs {
 					// Si el actor es el USUARIO
 					if (paso.isRealizaActor()) {
 						if (!GuionPruebasBs.compararTokenUsuario(actionContext, pasoA, tokenA, entradas).equals(""))
-							instruccion = GuionPruebasBs.compararTokenUsuario(actionContext, pasoA, tokenA, entradas);
+							instruccion.add(GuionPruebasBs.compararTokenUsuario(actionContext, pasoA, tokenA, entradas));
 					}
 					// Si el actor es el SISTEMA
 					else {
 						if (!GuionPruebasBs.compararTokenSistema(actionContext, pasoA, tokenA, casoUso).equals(""))
-							instruccion = GuionPruebasBs.compararTokenSistema(actionContext, pasoA, tokenA, casoUso);
+							instruccion.addAll(GuionPruebasBs.compararTokenSistema(actionContext, pasoA, tokenA, casoUso));
 					}
 				}
 			}
@@ -389,43 +391,16 @@ public class GuionPruebasBs {
 	// Función para obtener el valor de la entrada desde el archivo
 	private static String obtenerValorEntrada(Entrada entrada) {
 		String valor = "";
-		if (new ValorDesconocidoDAO().consultarValorGuion(entrada)) {
-			System.out.println("Consulta valor");
-			// Aquí aplicamos el algoritmo para el valor aleatorio.
-
-			String ruta = new ValorDesconocidoDAO().obtenerRutaValorGuion(entrada);
-			File fichero_entrada = new File(ruta);
-			if (!fichero_entrada.exists()) {
-				System.out.println("No existe el fichero de entrada especificado");
-			} else {
-				Scanner scan1;
-				try {
-					scan1 = new Scanner(fichero_entrada);
-					ArrayList<String> datosDeEntrada = new ArrayList<String>();
-					int contador = 0;
-					while (scan1.hasNext()) {
-						String lineaExtraida = scan1.nextLine();
-						datosDeEntrada.add(lineaExtraida);
-						contador++;
-					}
-					int ran = (int) (Math.random() * contador + 0);
-					System.out.println("Dato en el txt: " + datosDeEntrada.get(ran)); // Este
-																						// es
-																						// el
-																						// dato
-																						// que
-																						// obtenemos
-																						// en
-																						// el
-																						// txt.
-					valor = org.apache.commons.lang.StringEscapeUtils.escapeCsv(datosDeEntrada.get(ran));
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		
+		ValorEntradaDAO vedao = new ValorEntradaDAO();
+		List<ValorEntrada> valores = vedao.consultarValores(entrada);
+		for(ValorEntrada valorEntrada : valores){
+			if(valorEntrada.getSeleccionada() && valorEntrada.getEntrada().getId().equals(entrada.getId())){
+				valor = valorEntrada.getValor();
 			}
 		}
 
 		return valor;
 	}
+
 }

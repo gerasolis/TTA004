@@ -27,20 +27,21 @@
 					<br />
 					<table class="tablaDescripcion">
 						<tr>
-							<td colspan="4" class="encabezadoTabla" align="center">
+							<td colspan="5" class="encabezadoTabla" align="center">
 								Proyecto: <s:property value="%{proyecto.clave + ' - ' + proyecto.nombre}" /><p></p>
 								Módulo: <s:property value="%{modulo.clave + ' - ' + modulo.nombre}" /><p></p>
 								Caso de uso: <s:property value="%{casoUso.clave + casoUso.numero + ' ' + casoUso.nombre}" />
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4" align="center">
+							<td colspan="5" align="center">
 								Proyecto <s:property value="%{proyecto.clave + ' - ' + proyecto.nombre}" />
 								- <s:property value="%{casoUso.clave + casoUso.numero + ' ' + casoUso.nombre}" />
 								con validación de datos, reglas de negocio, mensajes y botones asociados.
 							</td>
 						</tr>
 						<tr>
+							<td>#</td>
 							<td class="ui-widget inputFormulario">Pregunta</td>
 							<td >Sí</td>
 							<td >No</td>
@@ -48,6 +49,7 @@
 						</tr>
 						<s:iterator value="instrucciones" status="incr">
 							<tr>
+								<td>${incr.index+1}</td>
 								<s:set var="pregunta"><s:property value="@mx.prisma.guionPruebas.controller.GuionPruebasCtrl@esInstruccion(instrucciones[#incr.index])"/></s:set>
 								<s:if test="%{pregunta}">
 									<td colspan="4" class="ui-widget">

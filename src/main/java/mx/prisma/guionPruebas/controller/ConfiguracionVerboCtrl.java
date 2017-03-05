@@ -81,7 +81,7 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 	private Integer esCorrectoVerbo;
 	private String sinonimo;
 	private String similar;
-	private String instruccion;
+	private List<String> instruccion;
 	
     //Función para mostrar la pantalla de configuración de entradas o el guion de prueba
 	public String prepararConfiguracion() {
@@ -155,16 +155,14 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 								System.out.println("ACTOR");
 								if(!GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas).equals("")){
 									System.out.println("ACTOR");
-									instruccion = GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas);
+									instruccion.add(GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas));
 								}
 							}
 							//Si el actor es el SISTEMA
 							else{
-								System.out.println("SISTEMA");
-								instruccion = GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso);
 								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).equals("")){
 									System.out.println("SISTEMA");
-									instruccion = GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso);
+									//instruccion.addAll(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso));
 									System.out.println("INSTRUCCION"+instruccion);
 								}
 							}
@@ -396,11 +394,11 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 		this.similar = similar;
 	}
 	
-	public String getInstruccion() {
+	public List<String> getInstruccion() {
 		return instruccion;
 	}
 	
-	public void setInstruccion(String instruccion) {
+	public void setInstruccion(List<String> instruccion) {
 		this.instruccion = instruccion;
 	}
 }

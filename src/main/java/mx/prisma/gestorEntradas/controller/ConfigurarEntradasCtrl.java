@@ -63,7 +63,6 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	// Lista de registros
 	private List<Atributo> listEntradas = new ArrayList<Atributo>();
 	private List<File> vci;
-	private List<File> vcm;
 	private List<File> vi;
 	private List<String> idAtributo;
 	private List<String> filename;
@@ -184,20 +183,6 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 							"txt", "registrado" }));
 					SessionManager.set(this.getActionMessages(), "mensajesAccion");
 				}
-				//Guardamos los valores correctos (modificar) 
-				if(getVcm()==null){
-					resultado="error_1";
-					addActionMessage(getText("MSG42", new String[] { "No",
-							"ingresado", "archivo txt" }));
-					SessionManager.set(this.getActionMessages(), "mensajesAccion");
-					//SessionManager.set(this.casoUso.getId(), "casoUsoId");
-				}else{
-					ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),getUploadFileName(),3);
-					resultado="cu";
-					addActionMessage(getText("MSG41", new String[] { "Los",
-							"txt", "registrado" }));
-					SessionManager.set(this.getActionMessages(), "mensajesAccion");
-				}
 				//Guardamos los valores incorrectos
 				if(getVci()==null){
 					resultado="error_1";
@@ -274,14 +259,6 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 		return vci;
 	}
 
-	public void setVcm(List<File> vcm) {
-		this.vcm = vcm;
-	}
-	
-	public List<File> getVcm() {
-		return vcm;
-	}
-	
 	public void setVi(List<File> vi) {
 		this.vi = vi;
 	}
