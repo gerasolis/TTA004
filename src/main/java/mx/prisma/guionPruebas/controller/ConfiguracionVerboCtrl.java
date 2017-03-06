@@ -81,7 +81,7 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 	private Integer esCorrectoVerbo;
 	private String sinonimo;
 	private String similar;
-	private List<String> instruccion;
+	private List<String> instruccion = new ArrayList<String>();;
 	
     //Función para mostrar la pantalla de configuración de entradas o el guion de prueba
 	public String prepararConfiguracion() {
@@ -160,9 +160,9 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 							}
 							//Si el actor es el SISTEMA
 							else{
-								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).equals("")){
-									System.out.println("SISTEMA");
-									//instruccion.addAll(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso));
+								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).isEmpty()){
+									System.out.println("SISTEMA "+GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).get(0));
+									instruccion.addAll(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso));
 									System.out.println("INSTRUCCION"+instruccion);
 								}
 							}

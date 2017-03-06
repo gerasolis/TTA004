@@ -3,8 +3,10 @@ package mx.prisma.guionPruebas.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
@@ -18,10 +20,13 @@ import mx.prisma.bs.AccessBs;
 import mx.prisma.editor.bs.CuBs;
 import mx.prisma.editor.model.Atributo;
 import mx.prisma.editor.model.CasoUso;
+import mx.prisma.editor.model.CasoUsoReglaNegocio;
 import mx.prisma.editor.model.Entrada;
 import mx.prisma.editor.model.Modulo;
+import mx.prisma.editor.model.ReglaNegocio;
 import mx.prisma.editor.model.Trayectoria;
 import mx.prisma.generadorPruebas.bs.ConfiguracionGeneralBs;
+import mx.prisma.generadorPruebas.bs.CuPruebasBs;
 import mx.prisma.generadorPruebas.bs.ValorDesconocidoBs;
 import mx.prisma.generadorPruebas.dao.ValorEntradaDAO;
 import mx.prisma.generadorPruebas.model.ConfiguracionBaseDatos;
@@ -65,6 +70,10 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 	private List<Atributo>listaAtributo = new ArrayList<Atributo>();
 	private List<List<ValorEntrada>> listaValorEntrada = new ArrayList<List<ValorEntrada>>();
 	private List<String> valorSel;
+	private List<String> tipoValorEntrada;
+	private List<ReglaNegocio> reglasNegocio = new ArrayList<ReglaNegocio>();
+	private Set<Entrada> entradas = new HashSet<Entrada>();
+	private List<List<Entrada>> entradasRN = new ArrayList<List<Entrada>>();
 	
     //Función para mostrar la pantalla de configuración de entradas o el guion de prueba
 	public String prepararConfiguracion() {
@@ -103,9 +112,29 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 				return resultado;
 			}
 			
+			List<Entrada> entradasAsociadas = new ArrayList<Entrada>();
+			
 			//Consultamos si el caso de uso tiene entradas a configurar
 			//Si tiene entradas
-			if(casoUso.getEntradas().size()>0){
+			entradas = casoUso.getEntradas();
+			if(entradas.size()>0){
+				//Consultamos las RN del CU 
+				Set<CasoUsoReglaNegocio> CUReglasNegocio = casoUso.getReglas();
+				
+				for(CasoUsoReglaNegocio curn : CUReglasNegocio){
+					reglasNegocio.add(curn.getReglaNegocio());
+				}
+				for(ReglaNegocio rn : reglasNegocio){
+					for(Entrada entrada: entradas){
+						if(!CuPruebasBs.entradaPerteneceReglaNegocioIncidencias(entrada, rn)[0]){
+							entradasAsociadas.add(entrada);
+						}
+					}
+					entradasRN.add(entradasAsociadas);
+				}
+				
+				//verificiarEntrada(entradasRN, reglasNegocio);
+				
 				//Mostramos la pantalla para cargar los archivos de las entradas
 				for(Entrada entrada: casoUso.getEntradas()){
 					listaAtributo.add(entrada.getAtributo());
@@ -175,6 +204,20 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 				resultado = "anterior";
 			}
 			return resultado; 
+	}
+	
+	public boolean verificiarEntrada(Entrada entradaRN, ReglaNegocio reglaNegocio){
+		boolean respuesta = false;
+		//for(int j=0; j<reglasNegocio.size(); j++){
+			//for(int i=0; i<entradasRN.size(); i++){
+				if(CuPruebasBs.entradaPerteneceReglaNegocioIncidencias(entradaRN, reglaNegocio)[0]){
+					//System.out.println("La entrada asociada a la RN "+reglasNegocio.get(j).getDescripcion()+
+						//" es "+entradasRN.get(j).get(i).getAtributo().getNombre());
+					respuesta = true;
+				}
+			//}
+		//}
+		return respuesta; 
 	}
 	
 	/*
@@ -288,5 +331,37 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 	
 	public void setValorSel(List<String> valorSel) {
 		this.valorSel = valorSel;
+	}
+	
+	public void setTipoValorEntrada(List<String> tipoValorEntrada) {
+		this.tipoValorEntrada = tipoValorEntrada;
+	}
+	
+	public List<String> getTipoValorEntrada() {
+		return tipoValorEntrada;
+	}
+	
+	public List<ReglaNegocio> getReglasNegocio() {
+		return reglasNegocio;
+	}
+	
+	public void setReglasNegocio(List<ReglaNegocio> reglasNegocio) {
+		this.reglasNegocio = reglasNegocio;
+	}
+	
+	public Set<Entrada> getEntradas() {
+		return entradas;
+	}
+	
+	public void setEntradas(Set<Entrada> entradas) {
+		this.entradas = entradas;
+	}
+	
+	public List<List<Entrada>> getEntradasRN() {
+		return entradasRN;
+	}
+	
+	public void setEntradasRN(List<List<Entrada>> entradasRN) {
+		this.entradasRN = entradasRN;
 	}
 }
