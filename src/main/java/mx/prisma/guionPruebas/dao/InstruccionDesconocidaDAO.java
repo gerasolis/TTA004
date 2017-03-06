@@ -16,12 +16,16 @@ public class InstruccionDesconocidaDAO extends GenericDAO{
 		super();
 	}
 	
-	public InstruccionDesconocida consultarInstruccionDesconocida(int id) {
+	public InstruccionDesconocida consultarInstruccionDesconocida(int paso, int sinonimo) {
 		InstruccionDesconocida instruccion = null;
 
 		try {
 			session.beginTransaction();
-			instruccion = (InstruccionDesconocida) session.get(InstruccionDesconocida.class, id);
+			Query query = session
+					.createQuery("from InstruccionDesconocida where Paso_idPaso = :idPaso AND Sinonimo_idSinonimo = :idSinonimo");
+			query.setParameter("idPaso", paso);
+			query.setParameter("idSinonimo", sinonimo);
+			instruccion = (InstruccionDesconocida) query.list().get(0);
 			session.getTransaction().commit();
 		} catch (HibernateException he) {
 			he.printStackTrace();

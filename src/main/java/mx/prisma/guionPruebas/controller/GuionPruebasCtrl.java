@@ -32,6 +32,8 @@ import mx.prisma.generadorPruebas.model.ConfiguracionBaseDatos;
 import mx.prisma.generadorPruebas.model.ConfiguracionHttp;
 import mx.prisma.generadorPruebas.model.ValorEntrada;
 import mx.prisma.guionPruebas.bs.GuionPruebasBs;
+import mx.prisma.guionPruebas.bs.VerboSinonimoBs;
+import mx.prisma.guionPruebas.dao.InstruccionDesconocidaDAO;
 import mx.prisma.util.ActionSupportPRISMA;
 import mx.prisma.util.ErrorManager;
 import mx.prisma.util.SessionManager;
@@ -126,8 +128,16 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 
 					// Comparación de los tokens
 					for (String token : tokens) {
+						
+						//Si es una instrucción que ya se registró porque era desconocida
+						
+						if(paso.getOtroVerbo()!=null){
+							int idSinonimo = VerboSinonimoBs.sinonimos(paso.getOtroVerbo()).getIdSinonimo();
+							InstruccionDesconocidaDAO iddao = new InstruccionDesconocidaDAO();
+							instrucciones.add(iddao.consultarInstruccionDesconocida(paso.getId(), idSinonimo).getInstruccion());
+						}
 						// Si el actor es el USUARIO
-						if (paso.isRealizaActor()) {
+						else if (paso.isRealizaActor()) {
 							String comparacion = GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas);
 							if (!comparacion.equals(""))
 								instrucciones.add(comparacion);
