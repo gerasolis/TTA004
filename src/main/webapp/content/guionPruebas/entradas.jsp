@@ -21,22 +21,19 @@
 	<h1>Gestión de entradas para el guion de prueba </h1>
 	
 	<p class="instrucciones">Las siguientes entradas se utilizarán para generar el guion de prueba del caso de uso. </p>
-	<p class="instrucciones">Por favor, ingrese un archivo .txt con valores válidos para cada entrada.</p>
+	<p class="instrucciones">Por favor, seleccione el valor que desea utilizar para cada entrada.</p>
 	<s:form autocomplete="off" id="frmActor" theme="simple"
 		action="%{#pageContext.request.contextPath}/configuracion-entradas!anadirValoresEntradas" enctype="multipart/form-data" method="post">
 		<s:hidden name="_method" value="put" />
 		<div class="formulario">
 			<div class="tituloFormulario">Configuración de las Entradas</div>
 			<div class="seccion">
-				<s:iterator value="ListaAtributo" var="t">
+				<s:iterator value="ListaAtributo" var="t" status="indice">
 					<s:property value="'Entrada '+ #t.nombre"/>
-					<p class="instrucciones">Ingrese el archivo de valores para esta entrada.</p>
 					<p class="instrucciones">
-					<!-- <input type="file" id="pic" name="pic" accept="file_extension"/>-->
-					 <s:file name="upload" label="File"/>
-					 <!--<s:url var="idAtributo" value="%{#t.id}"></s:url>-->
-					 <!-- <input type="text" name="entrada" id="entrada" value="${idAtributo}"/>-->
-					 <s:hidden name="idAtributo" value="%{#t.id}" />
+					<s:select list="listaValorEntrada[#indice.index]" listValue="valor" cssClass="inputFormulario" name="valorSel" id="valor" 
+       						cssErrorClass="input-error" headerKey="-1" headerValue="Seleccione el valor para esta entrada"
+       						listKey="valor"></s:select>
 					</p>
 				</s:iterator>
 			</div>

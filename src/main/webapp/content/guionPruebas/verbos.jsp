@@ -31,7 +31,7 @@
 			<div class="seccion">
 				<s:iterator value="otros" var="t">
 					<p><s:property value="%{sinonimo + ' es sinónimo de ' + similar}"/></p>
-					<p class="instrucciones"><s:property value="%{'Instrucción de ' +similar+ ': ' + instruccion}"/></p>
+					<p class="instrucciones">Instrucción de ${similar} es: ${instruccion[0]}</p>
 					<p class="instrucciones">
 					<!-- <input type="file" id="pic" name="pic" accept="file_extension"/>-->
 					 

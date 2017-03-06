@@ -81,10 +81,9 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 	private Integer esCorrectoVerbo;
 	private String sinonimo;
 	private String similar;
-	private String instruccion;
+	private List<String> instruccion = new ArrayList<String>();;
 	
     //Función para mostrar la pantalla de configuración de entradas o el guion de prueba
-	@SuppressWarnings("null")
 	public String prepararConfiguracion() {
 		SessionManager.delete("mensajesAccion");
         Map<String, Object> session = null;
@@ -154,18 +153,16 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 							//Si el actor es el USUARIO
 							if(paso.isRealizaActor()){
 								System.out.println("ACTOR");
-								if(!GuionPruebasBs.compararTokenUsuario(paso, token, entradas).equals("")){
+								if(!GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas).equals("")){
 									System.out.println("ACTOR");
-									instruccion = GuionPruebasBs.compararTokenUsuario(paso, token, entradas);
+									instruccion.add(GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas));
 								}
 							}
 							//Si el actor es el SISTEMA
 							else{
-								System.out.println("SISTEMA");
-								instruccion = GuionPruebasBs.compararTokenSistema(paso, token);
-								if(!GuionPruebasBs.compararTokenSistema(paso, token).equals("")){
-									System.out.println("SISTEMA");
-									instruccion = GuionPruebasBs.compararTokenSistema(paso, token);
+								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).isEmpty()){
+									System.out.println("SISTEMA "+GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).get(0));
+									instruccion.addAll(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso));
 									System.out.println("INSTRUCCION"+instruccion);
 								}
 							}
@@ -397,11 +394,11 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 		this.similar = similar;
 	}
 	
-	public String getInstruccion() {
+	public List<String> getInstruccion() {
 		return instruccion;
 	}
 	
-	public void setInstruccion(String instruccion) {
+	public void setInstruccion(List<String> instruccion) {
 		this.instruccion = instruccion;
 	}
 }

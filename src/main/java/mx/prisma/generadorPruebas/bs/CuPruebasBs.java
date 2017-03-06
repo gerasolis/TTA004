@@ -286,7 +286,7 @@ public class CuPruebasBs {
 		return false;
 	}
 	
-	private static boolean[] entradaPerteneceReglaNegocioIncidencias(Entrada entrada,
+	public static boolean[] entradaPerteneceReglaNegocioIncidencias(Entrada entrada,
 			ReglaNegocio reglaNegocio) { //ESTE MÉTODO SE CREÓ EL VIE 21/OCT/16 A LAS 17:03 PARA ENCONTRAR QUE ENTRADAS ESTÁN RELACIONADAS A QUÉ RN. PARA GESTIÓN DE INCIDENCIAS.
 		Atributo atributo = entrada.getAtributo();
 		//List<bool> arreglo = new ArrayList<bool>();

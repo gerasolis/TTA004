@@ -43,7 +43,6 @@ div.upload input {
 						<th style="width: 20%;"><s:text name="colValorAleatorioIncorrecto"/></th>
 						<th style="width: 20%;"><s:text name="colValorNoGenerable"/></th>
 						<th style="width: 20%;"><s:text name="colValorCorrectoInsertar"/></th>
-						<th style="width: 20%;"><s:text name="colValorCorrectoModificar"/></th>
 						<th style="width: 20%;"><s:text name="colValorIncorrecto"/></th>
 					</tr>
 				</thead>
@@ -56,7 +55,6 @@ div.upload input {
 						<td></td>
 						<td></td>
 						<td><div class="upload"><s:file name="vci" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
-						<td><div class="upload"><s:file name="vcm" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
 						<td><div class="upload"><s:file name="vi" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
 					</tr>
 				</s:iterator>

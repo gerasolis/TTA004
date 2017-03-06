@@ -17,11 +17,13 @@ import mx.prisma.admin.model.Colaborador;
 import mx.prisma.admin.model.Proyecto;
 import mx.prisma.bs.AccessBs;
 import mx.prisma.editor.bs.CuBs;
+import mx.prisma.editor.bs.TokenBs;
 import mx.prisma.editor.bs.TrayectoriaBs;
 import mx.prisma.editor.model.CasoUso;
 import mx.prisma.editor.model.Entrada;
 import mx.prisma.editor.model.Modulo;
 import mx.prisma.editor.model.Paso;
+import mx.prisma.editor.model.ReglaNegocio;
 import mx.prisma.editor.model.Trayectoria;
 import mx.prisma.generadorPruebas.bs.AnalizadorPasosBs;
 import mx.prisma.generadorPruebas.bs.ConfiguracionGeneralBs;
@@ -58,7 +60,6 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 	List<String> instrucciones = new ArrayList<String>();
 	
 	//Función para mostrar la pantalla del guión de prueba
-	@SuppressWarnings({ "unchecked", "null" })
 	public String mostrarGuion() throws Exception {
 		System.out.println("Entramos al guion");
 		Map<String, Object> session = null;
@@ -102,12 +103,17 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 		List<Paso> pasos = TrayectoriaBs.obtenerPasos_(trayectoriaPrincipal.getId());
 		
 		// Lista de las instrucciones
-				List<String> instrucciones = null;
-
+				
 				// Obtenemos el total de pasos de la trayectora principal
 				int tpasos = pasos.size();
 				// Consultamos las entradas del caso de uso
 				Set<Entrada> entradas = casoUso.getEntradas();
+				
+				//Agregamos la instrucción la url del CU (Ingrese a la siguiente url ...)
+				//Pantalla pantalla = CasoUsoPantallaDAO.
+				//instrucciones.add("Ingrese a la siguiente url: ");
+				
+				List<String> rnRevisadas = new ArrayList<String>();
 
 				for (int i = 0; i < tpasos; i++) {
 					// Consultamos el paso actual
@@ -122,13 +128,30 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 					for (String token : tokens) {
 						// Si el actor es el USUARIO
 						if (paso.isRealizaActor()) {
-							if (!GuionPruebasBs.compararTokenUsuario(paso, token, entradas).equals(""))
-								instrucciones.add(GuionPruebasBs.compararTokenUsuario(paso, token, entradas));
+							String comparacion = GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas);
+							if (!comparacion.equals(""))
+								instrucciones.add(comparacion);
 						}
 						// Si el actor es el SISTEMA
 						else {
-							if (!GuionPruebasBs.compararTokenSistema(paso, token).equals(""))
-								instrucciones.add(GuionPruebasBs.compararTokenSistema(paso, token));
+							List<String> comparacion = GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso);
+							/*//Si el token es una RN y no se ha revisado, se agrega a la lista de RN revisadas
+							if(token.contains(TokenBs.tokenRN) && !rnRevisadas.contains(token)){
+								rnRevisadas.add(token);
+							}
+							else if(rnRevisadas.contains(token)){
+								break;
+							}
+							//Si el resultado de la comparación del token es un paso 
+							if(comparacion.contains(TokenBs.tokenP)){
+								Paso pasoC = (Paso) TokenBs.obtenerTokenObjeto(" "+comparacion);
+								i = pasoC.getNumero()-1;
+							}
+							//Si el resultado de la comparación es una intrucción 
+							else */if (!comparacion.isEmpty()){
+								for(String instr : comparacion)
+									instrucciones.add(instr);
+							}
 						}
 					}
 				}
