@@ -75,6 +75,8 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 	private List<File> file;
 	private List<String> filename;
 	private List<String> idAtributo;
+	private Integer idPaso;
+	private Integer idSinonimo;
 	//Lista de verbos Otros
 	private List<Verbo> otros = new ArrayList<Verbo>();
 	private List<Verbo> sinonimos = new ArrayList<Verbo>();
@@ -147,6 +149,9 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 						similar = "Enviar";
 						//Obtenemos los tokens del paso
 						List<String> tokens = GuionPruebasBs.obtenerTokens(paso);
+						
+						idPaso = paso.getId();
+						idSinonimo = VerboSinonimoBs.sinonimos(sinonimo).getIdSinonimo();
 						
 						//Comparación de los tokens
 						for(String token : tokens){
@@ -241,6 +246,7 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 						//SessionManager.set(this.casoUso.getId(), "casoUsoId");
 					//Guardamos las entradas en la base de datos
 					}else{
+						VerboSinonimoBs.agregarInstruccion(getUpload(), getUploadFileName(), getIdPaso(), getIdSinonimo());
 						//ValorEntradaBs.crearArchivo(getUpload(),getIdAtributo(),getUploadFileName());
 						resultado="pantallaGuionPruebas";
 						addActionMessage(getText("MSG41", new String[] { "Los",
@@ -400,5 +406,21 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 	
 	public void setInstruccion(List<String> instruccion) {
 		this.instruccion = instruccion;
+	}
+	
+	public Integer getIdPaso() {
+		return idPaso;
+	}
+	
+	public void setIdPaso(Integer idPaso) {
+		this.idPaso = idPaso;
+	}
+	
+	public Integer getIdSinonimo() {
+		return idSinonimo;
+	}
+	
+	public void setIdSinonimo(Integer idSinonimo) {
+		this.idSinonimo = idSinonimo;
 	}
 }
