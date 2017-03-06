@@ -1,5 +1,8 @@
 package mx.prisma.generadorPruebas.bs;
 
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,22 +31,23 @@ public class EjecutarPruebaBs {
 
 	public static void ejecutarPruebaAutomatica(String rutaReporte,CasoUso casoUso,String rutaFolder) {
 		try {
-			
+			int p_=0;
             String comando = "./jmeter -n -t "+rutaFolder+casoUso.getClave() + casoUso.getNumero()+".jmx -l Test.jtl -e -o "+rutaReporte;
             String[] cmd = { "/bin/sh", "-c", "cd /Users/gerasolis/Downloads/apache-jmeter-3.0/bin; "+comando};
             Process p = Runtime.getRuntime().exec(cmd);
-       
+    		System.out.println("*******************************");
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));  
             String line = null;  
             while ((line = in.readLine()) != null) {  
                 System.out.println(line);  
             } 
+            System.out.println("*******************************");
             Prueba px = new Prueba();
     		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     		Date date = new Date();
     		px.setFecha(dateFormat.format(date));
     		px.setCasoUsoid(casoUso);
-    		
+    		px.setEstado(0);
     		new PruebaDAO().registrarPrueba(px);
     		new PruebaDAO().modificarReporte(px);
     		System.out.println(rutaReporte);
@@ -70,12 +74,17 @@ public class EjecutarPruebaBs {
 	                		//UNA TABLA QUE ESTÉ RELACIONADA CON LA TABLA DE CASO DE USO.
 	                		
 	                		ErroresPrueba e = new ErroresPrueba();
-	                		e.setTipoError(as.getString(0));
-	                		e.setNumError(as.getInt(1));
+							byte ptext[] = as.getString(0).getBytes(ISO_8859_1); 
+							String error = new String(ptext, UTF_8); 
+	                		e.setTipoError(error);
+	                		//e.setTipoError(as.getString(0));
+							e.setNumError(as.getInt(1));
 	                		e.setPorcentaje(as.getDouble(2));
 	                		e.setPorcentajeTodo(as.getDouble(3));
 	                		e.setPruebaid(px);
-	              
+	                		if (as.getInt(1) != 0){
+	                			p_ = 1;
+	                		}
                 		    new ErroresPruebaDAO().registrarError(e);
 
                 		    //Una vez registrado en la bd, borramos los archivos temporales.
@@ -87,8 +96,14 @@ public class EjecutarPruebaBs {
                 		x.setTipoError("No hay errores.");
                 		x.setPruebaid(px);
                 		new ErroresPruebaDAO().registrarError(x);
+                		String comando2 = "rm /Users/gerasolis/Downloads/apache-jmeter-3.0/bin/Test.jtl";
+                        Process p2 = Runtime.getRuntime().exec(comando2);
                 	}
                 }
+    		}
+    		if(p_==1){
+    			px.setEstado(1);
+    			new PruebaDAO().modificarPrueba(px);
     		}
 		} catch (Exception ioe) {
 			System.out.println (ioe);

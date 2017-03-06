@@ -6,7 +6,7 @@
 		contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" />
 	<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Reporte de errores</title>
+<title>Reporte de pruebas</title>
 <![CDATA[
 	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/generadorPruebas/configuracion/js/casosUsoPrevios.js"></script>	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -29,10 +29,16 @@
 			<div class="tituloFormulario">Errores</div>
 			<s:iterator value="ListPruebas" var="p">
 			<div class="seccion">
-				<p class="instrucciones"><s:property value="'Prueba No. '+#p.id+' realizada el: '+#p.fecha"/></p>
+				<s:if test="%{#p.estado == 1}">
+					<p class="instrucciones"><img src="/prisma/resources/images/icons/wrong.png" title="checked" class="button" id=""/> <s:property value="'  Prueba No. '+#p.id+' realizada el: '+#p.fecha"/></p>
+				</s:if>
+				<s:elseif test="%{#p.estado == 0}">
+					<p class="instrucciones"><img src="/prisma/resources/images/icons/checked.png" title="checked" class="button" id=""/> <s:property value="'  Prueba No. '+#p.id+' realizada el: '+#p.fecha"/></p>
+				</s:elseif>
 				<table class="table tablaGestion" cellspacing="0" width="100%"> 
 			     <thead>
 					<tr>
+						<th></th>
 						<th><s:text name="CU"/></th>
 						<th><s:text name="Pantalla"/></th>
 						<th><s:text name="Trayectoria"/></th>
@@ -51,6 +57,12 @@
 					<s:if test="%{#p.id == #e.pruebaid.id}">
 					  <tbody>
 						<tr>
+							<s:if test="%{#e.numError == 0}">
+								<td><img src="/prisma/resources/images/icons/checked.png" title="checked" class="button" id=""/></td>
+							</s:if>
+							<s:else>
+								<td><img src="/prisma/resources/images/icons/wrong.png" title="checked" class="button" id=""/></td>
+							</s:else>
 							<td><s:property value="#e.pruebaid.CasoUsoid.clave + ' '+ #e.pruebaid.CasoUsoid.numero + ' '+#e.pruebaid.CasoUsoid.nombre"/></td>
 							<s:iterator value="ListPantallas" var="pan">
 								<s:if test="%{#pan.numero == #e.pruebaid.CasoUsoid.numero}">

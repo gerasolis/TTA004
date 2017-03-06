@@ -318,6 +318,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 		String cadenaUsar="";
 		try {
 			casoUso = CuBs.consultarCasoUso(idCU);
+			proyecto = SessionManager.consultarProyectoActivo();
 			if (casoUso == null) {
 				resultado = "cu";
 				return resultado;

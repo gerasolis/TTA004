@@ -24,6 +24,7 @@ public class Prueba implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String fecha;
+	private Integer estado;
 	private CasoUso CasoUsoid;
 	
 	public Prueba(){
@@ -62,6 +63,15 @@ public class Prueba implements java.io.Serializable{
 
 	public void setCasoUsoid(CasoUso CasoUsoid) {
 		this.CasoUsoid = CasoUsoid;
+	}
+	
+	@Column(name = "estado")
+	public Integer getEstado() {
+		return this.estado;
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
 	}
 
 }

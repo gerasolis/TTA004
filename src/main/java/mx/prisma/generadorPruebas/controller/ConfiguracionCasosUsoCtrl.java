@@ -52,6 +52,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	private Integer idCU;
 	private CasoUso casoUso;
 	private Modulo modulo;
+	private Proyecto proyecto;
 	private List<ErroresPrueba> listErrores;
 	private List<CasoUso> listCasosUso;
 	private List<Prueba> listPruebas;
@@ -68,7 +69,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 		listEntradas = new ArrayList<Entrada>();
 		try {
 			modulo = SessionManager.consultarModuloActivo();
-			
+			proyecto = SessionManager.consultarProyectoActivo();
 			if (modulo == null) {
 				System.out.println("error");
 				return resultado;
@@ -351,5 +352,12 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	}
 	public void setListPruebas(List<Prueba> listPruebas){
 		this.listPruebas = listPruebas;
+	}
+	public Proyecto getProyecto() {
+		return proyecto;
+	}
+
+	public void setProyecto(Proyecto proyecto) {
+		this.proyecto = proyecto;
 	}
 }

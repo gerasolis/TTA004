@@ -37,6 +37,20 @@ public class PruebaDAO extends GenericDAO{
 		}
 	}
 	
+	public void modificarPrueba(Prueba prueba){
+		try{
+			session.beginTransaction();
+			Query query = session.createQuery("update from Prueba set estado = 1 where id = :idPrueba");
+			query.setParameter("idPrueba", prueba.getId());
+			query.executeUpdate();
+			session.getTransaction().commit();
+		}catch(HibernateException he){
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
+	}
+	
 	public List<Prueba> consultarPruebasxCasoUso(CasoUso casoUso){
 		List<Prueba> results = null;
 		try{

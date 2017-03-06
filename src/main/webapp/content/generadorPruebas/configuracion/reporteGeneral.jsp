@@ -21,7 +21,7 @@
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 	<br />
-	<h1>Reporte general de errores </h1>
+	<h1>Reporte general de pruebas </h1>
 	<s:iterator value="Modulo" var="m">
 	<p class="instrucciones">A continuación se presentan todos los casos de uso del módulo <b><s:property value="#m.clave  + ' - ' +#m.nombre"/></b>, 
 	así como las pruebas ejecutadas en cada caso de uso y los errores detectados.</p>
@@ -42,7 +42,12 @@
 			   			<s:if test="%{#cu.id == #p.casoUsoid.id}">
 						    <div class="panel-heading" role="tab" id="collapseOne">
 						        <s:a role="button" data-toggle="collapse" href="#p%{#p.id}" aria-expanded="true" aria-controls="collapseOne">
-						           <p class="instrucciones"><s:property value="'Prueba No. '+#p.id+' realizada el: '+#p.fecha"/></p>
+						           <s:if test="%{#p.estado == 1}">
+						           	<p class="instrucciones"><img src="/prisma/resources/images/icons/wrong.png" title="checked" class="button" id=""/> <s:property value="'  Prueba No. '+#p.id+' realizada el: '+#p.fecha"/></p>
+						           </s:if>
+						           <s:elseif test="%{#p.estado == 0}">
+						           	<p class="instrucciones"><img src="/prisma/resources/images/icons/checked.png" title="checked" class="button" id=""/> <s:property value="'  Prueba No. '+#p.id+' realizada el: '+#p.fecha"/></p>
+						           </s:elseif>
 						        </s:a>
 			   				</div>
 							 <s:div id="p%{#p.id}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
@@ -50,12 +55,12 @@
 								      <table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
 										 <thead>
 												<tr>
+													<th></th>
 													<th><s:text name="CU"/></th>
 													<th><s:text name="Pantalla"/></th>
 													<th><s:text name="Trayectoria"/></th>
 													<th><s:text name="Paso"/></th>
 													<th><s:text name="Entrada"/></th>
-													<th><s:text name="Dato"/></th>
 													<th><s:text name="Mensaje"/></th>
 													<th><s:text name="Tipo de error"/></th>
 													<th style="width: 20%;"><s:text name="Núm de error"/></th>
@@ -67,6 +72,12 @@
 							   					<s:if test="%{#p.id == #e.pruebaid.id}">
 													<tbody>
 															<tr>
+																<s:if test="%{#e.numError == 0}">
+																	<td><img src="/prisma/resources/images/icons/checked.png" title="checked" class="button" id=""/></td>
+																</s:if>
+																<s:else>
+																	<td><img src="/prisma/resources/images/icons/wrong.png" title="checked" class="button" id=""/></td>
+																</s:else>
 																<td><s:property value="#e.pruebaid.CasoUsoid.clave + ' '+ #e.pruebaid.CasoUsoid.numero + ' '+#e.pruebaid.CasoUsoid.nombre"/></td>
 																<s:iterator value="ListPantallas" var="pan">
 																	<s:if test="%{#pan.numero == #e.pruebaid.CasoUsoid.numero}">
@@ -89,7 +100,6 @@
 																		</s:iterator>
 																	</ul>
 																</td>
-																<td><s:property value="#e.pruebaid.casouso.id"/></td>
 																<td><s:property value="#e.mensajeid.clave + ' ' + #e.mensajeid.numero"/></td>
 																<td><s:property value="#e.tipoError"/></td>
 																<td><p align="center"><s:property value="#e.numError"/></p></td>

@@ -25,7 +25,8 @@ public class ValorDesconocidoBs {
 		}
 		for(File entrada : entradas){
 			System.out.println("RUTA: "+entrada.getAbsolutePath());
-			File fichero_entrada = new File("/Users/enyamartinez/Desktop/Mi PRISMA/AplicacionTTB064-master/src/main/webapp/resources/archivos/desconocidos/"+nombreArchivos.get(i));
+			//File fichero_entrada = new File("/Users/enyamartinez/Desktop/Mi PRISMA/AplicacionTTB064-master/src/main/webapp/resources/archivos/desconocidos/"+nombreArchivos.get(i));
+			File fichero_entrada = new File("/Users/gerasolis/Downloads/AplicacionTTB06408OCT2016/src/main/webapp/resources/archivos/"+nombreArchivos.get(i));
 			InputStream in = new FileInputStream(entrada);
 			FileOutputStream out = new FileOutputStream(fichero_entrada);
 			
