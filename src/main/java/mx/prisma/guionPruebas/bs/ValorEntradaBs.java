@@ -40,12 +40,15 @@ public class ValorEntradaBs {
 			//Mientras exista una línea nueva en el archivo 
 			while((cadena = b.readLine())!=null){
 				//Comparamos el tipo de entrada que es
-				//Valor NO GENERABLE
+				
 				//public ValorEntrada(Entrada entrada, ReglaNegocio reglaNegocio, String valor, Boolean valido,
 				//	Boolean correcto, Boolean registrado, Boolean aleatorio, Boolean insercion, Boolean modificacion)
 				//Si no es válildo por regla debe tener asociada una RN
+				//Valor NO GENERABLE
 				if(tipoEntrada == 1){
-					
+					ValorEntrada v = new ValorEntrada(e, cadena, true, true, true, false, false, false); //AQUÌ K P2
+					ValorEntradaDAO vedao = new ValorEntradaDAO();
+					vedao.registrarValorEntrada(v);
 				}
 				//Valor CORRECTO(INSERCIÓN) true en insercion_modificacion
 				else if(tipoEntrada == 2){

@@ -8,7 +8,7 @@
 <title>Casos de uso</title>
 <style>
 div.upload {
-    background: no-repeat url('/TTA004/resources/images/icons/subir.png');
+    background: no-repeat url('/prisma/resources/images/icons/subir.png');
     overflow: hidden;
 }
 
@@ -53,14 +53,24 @@ div.upload input {
 						<td><s:property value="{#entrada.nombre}"/></td>
 						<td></td>
 						<td></td>
-						<td></td>
+						<s:set var = "breakLoop" value = "false" />
+						<s:iterator value="listaIncidencias" var="incidencia">
+							<s:if test="%{#entrada.id == #incidencia.atributo.id}">
+								<td>
+								<div class="upload"><s:file name="vinc" label="File"/><s:hidden name="idAtributo" value="%{#incidencia.atributo.id}" /></div></td>
+								<s:set var = "breakLoop" value = "true"/>
+							</s:if>
+							
+						</s:iterator>
+						<s:if test="%{#breakLoop == false}">
+								<td></td>
+						</s:if>
 						<td><div class="upload"><s:file name="vci" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
 						<td><div class="upload"><s:file name="vi" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
 					</tr>
 				</s:iterator>
 				</tbody>
 			</table>
-		
 			<br />
 			<br />
 			<div align="center">

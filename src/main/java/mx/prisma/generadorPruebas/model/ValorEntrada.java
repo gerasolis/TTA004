@@ -72,7 +72,7 @@ public class ValorEntrada implements java.io.Serializable {
 		this.valor = valor;
 		this.valido = valido;
 		this.correcto = correcto;
-		this.registrado = registrado;
+		this.registrado = registrado;//ESTE
 		this.aleatorio = aleatorio;
 		this.insercion = insercion;
 		this.modificacion = modificacion;

@@ -387,10 +387,10 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 									System.out.println("*********************************");
 									//Comparamos la cadena con las cadenas de los mensajes de error.
 									for (ErroresPrueba liste : listErrores){
-										byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
-										String value = new String(ptext, UTF_8); 
+										//byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
+										//String value = new String(ptext, UTF_8); 
 										try{
-											String[] prueba = value.split("/");
+											String[] prueba = liste.getTipoError().split("/");
 											System.out.println("ERROR: "+prueba[1]);
 											if(cadenaUsar.equals(prueba[1])){
 												System.out.println("ENTRA");
@@ -400,7 +400,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 											}
 
 										}catch(Exception e){
-											if(cadenaUsar.equals(value)){
+											if(cadenaUsar.equals(liste.getTipoError())){
 												System.out.println("ENTRA");
 												liste.setMensajeid(m);
 												liste.setPasoid(p);
@@ -413,10 +413,10 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 								}else{
 									cadena = m.getRedaccion();
 									for (ErroresPrueba liste : listErrores){
-										byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
-										String value = new String(ptext, UTF_8); 
+										//byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
+										//String value = new String(ptext, UTF_8); 
 										try{
-											String[] prueba = value.split("/");
+											String[] prueba = liste.getTipoError().split("/");
 											System.out.println("ERROR: "+prueba[1]);
 											if(cadena.equals(prueba[1])){
 												System.out.println("ENTRA");
@@ -426,7 +426,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 											}
 
 										}catch(Exception e){
-											if(cadena.equals(value)){
+											if(cadena.equals(liste.getTipoError())){
 												System.out.println("ENTRA");
 												liste.setMensajeid(m);
 												liste.setPasoid(p);
