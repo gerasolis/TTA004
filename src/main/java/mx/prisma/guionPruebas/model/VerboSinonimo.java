@@ -49,7 +49,7 @@ public class VerboSinonimo implements java.io.Serializable {
 		Sinonimo_idSinonimo = sinonimo_idSinonimo;
 	}
 	
-	@JoinColumn(name = "Sinonimo_idSinonimo", referencedColumnName = "idSinonimo")
+	@JoinColumn(name = "Verbo_idVerbo", referencedColumnName = "idVerbo")
 	public Integer getVerbo_idVerbo() {
 		return Verbo_idVerbo;
 	}

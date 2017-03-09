@@ -37,7 +37,8 @@
 					 
 					 <!--<s:url var="idAtributo" value="%{#t.id}"></s:url>-->
 					 <!-- <input type="text" name="entrada" id="entrada" value="${idAtributo}"/>-->
-					 <s:hidden name="idAtributo" value="%{#t.id}" />
+					 <s:hidden name="idPaso" value="%{idPaso}" />
+					 <s:hidden name="idSinonimo" value="%{idSinonimo}" />
 					</p>
 					<div class="pregunta">
 						<div class="genericFont seccion">
