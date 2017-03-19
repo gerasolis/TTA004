@@ -8,10 +8,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import mx.prisma.admin.model.Colaborador;
 import mx.prisma.editor.dao.EntradaDAO;
+import mx.prisma.editor.model.Atributo;
 import mx.prisma.editor.model.CasoUso;
 import mx.prisma.editor.model.Entrada;
 import mx.prisma.editor.model.ReglaNegocio;
@@ -19,57 +22,34 @@ import mx.prisma.editor.model.Trayectoria;
 import mx.prisma.generadorPruebas.dao.ValorDesconocidoDAO;
 import mx.prisma.generadorPruebas.dao.ValorEntradaDAO;
 import mx.prisma.generadorPruebas.model.ValorEntrada;
+import mx.prisma.util.JsonUtil;
+import net.sf.json.JSONObject;
+
 
 
 public class ValorEntradaBs {
 	
-	public static void guardarValores(List<File> entradas, List<String> idAtributos, List<String> nombreArchivos, int tipoEntrada) throws IOException{
-		System.out.println("TOTAL ENTRADAS: "+entradas.size());
-		List<Entrada> entradasBD = new ArrayList<Entrada>();
-		//Lee la lista de archivos
-		for(int i=0; i<entradas.size(); i++){
-			//Obtenemos la entrada a la que se le va a asignar el valor 
-			EntradaDAO edao = new EntradaDAO();
-			Entrada e = edao.obtenerEntrada(idAtributos.get(i));
-			//Obtenemos el archivo en la posición del contador
-			File entrada = entradas.get(i);
-			//Leemos el archivo 
-			String cadena;
-			FileReader f = new FileReader(entrada);
-			BufferedReader b = new BufferedReader(f);
-			//Mientras exista una línea nueva en el archivo 
-			while((cadena = b.readLine())!=null){
-				//Comparamos el tipo de entrada que es
-				
-				//public ValorEntrada(Entrada entrada, ReglaNegocio reglaNegocio, String valor, Boolean valido,
-				//	Boolean correcto, Boolean registrado, Boolean aleatorio, Boolean insercion, Boolean modificacion)
-				//Si no es válildo por regla debe tener asociada una RN
-				//Valor NO GENERABLE
-				if(tipoEntrada == 1){
-					ValorEntrada v = new ValorEntrada(e, cadena, true, true, true, false, false, false); //AQUÌ K P2
-					ValorEntradaDAO vedao = new ValorEntradaDAO();
-					vedao.registrarValorEntrada(v);
-				}
-				//Valor CORRECTO(INSERCIÓN) true en insercion_modificacion
-				else if(tipoEntrada == 2){
-					ValorEntrada v = new ValorEntrada(e, cadena, true, true, true, false, true, false);
-					ValorEntradaDAO vedao = new ValorEntradaDAO();
-					vedao.registrarValorEntrada(v);
-				}
-				//Valor CORRECTO(MODIFICACIÓN) false en insercion_modificacion
-				else if(tipoEntrada == 3){
-					ValorEntrada v = new ValorEntrada(e, cadena, true, true, true, false, false, true);
-					ValorEntradaDAO vedao = new ValorEntradaDAO();
-					vedao.registrarValorEntrada(v);
-				}
-				//Valor INCORRECTO
-				else if(tipoEntrada == 4){
-					ValorEntrada v = new ValorEntrada(e, cadena, true, false, true, false, false, false);
-					ValorEntradaDAO vedao = new ValorEntradaDAO();
-					vedao.registrarValorEntrada(v);
-				}
-			}
-		}	
+	public static void guardarValores(List<File> entradas, List<String> idAtributos, int tipoEntrada,String jsonEntradasTabla) throws IOException{
+		int bandera=0,o=0;
+		int z=0;
+		int t=0;
+		int h=0;
+		int u=0;
+		int r=0;
+		
+		Set<ValorEntrada> entradasSeleccionadas = new HashSet<ValorEntrada>(0);
+		entradasSeleccionadas = JsonUtil.mapJSONToSet(
+				jsonEntradasTabla, ValorEntrada.class);
+		
+		for(ValorEntrada x : entradasSeleccionadas){
+			EntradaDAO edaox = new EntradaDAO();
+			Entrada ex = edaox.obtenerEntrada(x.getId());
+			x.setEntrada(ex);
+			x.setValido(true);
+			x.setId(null);
+			ValorEntradaDAO vedao = new ValorEntradaDAO();
+			vedao.registrarValorEntrada(x);
+		}
 	}
 	
 	public static void crearArchivo(List<File> entradas, List<String> idAtributos, List<String> nombreArchivos) throws IOException{

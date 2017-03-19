@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import mx.prisma.editor.model.Entrada;
 import mx.prisma.editor.model.ReglaNegocio;
 
@@ -36,6 +38,11 @@ public class ValorEntrada implements java.io.Serializable {
 	private Boolean insercion;
 	private Boolean modificacion;
 	private Boolean seleccionada;
+	private Boolean nogenerable_prueba;
+	private Boolean nogenerable_guion;
+	private Boolean correcto_prueba;
+	private Boolean correcto_guion;
+	
 
 	public ValorEntrada() {
 	}
@@ -65,6 +72,21 @@ public class ValorEntrada implements java.io.Serializable {
 		this.insercion = insercion;
 		this.modificacion = modificacion;
 	}
+
+	public ValorEntrada(Entrada entrada, String valor, Boolean valido,
+			Boolean correcto, Boolean registrado, Boolean aleatorio, Boolean insercion, Boolean modificacion, Boolean seleccionada,Boolean correcto_prueba,Boolean correcto_guion){
+		this.entrada = entrada;
+		this.valor = valor;
+		this.valido = valido;
+		this.correcto = correcto;
+		this.registrado = registrado;
+		this.aleatorio = aleatorio;
+		this.insercion = insercion;
+		this.modificacion = modificacion;
+		this.seleccionada = seleccionada;
+		this.correcto_prueba = correcto_prueba;
+		this.correcto_guion = correcto_guion;
+	}
 	
 	public ValorEntrada(Entrada entrada, String valor, Boolean valido, Boolean correcto, Boolean registrado,
 			Boolean aleatorio, Boolean insercion, Boolean modificacion, Boolean seleccionada){
@@ -82,6 +104,7 @@ public class ValorEntrada implements java.io.Serializable {
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
+	@JsonProperty("id") 
 	public Integer getId() {
 		return this.id;
 	}
@@ -180,5 +203,22 @@ public class ValorEntrada implements java.io.Serializable {
 	
 	public void setSeleccionada(Boolean seleccionada) {
 		this.seleccionada = seleccionada;
+	}	
+	@Column(name = "correcto_prueba")
+	public Boolean getCorrecto_prueba() {
+		return correcto_prueba;
+	}
+	
+	public void setCorrecto_prueba(Boolean correcto_prueba) {
+		this.correcto_prueba = correcto_prueba;
+	}
+	
+	@Column(name = "correcto_guion")
+	public Boolean getCorrecto_guion() {
+		return correcto_guion;
+	}
+	
+	public void setCorrecto_guion(Boolean correcto_guion) {
+		this.correcto_guion = correcto_guion;
 	}
 }

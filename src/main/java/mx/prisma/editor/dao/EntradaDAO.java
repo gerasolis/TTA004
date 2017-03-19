@@ -82,9 +82,9 @@ public class EntradaDAO extends GenericDAO {
 		}
 		
 	}
-	
-	public Entrada obtenerEntrada(String idAtributo){
-		@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
+	public Entrada obtenerEntrada(int idAtributo){
+		
 		List<Entrada> results = null;
 		Entrada result = null;
 
@@ -112,6 +112,37 @@ public class EntradaDAO extends GenericDAO {
 			return null;
 		} else 
 			return result;
+	}	
+	
+	public Entrada obtenerAtributo(int id){
+		@SuppressWarnings("unchecked")
+		List<Entrada> results = null;
+		Entrada result = null;
+		
+		try {
+			session.beginTransaction();
+			Query query = session
+					.createSQLQuery("SELECT * from Entrada where id = :entrada");
+			query.setParameter("entrada", id);
 
-	}
+			List <Object>result_1 =  query.list();
+			session.getTransaction().commit();
+			Iterator itr = result_1.iterator();
+			while(itr.hasNext()){
+				result = new Entrada();
+			   Object[] obj = (Object[]) itr.next();
+			   result.setId(Integer.parseInt(String.valueOf(obj[0])));
+			}
+			
+			System.out.println("Result de la pantalla: "+result.toString());
+			//session.getTransaction().commit();
+		} catch (HibernateException he) {
+			he.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		if (result==null){
+			return null;
+		} else 
+			return result;
+	}	
 }

@@ -33,8 +33,10 @@ import mx.prisma.generadorPruebas.model.ConfiguracionHttp;
 import mx.prisma.guionPruebas.bs.ValorEntradaBs;
 import mx.prisma.util.ActionSupportPRISMA;
 import mx.prisma.util.ErrorManager;
+import mx.prisma.util.JsonUtil;
 import mx.prisma.util.PRISMAException;
 import mx.prisma.util.SessionManager;
+import net.sf.json.JSONObject;
 
 @ResultPath("/content/gestorEntradas/")
 @Results({
@@ -68,13 +70,19 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	
 	// Lista de registros
 	private List<Atributo> listEntradas = new ArrayList<Atributo>();
+	private List<String> entradas;
 	private List<File> vci;
 	private List<File> vi;
 	private List<File> file;
 	private List<String> idAtributo;
 	private List<String> filename;
 	private List<Entrada> listaIncidencias = new ArrayList<Entrada>();
-		
+	private List<String> checkbox;
+	private List<String> checkbox2;
+	private List<String> checkbox3;
+	private List<String> checkbox4;
+	private String jsonEntradasTabla;
+	private List<JSONObject> listJson = new ArrayList<JSONObject>();
 	//Función para mostrar la pantalla de configuración de entradas o el guion de prueba
 	public String prepararConfiguracion() {
 		SessionManager.delete("mensajesAccion");
@@ -117,15 +125,29 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 				System.out.println(entrada.getNombreHTML());
 				listEntradas.add(entrada.getAtributo());
 			}
+			System.out.println("antes de tronar");
+			//jsonEntradasTabla = JsonUtil.mapListToJSON(listEntradas); 
+		
+			for(Atributo a : listEntradas){
+			  JSONObject obj = new JSONObject();
+			  obj.put("id", a.getId());
+			  obj.put("nombre", a.getNombre());
+		      System.out.println(obj);
+		      listJson.add(obj);
+			}
+			System.out.println(listJson);
+			jsonEntradasTabla = listJson.toString();
+
+		      
+			//System.out.println("jsonEntradasTabla: "+jsonEntradasTabla);
 			Set<ReglaNegocio> reglas = new HashSet<ReglaNegocio>(0);
 			
 			for(CasoUsoReglaNegocio curn : casoUso.getReglas()) {
 				reglas.add(curn.getReglaNegocio());
 			}
-			
-			//AQUÍ VAMOS A PONER EL CÓDIGO DE LA LISTA DE INCIDENCIAS. EN FRONT VALIDAMOS QUE SÓLO PONGA EL ÍCONO 
-			//A LAS ENTRADAS QUE SON PARTE DE LA LISTA DE INCIDENCIAS.
-			
+
+			//Vamos a generar los valores aleatorios correctos, para los que no se puedan, por la lista de incidencias,
+			//poner que no se puede en front.
 			listaIncidencias=CuPruebasBs.generarValores(casoUso.getEntradas(), reglas);
 			
 			for(Entrada e : listaIncidencias){
@@ -190,56 +212,40 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 					System.out.println("C");
 					return resultado;
 				}
-				
-				//Guardamos los valores correctos (insertar) 
-				if(getVci()==null){
+				System.out.println("famoso JSON: "+jsonEntradasTabla);
+				//Guardamos los valores correctos (insertar) los que se insertan por txt
+				/*if(getVci()==null){
 					resultado="error_1";
-					/*addActionMessage(getText("MSG42", new String[] { "No",
-							"ingresado", "archivo txt" }));
-					SessionManager.set(this.getActionMessages(), "mensajesAccion");*/
+					
 
 				}else{
-					ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),getUploadFileName(),2);
+					ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),getUploadFileName(),getCorrecto_prueba(),getCorrecto_guion(),2,jsonEntradasTabla,entradas);
 					resultado="cu";
 					addActionMessage(getText("MSG41", new String[] { "Los",
 							"txt", "valores correctos", "registrado", casoUso.getClave()+casoUso.getNumero()+" "+casoUso.getNombre()}));
 					SessionManager.set(this.getActionMessages(), "mensajesAccion");
+				}*/
+				
+				ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),2,jsonEntradasTabla);
+				resultado="cu";
+				addActionMessage(getText("MSG41", new String[] { "Los",
+						"txt", "valores correctos", "registrado", casoUso.getClave()+casoUso.getNumero()+" "+casoUso.getNombre()}));
+				SessionManager.set(this.getActionMessages(), "mensajesAccion");
+				
+				
+				
+				/*if(getAleatorioCorrecto_prueba()!=null || getAleatorioCorrecto_guion()!=null){
+					ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),getUploadFileName(),getAleatorioCorrecto_prueba(),getAleatorioCorrecto_guion(),3,jsonEntradasTabla,entradas);
 				}
-				//Guardamos los valores incorrectos
-				if(getVci()==null){
-					resultado="error_1";
-					/*addActionMessage(getText("MSG42", new String[] { "No",
-							"ingresado", "archivo txt" }));
-					SessionManager.set(this.getActionMessages(), "mensajesAccion");*/
+				if(getAleatorioIncorrecto_prueba()!=null || getAleatorioIncorrecto_guion()!=null){
+					ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),getUploadFileName(),getAleatorioIncorrecto_prueba(),getAleatorioIncorrecto_guion(),4,jsonEntradasTabla,entradas);
+				}*/
 
-				}else{
-					ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),getUploadFileName(),4);
-					resultado="cu";
-					addActionMessage(getText("MSG41", new String[] { "Los",
-							"txt", "valores incorrectos", "registrado",casoUso.getClave()+casoUso.getNumero()+" "+casoUso.getNombre()}));
-					SessionManager.set(this.getActionMessages(), "mensajesAccion");
-				}
-				if(getVinc()==null){
-					resultado="error_1";
-					/*addActionMessage(getText("MSG42", new String[] { "No",
-							"ingresado", "archivo txt" }));
-					SessionManager.set(this.getActionMessages(), "mensajesAccion");*/
-					
-				}else{
-					//ValorDesconocidoBs.crearArchivo(getVinc(),getIdAtributo(),getUploadFileName());
-					ValorEntradaBs.guardarValores(getVinc(),getIdAtributo(),getUploadFileName(),1);
-					resultado="cu";
-					addActionMessage(getText("MSG41", new String[] { "Los",
-							"txt", "valores no generables", "registrado", casoUso.getClave()+casoUso.getNumero()+" "+casoUso.getNombre() }));
-					SessionManager.set(this.getActionMessages(), "mensajesAccion");
-				}
-				
-				
-				} catch(Exception e) {
-					ErrorManager.agregaMensajeError(this, e);
-					SessionManager.set(this.getActionErrors(), "mensajesError");
-					resultado = "anterior";
-				}
+			} catch(Exception e) {
+				ErrorManager.agregaMensajeError(this, e);
+				SessionManager.set(this.getActionErrors(), "mensajesError");
+				resultado = "anterior";
+			}
 				return resultado; 
 		}
 	
@@ -307,6 +313,14 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	public List<String> getIdAtributo(){
 		return idAtributo;
 	}
+	
+	public List<String> getIdAtributo_nogenerables(){
+		return idAtributo;
+	}
+	public void setIdAtributo_nogenerables(List<String> idAtributo){
+		this.idAtributo = idAtributo;
+	}
+	
 
 	public void setUploadFileName(List<String> filename) {
         this.filename = filename;
@@ -318,6 +332,13 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	public void setIdAtributo(List<String> idAtributo){
 		this.idAtributo = idAtributo;
 	}
+	
+	public void setEntradas(List<String> entradas){
+		this.entradas = entradas;
+	}
+	public List<String> getEntradas() {
+        return entradas;
+     }
 	
 	public void setChttp(ConfiguracionHttp chttp) {
 		this.chttp = chttp;
@@ -363,4 +384,56 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	public List<File> getVinc() {
 		return file;
 	}
+	public void setAleatorioCorrecto_prueba(List<String> checkbox) {
+		this.checkbox = checkbox;
+	}
+	public List<String> getAleatorioCorrecto_prueba() {
+		return checkbox;
+	}
+	public void setAleatorioCorrecto_guion(List<String> checkbox2) {
+		this.checkbox2 = checkbox2;
+	}
+	public List<String> getAleatorioCorrecto_guion() {
+		return checkbox2;
+	}
+	public void setCorrecto_prueba(List<String> checkbox3) {
+		this.checkbox3 = checkbox3;
+	}
+	public List<String> getCorrecto_prueba() {
+		return checkbox3;
+	}
+	public void setCorrecto_guion(List<String> checkbox4) {
+		this.checkbox4 = checkbox4;
+	}
+	public List<String> getCorrecto_guion() {
+		return checkbox4;
+	}
+	public void setAleatorioIncorrecto_prueba(List<String> checkbox) {
+		this.checkbox = checkbox;
+	}
+	public List<String> getAleatorioIncorrecto_prueba() {
+		return checkbox;
+	}
+	public void setAleatorioIncorrecto_guion(List<String> checkbox2) {
+		this.checkbox2 = checkbox2;
+	}
+	public List<String> getAleatorioIncorrecto_guion() {
+		return checkbox2;
+	}
+	
+	public String getJsonEntradasTabla() {
+		return jsonEntradasTabla;
+	}
+
+	public void setJsonEntradasTabla(String jsonEntradasTabla) {
+		this.jsonEntradasTabla = jsonEntradasTabla;
+	}
+	public List<JSONObject> getListJson() {
+		return listJson;
+	}
+
+	public void setListJson(List<JSONObject> listJson) {
+		this.listJson = listJson;
+	}
+	
 }

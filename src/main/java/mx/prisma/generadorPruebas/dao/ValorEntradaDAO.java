@@ -165,4 +165,22 @@ public class ValorEntradaDAO extends GenericDAO {
 		}
 	//
 	
+	public void modificarValorEntrada(Entrada entrada) {
+		List<ValorEntrada> results = null;
+		
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("update ValorEntrada set nogenerable_guion = true where Entradaid =:idEntrada");
+			query.setParameter("idEntrada", entrada.getId());
+			query.executeUpdate();
+			session.getTransaction().commit();
+		} catch (HibernateException he) {
+			he.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		
+	
+	}
+
+	
 }

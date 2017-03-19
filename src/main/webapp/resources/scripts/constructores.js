@@ -207,6 +207,14 @@ function ValorEntrada(valor, valido, id) {
 	this.valido = valido;
 	this.id = id;
 }
+function ValorEntrada(id, valor,valido,correcto_prueba,correcto_guion) {
+	this.id = id;
+	this.valor = valor;
+	this.valido = valido;
+	this.correcto_prueba = correcto_prueba;
+	this.correcto_guion = correcto_guion;
+}
+
 
 function ValorEntradaTrayectoria(valor, valido, id) {
 	this.valor = valor;

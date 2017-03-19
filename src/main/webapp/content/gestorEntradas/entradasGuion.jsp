@@ -19,20 +19,29 @@ div.upload input {
     overflow: hidden !important;
     width: 40px !important;
 }
+.nogenerable_prueba,.correcto_prueba,.incorrecto_prueba{margin-left: 92px;margin-top: -15px;}
+.nogenerable_guion,.correcto_guion,.incorrecto_guion{margin-left: 10px;margin-top: -11px;}
 </style>
-<![CDATA[
-	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/cu/js/index.js"></script>	
-]]> 
+
+<jsp:text>
+<![CDATA[                 
+    <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/cu/js/index.js"></script>	
+				<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/constructores.js"></script>	
+		<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/gestorEntradas/js/entradas2.js"></script>
+    
+]]>
+</jsp:text>
+
 </head>
 <body>
 	<div class="modal" id="modal"><!-- Place at bottom of page --></div>
-	<h1>Gestionar de Entradas</h1>
+	<h1>Gestor de Entradas</h1>
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 
 	<div class="form">
 		<s:form autocomplete="off" id="frmActor" theme="simple"
-		action="%{#pageContext.request.contextPath}/configurar-entradas!anadirValoresEntradas" enctype="multipart/form-data" method="post">
+		action="%{#pageContext.request.contextPath}/configurar-entradas!anadirValoresEntradas" enctype="multipart/form-data" onsubmit="prepararEnvio()" method="post">
 		<s:hidden name="_method" value="put" />
 			<table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
 				<thead>
@@ -41,32 +50,22 @@ div.upload input {
 						<th><s:text name="colEntradas"/></th>
 						<th style="width: 20%;"><s:text name="colValorAleatorioCorrecto"/></th>
 						<th style="width: 20%;"><s:text name="colValorAleatorioIncorrecto"/></th>
-						<th style="width: 20%;"><s:text name="colValorNoGenerable"/></th>
 						<th style="width: 20%;"><s:text name="colValorCorrectoInsertar"/></th>
-						<th style="width: 20%;"><s:text name="colValorIncorrecto"/></th>
 					</tr>
 				</thead>
 				<tbody>
 				<s:iterator value="listEntradas" var="entrada">
 					<tr class="${'filaEntrada'}${entrada.id}">
 						<td></td>
-						<td><s:property value="{#entrada.nombre}"/></td>
-						<td></td>
-						<td></td>
-						<s:set var = "breakLoop" value = "false" />
-						<s:iterator value="listaIncidencias" var="incidencia">
-							<s:if test="%{#entrada.id == #incidencia.atributo.id}">
-								<td>
-								<div class="upload"><s:file name="vinc" label="File"/><s:hidden name="idAtributo" value="%{#incidencia.atributo.id}" /></div></td>
-								<s:set var = "breakLoop" value = "true"/>
-							</s:if>
-							
-						</s:iterator>
-						<s:if test="%{#breakLoop == false}">
-								<td></td>
-						</s:if>
-						<td><div class="upload"><s:file name="vci" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
-						<td><div class="upload"><s:file name="vi" label="File"/><s:hidden name="idAtributo" value="%{#entrada.id}" /></div></td>
+						<td><s:property value="%{#entrada.id + ' ' + #entrada.nombre}"/></td>
+						<s:hidden name="entradas" value="%{#entrada.nombre}" />
+						<td><p align="center">VALOR<s:checkbox name="aleatorioCorrecto_prueba" fieldValue="%{#entrada.id}" value="%{#entrada.id}"  class="correcto_prueba"/><s:checkbox name="aleatorioCorrecto_guion" fieldValue="%{#entrada.id}" value="%{#entrada.id}"  class="correcto_guion"/></p></td>
+						<td><p align="center">VALOR<s:checkbox name="aleatorioIncorrecto_prueba" fieldValue="%{#entrada.id}" value="%{#entrada.id}" class="correcto_prueba"/><s:checkbox name="aleatorioIncorrecto_guion" fieldValue="%{#entrada.id}" value="%{#entrada.id}"  class="correcto_guion"/></p></td>
+						<td>
+							<input type="hidden" id="palabras-${entrada.id}"/>
+						    <div class="upload"><input type="file" name="vci"  id="files-${entrada.id}" label="File" value=""/>
+							<s:hidden name="idAtributo" value="%{#entrada.id}" /></div>	
+							<input id="checkbox-${entrada.id}" type="checkbox"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="checkbox"  class="correcto_guion"/></td>
 					</tr>
 				</s:iterator>
 				</tbody>
@@ -91,6 +90,8 @@ div.upload input {
 						
 				</div>
 			</div>
+			<s:hidden id="jsonEntradasTabla" name="jsonEntradasTabla" value="%{jsonEntradasTabla}" />
+			<input type="text" id="cadena1"/>
 		</s:form>
 	</div>
 	
