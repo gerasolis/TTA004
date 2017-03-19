@@ -21,6 +21,8 @@ div.upload input {
 }
 .nogenerable_prueba,.correcto_prueba,.incorrecto_prueba{margin-left: 92px;margin-top: -11px;}
 .nogenerable_guion,.correcto_guion,.incorrecto_guion{margin-left: 10px;margin-top: -11px;}
+.correctoAleatorio_prueba{margin-top:-23px;}
+.correctoAleatorio_guion{margin-left: 10px;margin-top:-23px;}
 </style>
 
 <jsp:text>
@@ -58,8 +60,16 @@ div.upload input {
 					<tr class="${'filaEntrada'}${entrada.id}">
 						<td></td>
 						<td><s:property value="%{#entrada.id + ' ' + #entrada.nombre}"/></td>
-						<s:hidden name="entradas" value="%{#entrada.nombre}" />
-						<td><p align="center">VALOR<input id="checkbox-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="radio" name="guion-${entrada.id}" class="correcto_guion"/></p></td>
+						<s:set var = "breakLoop" value = "false" />
+						<s:iterator value="cadenasValidas" var="cadena">
+							<s:if test="%{#cadena.entrada.atributo.id == #entrada.id}">
+								<td><p align="left"><s:property value="%{#cadena.valor}"/></p><p align="right"><input id="checkbox-${entrada.id}" type="radio" name="prueba-${cadena.entrada.atributo.id}"  class="correctoAleatorio_prueba"/><input id="checkbox2-${entrada.id}" type="radio" name="guion-${cadena.entrada.atributo.id}" class="correctoAleatorio_guion"/></p></td>
+								<s:set var = "breakLoop" value = "true"/>							
+							</s:if>					
+						</s:iterator>
+						<s:if test="%{#breakLoop == false}">
+								<td>No se puede generar.</td>
+						</s:if>	
 						<td><p align="center">VALOR<input id="checkbox-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="radio" name="guion-${entrada.id}" class="correcto_guion"/></p></td>
 						<td>
 							<input type="hidden" id="palabras-${entrada.id}"/>
@@ -91,7 +101,6 @@ div.upload input {
 				</div>
 			</div>
 			<s:hidden id="jsonEntradasTabla" name="jsonEntradasTabla" value="%{jsonEntradasTabla}" />
-			<input type="text" id="cadena1"/>
 		</s:form>
 	</div>
 	

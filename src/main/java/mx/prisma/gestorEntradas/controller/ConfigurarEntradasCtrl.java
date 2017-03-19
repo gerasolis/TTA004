@@ -30,6 +30,7 @@ import mx.prisma.generadorPruebas.bs.CuPruebasBs;
 import mx.prisma.generadorPruebas.bs.ValorDesconocidoBs;
 import mx.prisma.generadorPruebas.model.ConfiguracionBaseDatos;
 import mx.prisma.generadorPruebas.model.ConfiguracionHttp;
+import mx.prisma.generadorPruebas.model.ValorEntrada;
 import mx.prisma.guionPruebas.bs.ValorEntradaBs;
 import mx.prisma.util.ActionSupportPRISMA;
 import mx.prisma.util.ErrorManager;
@@ -83,6 +84,12 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	private List<String> checkbox4;
 	private String jsonEntradasTabla;
 	private List<JSONObject> listJson = new ArrayList<JSONObject>();
+	
+	
+	private String cadenaValida = "";
+	private Set<ValorEntrada> cadenasValidas = new HashSet<ValorEntrada>(0);
+	
+	
 	//Función para mostrar la pantalla de configuración de entradas o el guion de prueba
 	public String prepararConfiguracion() {
 		SessionManager.delete("mensajesAccion");
@@ -125,8 +132,6 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 				System.out.println(entrada.getNombreHTML());
 				listEntradas.add(entrada.getAtributo());
 			}
-			System.out.println("antes de tronar");
-			//jsonEntradasTabla = JsonUtil.mapListToJSON(listEntradas); 
 		
 			for(Atributo a : listEntradas){
 			  JSONObject obj = new JSONObject();
@@ -138,21 +143,31 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 			System.out.println(listJson);
 			jsonEntradasTabla = listJson.toString();
 
-		      
-			//System.out.println("jsonEntradasTabla: "+jsonEntradasTabla);
 			Set<ReglaNegocio> reglas = new HashSet<ReglaNegocio>(0);
+		
 			
 			for(CasoUsoReglaNegocio curn : casoUso.getReglas()) {
 				reglas.add(curn.getReglaNegocio());
 			}
 
-			//Vamos a generar los valores aleatorios correctos, para los que no se puedan, por la lista de incidencias,
-			//poner que no se puede en front.
 			listaIncidencias=CuPruebasBs.generarValores(casoUso.getEntradas(), reglas);
 			
-			for(Entrada e : listaIncidencias){
-				System.out.println(e.getAtributo().getNombre());
+			//Tenemos que sacar los valores aleatorios correctos.
+			for(Entrada en : casoUso.getEntradas()){
+				ValorEntrada valorValidoBD = new ValorEntrada();
+				cadenaValida = CuPruebasBs.generarCadenaValidaGlobal(en, reglas);
+				System.out.println(cadenaValida);
+				valorValidoBD.setValor(cadenaValida);
+				valorValidoBD.setEntrada(en);
+				
+				cadenasValidas.add(valorValidoBD);
+				
 			}
+			
+			for(ValorEntrada c: cadenasValidas){
+				System.out.println("Cadena válida: "+c.getValor()+", entrada: "+c.getEntrada().getId()+"");
+			}
+			
 			resultado = "pantallaEntradas";
 				
 			} catch(Exception e) {
@@ -434,6 +449,14 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 
 	public void setListJson(List<JSONObject> listJson) {
 		this.listJson = listJson;
+	}
+
+	public Set<ValorEntrada> getCadenasValidas() {
+		return cadenasValidas;
+	}
+
+	public void setCadenasValidas(Set<ValorEntrada> cadenasValidas) {
+		this.cadenasValidas = cadenasValidas;
 	}
 	
 }
