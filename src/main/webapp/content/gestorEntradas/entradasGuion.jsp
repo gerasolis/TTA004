@@ -19,7 +19,7 @@ div.upload input {
     overflow: hidden !important;
     width: 40px !important;
 }
-.nogenerable_prueba,.correcto_prueba,.incorrecto_prueba{margin-left: 92px;margin-top: -15px;}
+.nogenerable_prueba,.correcto_prueba,.incorrecto_prueba{margin-left: 92px;margin-top: -11px;}
 .nogenerable_guion,.correcto_guion,.incorrecto_guion{margin-left: 10px;margin-top: -11px;}
 </style>
 
@@ -59,13 +59,13 @@ div.upload input {
 						<td></td>
 						<td><s:property value="%{#entrada.id + ' ' + #entrada.nombre}"/></td>
 						<s:hidden name="entradas" value="%{#entrada.nombre}" />
-						<td><p align="center">VALOR<s:checkbox name="aleatorioCorrecto_prueba" fieldValue="%{#entrada.id}" value="%{#entrada.id}"  class="correcto_prueba"/><s:checkbox name="aleatorioCorrecto_guion" fieldValue="%{#entrada.id}" value="%{#entrada.id}"  class="correcto_guion"/></p></td>
-						<td><p align="center">VALOR<s:checkbox name="aleatorioIncorrecto_prueba" fieldValue="%{#entrada.id}" value="%{#entrada.id}" class="correcto_prueba"/><s:checkbox name="aleatorioIncorrecto_guion" fieldValue="%{#entrada.id}" value="%{#entrada.id}"  class="correcto_guion"/></p></td>
+						<td><p align="center">VALOR<input id="checkbox-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="radio" name="guion-${entrada.id}" class="correcto_guion"/></p></td>
+						<td><p align="center">VALOR<input id="checkbox-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="radio" name="guion-${entrada.id}" class="correcto_guion"/></p></td>
 						<td>
 							<input type="hidden" id="palabras-${entrada.id}"/>
 						    <div class="upload"><input type="file" name="vci"  id="files-${entrada.id}" label="File" value=""/>
 							<s:hidden name="idAtributo" value="%{#entrada.id}" /></div>	
-							<input id="checkbox-${entrada.id}" type="checkbox"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="checkbox"  class="correcto_guion"/></td>
+							<input id="checkbox-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="radio"  class="correcto_guion" name="guion-${entrada.id}"/></td>
 					</tr>
 				</s:iterator>
 				</tbody>

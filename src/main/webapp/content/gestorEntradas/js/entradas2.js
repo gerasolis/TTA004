@@ -46,17 +46,20 @@ function tablaToJson(idTable) {
 	for (var i = 0; i < table.fnSettings().fnRecordsTotal(); i++) {	    
 		var entrada = table.fnGetData(i, 1);
 		var id = entrada.split(" ");
-		seleccionado = document.getElementById("checkbox-" + id[0]).checked;
-		seleccionado2 = document.getElementById("checkbox2-" + id[0]).checked;
-		if (seleccionado == true && seleccionado2 == false) {
+		//seleccionado = document.getElementById("checkbox-" + id[0]).checked;
+		//seleccionado2 = document.getElementById("checkbox2-" + id[0]).checked;
+		seleccionado = $('input[name=prueba-'+id[0]+']').filter(':checked').val();
+		seleccionado2 = $('input[name=guion-'+id[0]+']').filter(':checked').val();
+		
+		if (seleccionado != null && seleccionado2 == null ) {
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó prueba");
 		    arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,1,0));
-		}else if(seleccionado == true && seleccionado2 == true){	
+		}else if(seleccionado != null && seleccionado2 != null){	
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó ambas");
 			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,1,1));
-		}else if(seleccionado == false && seleccionado2 == true){
+		}else if(seleccionado == null && seleccionado2 != null){
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó guión");
 			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,1));

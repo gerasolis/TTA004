@@ -30,12 +30,6 @@ import net.sf.json.JSONObject;
 public class ValorEntradaBs {
 	
 	public static void guardarValores(List<File> entradas, List<String> idAtributos, int tipoEntrada,String jsonEntradasTabla) throws IOException{
-		int bandera=0,o=0;
-		int z=0;
-		int t=0;
-		int h=0;
-		int u=0;
-		int r=0;
 		
 		Set<ValorEntrada> entradasSeleccionadas = new HashSet<ValorEntrada>(0);
 		entradasSeleccionadas = JsonUtil.mapJSONToSet(
