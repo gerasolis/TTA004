@@ -48,21 +48,36 @@ function tablaToJson(idTable) {
 		var id = entrada.split(" ");
 		//seleccionado = document.getElementById("checkbox-" + id[0]).checked;
 		//seleccionado2 = document.getElementById("checkbox2-" + id[0]).checked;
-		seleccionado = $('input[name=prueba-'+id[0]+']').filter(':checked').val();
-		seleccionado2 = $('input[name=guion-'+id[0]+']').filter(':checked').val();
+		seleccionado = $('input[id=checkbox-'+id[0]+']').filter(':checked').val();
+		seleccionado2 = $('input[id=checkbox2-'+id[0]+']').filter(':checked').val();
+		aleatorioCorrectoPrueba = $('input[id=aleatorioCorrectoPrueba-'+id[0]+']').filter(':checked').val();
+		aleatorioCorrectoGuion = $('input[id=aleatorioCorrectoGuion-'+id[0]+']').filter(':checked').val();
 		
 		if (seleccionado != null && seleccionado2 == null ) {
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó prueba");
-		    arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,1,0));
+		    arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,1,0,0,0));
 		}else if(seleccionado != null && seleccionado2 != null){	
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó ambas");
-			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,1,1));
+			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,1,1,0,0));
 		}else if(seleccionado == null && seleccionado2 != null){
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó guión");
-			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,1));
+			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,1,0,0));
+		}
+		if(aleatorioCorrectoPrueba != null && aleatorioCorrectoGuion == null){
+			var cadena = $('#palabrasAleatorias-'+id[0]).val();
+			console.log("se seleccionó guión");
+			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,0,1,0));
+		}else if(aleatorioCorrectoPrueba == null && aleatorioCorrectoGuion != null){
+			var cadena = $('#palabrasAleatorias-'+id[0]).val();
+			console.log("se seleccionó guión");
+			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,0,0,1));
+		}else if(aleatorioCorrectoPrueba != null && aleatorioCorrectoGuion != null){
+			var cadena = $('#palabrasAleatorias-'+id[0]).val();
+			console.log("se seleccionó guión");
+			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,0,1,1));
 		}
 	}
 	var jsonColaboradores = JSON.stringify(arregloColaboradores);

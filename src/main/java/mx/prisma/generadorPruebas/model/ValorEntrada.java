@@ -42,6 +42,8 @@ public class ValorEntrada implements java.io.Serializable {
 	private Boolean nogenerable_guion;
 	private Boolean correcto_prueba;
 	private Boolean correcto_guion;
+	private Boolean aleatoriocorrecto_prueba;
+	private Boolean aleatoriocorrecto_guion;
 	
 
 	public ValorEntrada() {
@@ -86,6 +88,26 @@ public class ValorEntrada implements java.io.Serializable {
 		this.seleccionada = seleccionada;
 		this.correcto_prueba = correcto_prueba;
 		this.correcto_guion = correcto_guion;
+	}
+	
+	public ValorEntrada(Entrada entrada, String valor, Boolean valido,
+			Boolean correcto, Boolean registrado, Boolean aleatorio, Boolean insercion, Boolean modificacion, Boolean seleccionada,Boolean correcto_prueba,Boolean correcto_guion,
+			Boolean aleatoriocorrecto_prueba,Boolean aleatoriocorrecto_guion){
+		this.entrada = entrada;
+		this.valor = valor;
+		this.valido = valido;
+		this.correcto = correcto;
+		this.registrado = registrado;
+		this.aleatorio = aleatorio;
+		this.insercion = insercion;
+		this.modificacion = modificacion;
+		this.seleccionada = seleccionada;
+		this.correcto_prueba = correcto_prueba;
+		this.correcto_guion = correcto_guion;
+		this.aleatoriocorrecto_prueba = aleatoriocorrecto_prueba;
+		this.aleatoriocorrecto_guion = aleatoriocorrecto_guion;
+		
+		
 	}
 	
 	public ValorEntrada(Entrada entrada, String valor, Boolean valido, Boolean correcto, Boolean registrado,
@@ -221,4 +243,23 @@ public class ValorEntrada implements java.io.Serializable {
 	public void setCorrecto_guion(Boolean correcto_guion) {
 		this.correcto_guion = correcto_guion;
 	}
+	
+	@Column(name = "aleatoriocorrecto_prueba")
+	public Boolean getAleatoriocorrecto_prueba() {
+		return aleatoriocorrecto_prueba;
+	}
+	
+	public void setAleatoriocorrecto_prueba(Boolean aleatoriocorrecto_prueba) {
+		this.aleatoriocorrecto_prueba = aleatoriocorrecto_prueba;
+	}
+	
+	@Column(name = "aleatoriocorrecto_guion")
+	public Boolean getAleatoriocorrecto_guion() {
+		return aleatoriocorrecto_guion;
+	}
+	
+	public void setAleatoriocorrecto_guion(Boolean aleatoriocorrecto_guion) {
+		this.aleatoriocorrecto_guion = aleatoriocorrecto_guion;
+	}
+
 }

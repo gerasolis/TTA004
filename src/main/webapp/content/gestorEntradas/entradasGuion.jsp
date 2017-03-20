@@ -63,7 +63,7 @@ div.upload input {
 						<s:set var = "breakLoop" value = "false" />
 						<s:iterator value="cadenasValidas" var="cadena">
 							<s:if test="%{#cadena.entrada.atributo.id == #entrada.id}">
-								<td><p align="left"><s:property value="%{#cadena.valor}"/></p><p align="right"><input id="checkbox-${entrada.id}" type="radio" name="prueba-${cadena.entrada.atributo.id}"  class="correctoAleatorio_prueba"/><input id="checkbox2-${entrada.id}" type="radio" name="guion-${cadena.entrada.atributo.id}" class="correctoAleatorio_guion"/></p></td>
+								<td><p align="left"><input type="hidden" value="${cadena.valor}" id="palabrasAleatorias-${cadena.entrada.atributo.id}"/><s:property value="%{#cadena.valor}"/></p><p align="right"><input id="aleatorioCorrectoPrueba-${cadena.entrada.atributo.id}" type="radio" name="prueba-${cadena.entrada.atributo.id}"  class="correctoAleatorio_prueba"/><input id="aleatorioCorrectoGuion-${cadena.entrada.atributo.id}" type="radio" name="guion-${cadena.entrada.atributo.id}" class="correctoAleatorio_guion"/></p></td>
 								<s:set var = "breakLoop" value = "true"/>							
 							</s:if>					
 						</s:iterator>
