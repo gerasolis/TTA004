@@ -19,10 +19,12 @@ div.upload input {
     overflow: hidden !important;
     width: 40px !important;
 }
-.nogenerable_prueba,.correcto_prueba,.incorrecto_prueba{margin-left: 92px;margin-top: -11px;}
-.nogenerable_guion,.correcto_guion,.incorrecto_guion{margin-left: 10px;margin-top: -11px;}
+.nogenerable_prueba,.correcto_prueba,.incorrecto_prueba{margin-left: 92px;margin-top: -16px;}
+.nogenerable_guion,.correcto_guion,.incorrecto_guion{margin-left: 10px;margin-top: -16px;}
 .correctoAleatorio_prueba{margin-top:-23px;}
 .correctoAleatorio_guion{margin-left: 10px;margin-top:-23px;}
+.incorrectoAleatorio_prueba,.incorrectoAleatorio_guion{margin-top: -23px;}
+.incorrectoAleatorio_guion{margin-left: 10px;}
 </style>
 
 <jsp:text>
@@ -49,10 +51,10 @@ div.upload input {
 				<thead>
 					<tr>
 						<th><!-- Número del Caso de uso --></th>
-						<th><s:text name="colEntradas"/></th>
-						<th style="width: 20%;"><s:text name="colValorAleatorioCorrecto"/></th>
+						<th style="width: 15%;"><s:text name="colEntradas"/></th>
+						<th style="width: 15%;"><s:text name="colValorAleatorioCorrecto"/></th>
 						<th style="width: 20%;"><s:text name="colValorAleatorioIncorrecto"/></th>
-						<th style="width: 20%;"><s:text name="colValorCorrectoInsertar"/></th>
+						<th style="width: 5%;"><s:text name="colValorCorrectoInsertar"/></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -70,7 +72,27 @@ div.upload input {
 						<s:if test="%{#breakLoop == false}">
 								<td>No se puede generar.</td>
 						</s:if>	
-						<td><p align="center">VALOR<input id="checkbox-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="radio" name="guion-${entrada.id}" class="correcto_guion"/></p></td>
+						<s:set var = "breakLoop2" value = "false" />
+						<td>
+						
+						<select id="selectIncorrectos-${entrada.id}">
+							<s:iterator value="listAleatoriasIncorrectas" var="incorrecto">
+								<s:if test="%{#incorrecto.entrada.atributo.id == #entrada.id}">
+									<option><p align="left"><s:property value="%{#incorrecto.valor}"/></p></option>
+									<s:set var = "breakLoop2" value = "true"/>	
+								</s:if>
+							</s:iterator>
+						</select>
+						<!--<p align="right"><input id="incorrectoP-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="incorrectoAleatorio_prueba"/><input id="incorrectoG-${entrada.id}" type="radio" name="guion-${entrada.id}" class="incorrectoAleatorio_guion"/></p>-->
+						<s:if test="%{#breakLoop2 == false}">
+								<p>No se puede generar.</p>
+								<script>
+								document.getElementById('selectIncorrectos-<s:property value="%{#entrada.id}"/>').style.display = 'none';
+								document.getElementById('incorrectoG-<s:property value="%{#entrada.id}"/>').style.display = 'none';
+								document.getElementById('incorrectoP-<s:property value="%{#entrada.id}"/>').style.display = 'none';
+								</script>
+						</s:if>
+						</td>
 						<td>
 							<input type="hidden" id="palabras-${entrada.id}"/>
 						    <div class="upload"><input type="file" name="vci"  id="files-${entrada.id}" label="File" value=""/>

@@ -19,6 +19,7 @@ import mx.prisma.admin.model.Colaborador;
 import mx.prisma.admin.model.Proyecto;
 import mx.prisma.bs.AccessBs;
 import mx.prisma.editor.bs.CuBs;
+import mx.prisma.editor.bs.ReglaNegocioBs;
 import mx.prisma.editor.model.Atributo;
 import mx.prisma.editor.model.CasoUso;
 import mx.prisma.editor.model.CasoUsoReglaNegocio;
@@ -88,6 +89,7 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	
 	private String cadenaValida = "";
 	private Set<ValorEntrada> cadenasValidas = new HashSet<ValorEntrada>(0);
+	private Set<ValorEntrada> listAleatoriasIncorrectas = new HashSet<ValorEntrada>(0);
 	
 	
 	//Función para mostrar la pantalla de configuración de entradas o el guion de prueba
@@ -164,8 +166,11 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 				
 			}
 			
-			for(ValorEntrada c: cadenasValidas){
-				System.out.println("Cadena válida: "+c.getValor()+", entrada: "+c.getEntrada().getId()+"");
+			/*Para obtener los valores aleatorios incorrectos*/
+			listAleatoriasIncorrectas = CuPruebasBs.generarValoresIncorectos(casoUso.getEntradas(),casoUso.getReglas());
+
+			for(ValorEntrada v : listAleatoriasIncorrectas){
+				System.out.println("Valor: "+v.getValor()+", Id: "+v.getEntrada().getAtributo().getId());
 			}
 			
 			resultado = "pantallaEntradas";
@@ -457,6 +462,14 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 
 	public void setCadenasValidas(Set<ValorEntrada> cadenasValidas) {
 		this.cadenasValidas = cadenasValidas;
+	}
+	
+	public Set<ValorEntrada> getListAleatoriasIncorrectas() {
+		return listAleatoriasIncorrectas;
+	}
+
+	public void setListAleatoriasIncorrectas(Set<ValorEntrada> listAleatoriasIncorrectas) {
+		this.listAleatoriasIncorrectas = listAleatoriasIncorrectas;
 	}
 	
 }

@@ -21,6 +21,10 @@ $(document)
 				var id = $(this).attr('id')
 				guardarCadena(id);
 			});
+			
+			
+			
+			
 		});
 
 
@@ -52,7 +56,9 @@ function tablaToJson(idTable) {
 		seleccionado2 = $('input[id=checkbox2-'+id[0]+']').filter(':checked').val();
 		aleatorioCorrectoPrueba = $('input[id=aleatorioCorrectoPrueba-'+id[0]+']').filter(':checked').val();
 		aleatorioCorrectoGuion = $('input[id=aleatorioCorrectoGuion-'+id[0]+']').filter(':checked').val();
-		
+		/*aleatorioIncorrectoPrueba = $('input[id=incorrectoP-'+id[0]+']').filter(':checked').val();
+		aleatorioIncorrectoGuion = $('input[id=incorrectoG-'+id[0]+']').filter(':checked').val();
+		*/
 		if (seleccionado != null && seleccionado2 == null ) {
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó prueba");
@@ -79,6 +85,19 @@ function tablaToJson(idTable) {
 			console.log("se seleccionó guión");
 			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,0,1,1));
 		}
+		/*if(aleatorioIncorrectoPrueba != null && aleatorioIncorrectoGuion == null){
+			var selectIncorrectosArray = $('#selectIncorrectos-'+id[0]).val();
+			console.log("se seleccionó guión");
+			arregloColaboradores.push(new ValorEntrada(id[0],selectIncorrectosArray,1,0,0,0,0,1,0));
+		}else if(aleatorioIncorrectoPrueba == null && aleatorioIncorrectoGuion != null){
+			var selectIncorrectosArray = $('#selectIncorrectos-'+id[0]).val();
+			console.log("se seleccionó guión");
+			arregloColaboradores.push(new ValorEntrada(id[0],selectIncorrectosArray,1,0,0,0,0,0,1));
+		}else if(aleatorioIncorrectoPrueba != null && aleatorioIncorrectoGuion != null){
+			var selectIncorrectosArray = $('#selectIncorrectos-'+id[0]).val();
+			console.log("se seleccionó guión");
+			arregloColaboradores.push(new ValorEntrada(id[0],selectIncorrectosArray,1,0,0,0,0,1,1));
+		}*/
 	}
 	var jsonColaboradores = JSON.stringify(arregloColaboradores);
 	document.getElementById("jsonEntradasTabla").value = jsonColaboradores;

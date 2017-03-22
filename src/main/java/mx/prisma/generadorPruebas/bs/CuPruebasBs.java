@@ -101,6 +101,39 @@ public class CuPruebasBs {
 		return valoresValidos;
 	}
 
+public static Set<ValorEntrada> generarValoresIncorectos(Set<Entrada> entradas,
+		Set<CasoUsoReglaNegocio> reglasNegocio)throws Exception {
+	
+	String valorCadenaInvalido = null;
+	ValorEntrada valorInvalidoBD = null;
+	Set<ValorEntrada> listAleatoriasIncorrectas = new HashSet<ValorEntrada>(0);
+	Set<ReglaNegocio> reglasN = new HashSet<ReglaNegocio>(0);
+	
+	for(CasoUsoReglaNegocio curn : reglasNegocio) {
+		for(Entrada en : entradas){
+			if(!ReglaNegocioBs.esGlobal(curn.getReglaNegocio().getTipoReglaNegocio())) {
+				if(CuPruebasBs.entradaPerteneceReglaNegocio(en, curn.getReglaNegocio())) {
+					System.out.println("Entra if1");
+					valorCadenaInvalido = CuPruebasBs.generarValor(en, curn.getReglaNegocio(), reglasN, false);
+				}
+			} else {
+				System.out.println("Entra if2");
+				valorCadenaInvalido = generarValor(en, curn.getReglaNegocio(), reglasN, false);
+			}
+			System.out.println(valorCadenaInvalido);
+			if(valorCadenaInvalido != null) { 
+				valorInvalidoBD = new ValorEntrada();
+				valorInvalidoBD.setValor(valorCadenaInvalido);
+				valorInvalidoBD.setReglaNegocio(curn.getReglaNegocio());
+				valorInvalidoBD.setEntrada(en);
+				valorInvalidoBD.setValido(false);
+				
+				listAleatoriasIncorrectas.add(valorInvalidoBD);
+			}
+		}
+	}
+	return listAleatoriasIncorrectas;
+}
 	public static List<Entrada> generarValores(Set<Entrada> entradas,
 			Set<ReglaNegocio> reglasNegocio) throws Exception {
 		List<Entrada> listaIncidencias = new ArrayList<Entrada>();

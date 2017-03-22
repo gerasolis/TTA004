@@ -225,6 +225,18 @@ function ValorEntrada(id, valor,valido,correcto_prueba,correcto_guion,aleatorioc
 	this.aleatoriocorrecto_guion = aleatoriocorrecto_guion;
 }
 
+function ValorEntrada(id, valor,valido,correcto_prueba,correcto_guion,aleatoriocorrecto_prueba,aleatoriocorrecto_guion,aleatorioincorrecto_prueba,aleatorioincorrecto_guion) {
+	this.id = id;
+	this.valor = valor;
+	this.valido = valido;
+	this.correcto_prueba = correcto_prueba;
+	this.correcto_guion = correcto_guion;
+	this.aleatoriocorrecto_prueba = aleatoriocorrecto_prueba;
+	this.aleatoriocorrecto_guion = aleatoriocorrecto_guion;
+	this.aleatorioincorrecto_prueba = aleatorioincorrecto_prueba;
+	this.aleatorioincorrecto_guion = aleatorioincorrecto_guion;
+}
+
 function ValorEntradaTrayectoria(valor, valido, id) {
 	this.valor = valor;
 	this.valido = valido;

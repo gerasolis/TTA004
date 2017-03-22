@@ -44,6 +44,8 @@ public class ValorEntrada implements java.io.Serializable {
 	private Boolean correcto_guion;
 	private Boolean aleatoriocorrecto_prueba;
 	private Boolean aleatoriocorrecto_guion;
+	private Boolean aleatorioincorrecto_prueba;
+	private Boolean aleatorioincorrecto_guion;
 	
 
 	public ValorEntrada() {
@@ -106,6 +108,26 @@ public class ValorEntrada implements java.io.Serializable {
 		this.correcto_guion = correcto_guion;
 		this.aleatoriocorrecto_prueba = aleatoriocorrecto_prueba;
 		this.aleatoriocorrecto_guion = aleatoriocorrecto_guion;
+	}
+	
+	public ValorEntrada(Entrada entrada, String valor, Boolean valido,
+			Boolean correcto, Boolean registrado, Boolean aleatorio, Boolean insercion, Boolean modificacion, Boolean seleccionada,Boolean correcto_prueba,Boolean correcto_guion,
+			Boolean aleatoriocorrecto_prueba,Boolean aleatoriocorrecto_guion,Boolean aleatorioincorrecto_prueba,Boolean aleatorioincorrecto_guion){
+		this.entrada = entrada;
+		this.valor = valor;
+		this.valido = valido;
+		this.correcto = correcto;
+		this.registrado = registrado;
+		this.aleatorio = aleatorio;
+		this.insercion = insercion;
+		this.modificacion = modificacion;
+		this.seleccionada = seleccionada;
+		this.correcto_prueba = correcto_prueba;
+		this.correcto_guion = correcto_guion;
+		this.aleatoriocorrecto_prueba = aleatoriocorrecto_prueba;
+		this.aleatoriocorrecto_guion = aleatoriocorrecto_guion;
+		this.aleatorioincorrecto_prueba = aleatorioincorrecto_prueba;
+		this.aleatorioincorrecto_guion = aleatorioincorrecto_guion;
 		
 		
 	}
@@ -260,6 +282,24 @@ public class ValorEntrada implements java.io.Serializable {
 	
 	public void setAleatoriocorrecto_guion(Boolean aleatoriocorrecto_guion) {
 		this.aleatoriocorrecto_guion = aleatoriocorrecto_guion;
+	}
+	
+	@Column(name = "aleatorioincorrecto_prueba")
+	public Boolean getAleatorioincorrecto_prueba() {
+		return aleatorioincorrecto_prueba;
+	}
+	
+	public void setAleatorioincorrecto_prueba(Boolean aleatorioincorrecto_prueba) {
+		this.aleatorioincorrecto_prueba = aleatorioincorrecto_prueba;
+	}
+	
+	@Column(name = "aleatorioincorrecto_guion")
+	public Boolean getAleatorioincorrecto_guion() {
+		return aleatorioincorrecto_guion;
+	}
+	
+	public void setAleatorioincorrecto_guion(Boolean aleatorioincorrecto_guion) {
+		this.aleatorioincorrecto_guion = aleatorioincorrecto_guion;
 	}
 
 }
