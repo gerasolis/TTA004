@@ -115,7 +115,19 @@ public class ValorEntradaDAO extends GenericDAO {
 		}
 		return valor;
 	}
-
+	
+	public void borrarValorEntrada(){
+		try {
+			session.beginTransaction();
+			Query query = session.createSQLQuery("DELETE FROM ValorEntrada");
+			query.executeUpdate();
+			session.getTransaction().commit();
+		} catch (HibernateException he) {
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
+	}
 	public ValorEntrada consultarValorInvalido(ReglaNegocio reglaNegocio,
 			Entrada entrada) {
 		List<ValorEntrada> results = null;

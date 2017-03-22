@@ -35,6 +35,10 @@ public class ValorEntradaBs {
 		entradasSeleccionadas = JsonUtil.mapJSONToSet(
 				jsonEntradasTabla, ValorEntrada.class);
 		
+		//ANTES DE REGISTRAR ENTRADA, TENEMOS QUE BORRAR LAS QUE YA EXISTEN.
+		ValorEntradaDAO edaox1 = new ValorEntradaDAO();
+		edaox1.borrarValorEntrada();
+		
 		for(ValorEntrada x : entradasSeleccionadas){
 			EntradaDAO edaox = new EntradaDAO();
 			Entrada ex = edaox.obtenerEntrada(x.getId());
@@ -42,6 +46,7 @@ public class ValorEntradaBs {
 			x.setValido(true);
 			x.setId(null);
 			ValorEntradaDAO vedao = new ValorEntradaDAO();
+			
 			vedao.registrarValorEntrada(x);
 		}
 	}
