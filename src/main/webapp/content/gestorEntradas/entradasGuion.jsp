@@ -95,7 +95,7 @@ div.upload input {
 						</td>
 						<td>
 							<input type="hidden" id="palabras-${entrada.id}"/>
-						    <div class="upload"><input type="file" name="vci"  id="files-${entrada.id}" label="File" value=""/>
+						    <div class="upload" id="upload-${entrada.id}"><input type="file" name="vci"  id="files-${entrada.id}" label="File" value=""/>
 							<s:hidden name="idAtributo" value="%{#entrada.id}" /></div>	
 							<input id="checkbox-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="radio"  class="correcto_guion" name="guion-${entrada.id}"/></td>
 					</tr>

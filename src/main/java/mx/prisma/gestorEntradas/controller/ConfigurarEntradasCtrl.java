@@ -246,7 +246,7 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 					SessionManager.set(this.getActionMessages(), "mensajesAccion");
 				}*/
 				
-				ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),2,jsonEntradasTabla);
+				ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),2,jsonEntradasTabla,casoUso);
 				resultado="cu";
 				addActionMessage(getText("MSG41", new String[] { "Los",
 						"txt", "valores correctos", "registrado", casoUso.getClave()+casoUso.getNumero()+" "+casoUso.getNombre()}));

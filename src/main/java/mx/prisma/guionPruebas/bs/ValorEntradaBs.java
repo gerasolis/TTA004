@@ -29,25 +29,26 @@ import net.sf.json.JSONObject;
 
 public class ValorEntradaBs {
 	
-	public static void guardarValores(List<File> entradas, List<String> idAtributos, int tipoEntrada,String jsonEntradasTabla) throws IOException{
+	public static void guardarValores(List<File> entradas, List<String> idAtributos, int tipoEntrada,String jsonEntradasTabla,CasoUso casoUso) throws IOException{
 		
 		Set<ValorEntrada> entradasSeleccionadas = new HashSet<ValorEntrada>(0);
 		entradasSeleccionadas = JsonUtil.mapJSONToSet(
 				jsonEntradasTabla, ValorEntrada.class);
 		
 		//ANTES DE REGISTRAR ENTRADA, TENEMOS QUE BORRAR LAS QUE YA EXISTEN.
-		ValorEntradaDAO edaox1 = new ValorEntradaDAO();
-		edaox1.borrarValorEntrada();
+		/*ValorEntradaDAO edaox1 = new ValorEntradaDAO();
+		edaox1.borrarValorEntrada();*/
 		
 		for(ValorEntrada x : entradasSeleccionadas){
 			EntradaDAO edaox = new EntradaDAO();
-			Entrada ex = edaox.obtenerEntrada(x.getId());
+			Entrada ex = edaox.obtenerEntrada(x.getId(),casoUso.getId());
 			x.setEntrada(ex);
 			x.setValido(true);
 			x.setId(null);
 			ValorEntradaDAO vedao = new ValorEntradaDAO();
-			
-			vedao.registrarValorEntrada(x);
+			vedao.borrarValorEntrada(ex);
+			ValorEntradaDAO vedao2 = new ValorEntradaDAO();
+			vedao2.registrarValorEntrada(x);
 		}
 	}
 	

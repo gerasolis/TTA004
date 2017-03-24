@@ -83,7 +83,7 @@ public class EntradaDAO extends GenericDAO {
 		
 	}
 	@SuppressWarnings("unchecked")
-	public Entrada obtenerEntrada(int idAtributo){
+	public Entrada obtenerEntrada(int idAtributo, int CasoUsoid){
 		
 		List<Entrada> results = null;
 		Entrada result = null;
@@ -91,7 +91,7 @@ public class EntradaDAO extends GenericDAO {
 		try {
 			session.beginTransaction();
 			
-			Query query = session.createSQLQuery("SELECT * from Entrada where Atributoid="+idAtributo);
+			Query query = session.createSQLQuery("SELECT * from Entrada where Atributoid="+idAtributo+" and CasoUsoElementoid="+CasoUsoid);
 		
 			List <Object>result_1 =  query.list();
 			session.getTransaction().commit();

@@ -116,10 +116,11 @@ public class ValorEntradaDAO extends GenericDAO {
 		return valor;
 	}
 	
-	public void borrarValorEntrada(){
+	public void borrarValorEntrada(Entrada e){
 		try {
 			session.beginTransaction();
-			Query query = session.createSQLQuery("DELETE FROM ValorEntrada");
+			Query query = session.createSQLQuery("DELETE FROM ValorEntrada where valido=1 and Entradaid = :entrada");
+			query.setParameter("entrada", e.getId());
 			query.executeUpdate();
 			session.getTransaction().commit();
 		} catch (HibernateException he) {

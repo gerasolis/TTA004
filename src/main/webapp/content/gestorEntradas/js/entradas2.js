@@ -13,18 +13,16 @@ $(document)
 				var parsedJson = JSON.parse(json);
 				$.each(parsedJson, function(i, item) {
 					var id = item.id;
-					//document.getElementById("checkbox-" + id).checked = true;
 				});
 			}
 
 			$("input[type=file]").on('change',function(){
-				var id = $(this).attr('id')
+				var id = $(this).attr('id');
+				var uploadFiles = id.split("-");
+				$("#upload-"+uploadFiles[1]).css("background","no-repeat url('/prisma/resources/images/icons/checked.png')");
 				guardarCadena(id);
-			});
-			
-			
-			
-			
+				
+			});			
 		});
 
 

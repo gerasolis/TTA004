@@ -177,7 +177,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 	public String configurar() {
 		String resultado;
 		try {
-			modificarEntradas(true);
+			//modificarEntradas(true);
 			modificarAcciones(true);
 			modificarReferenciasReglasNegocio(true);
 			modificarReferenciasParametrosMensaje(true);
@@ -215,7 +215,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 		String resultado;
 		try {			
 			
-			modificarEntradas(false);
+			//modificarEntradas(false);
 			modificarAcciones(false);
 			modificarReferenciasReglasNegocio(false);
 			modificarReferenciasParametrosMensaje(false);

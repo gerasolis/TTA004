@@ -25,9 +25,9 @@ function agregarCamposEntradasSeccion() {
 				parsedJson,
 				function(i, item) {
 					if(item.valores != null){
-						valor = item.valores[0].valor;
-						idValor = item.valores[0].id;
-						}
+						valor = item.valores.valor;
+						idValor = item.valores.id;
+					}
 					else if(item.valoresEntradaTrayectoria != '') {
 						valor = item.valoresEntradaTrayectoria[0].valor;
 						idValor = item.valoresEntradaTrayectoria[0].id;
@@ -36,7 +36,7 @@ function agregarCamposEntradasSeccion() {
 						idValor = 0;
 					}
 					
-					inputEtiqueta = "<input type='text' class='inputFormulario ui-widget' id='input-etiqueta-entrada-" + item.id  + "' value='" + nullToEmpty(item.nombreHTML) + "'>";
+					/*inputEtiqueta = "<input type='text' class='inputFormulario ui-widget' id='input-etiqueta-entrada-" + item.id  + "' value='" + nullToEmpty(item.nombreHTML) + "'>";
 					inputValor = "<input type='text' class='inputFormulario ui-widget' id='input-valor-entrada-" + item.id  + "' value='" + valor + "'>";
 					nombreAtributo = null;
 					nombreTermino = null;
@@ -59,7 +59,7 @@ function agregarCamposEntradasSeccion() {
 									+ "<td class='hide'>" + nombreAtributo + "</td>"
 									+ "<td class='hide'>" + nombreTermino + "</td>"
 								+"</tr>");
-					
+					*/
 		});
 		
 	} else {
@@ -371,7 +371,7 @@ function agregarCamposPantallasSeccion() {
 function prepararEnvio() {
 	try {
 		
-		tablaEntradasToJson();
+		//tablaEntradasToJson();
 		tablaAccionesToJson();
 		tablaReglasNegocioToJson();
 		tablaReferenciasParametrosMensajeToJson();

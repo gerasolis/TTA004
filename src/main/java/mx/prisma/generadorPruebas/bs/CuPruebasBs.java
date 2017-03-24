@@ -259,7 +259,7 @@ public static Set<ValorEntrada> generarValoresIncorectos(Set<Entrada> entradas,
 			entradas.remove(entradaIncidencia);
 		}
 		
-		for(Entrada entrada : entradas) {
+		/*for(Entrada entrada : entradas) {
 				System.out.println("jdsd: "+entrada.getId());
 				//if(ValorEntradaBs.consultarValores(entrada)== null){
 				
@@ -284,8 +284,8 @@ public static Set<ValorEntrada> generarValoresIncorectos(Set<Entrada> entradas,
 				valorValidoBD.setValor(valorCadenaValido);
 				ValorEntradaBs.registrarValorEntrada(valorValidoBD);
 			}
-		else{}
-		}
+			else{}
+		}*/
 		return listaIncidencias;
 	}
 	

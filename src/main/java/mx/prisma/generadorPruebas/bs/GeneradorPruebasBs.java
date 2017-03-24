@@ -674,9 +674,11 @@ public class GeneradorPruebasBs {
 				entrada = new EntradaDAO().findById(entrada.getId());
 				for (ValorEntrada valorEntrada : entrada.getValores()) {
 					if (valorEntrada.getValido()) {
-						String valor = valorEntrada.getValor();
-						String valorEscCSV = org.apache.commons.lang.StringEscapeUtils.escapeCsv(valor);
-						valores.add(valorEscCSV);
+						if(valorEntrada.getCorrecto_prueba() || valorEntrada.getAleatoriocorrecto_prueba()){
+							String valor = valorEntrada.getValor();
+							String valorEscCSV = org.apache.commons.lang.StringEscapeUtils.escapeCsv(valor);
+							valores.add(valorEscCSV);
+						}
 					}
 				}
 			//}
@@ -718,16 +720,34 @@ public class GeneradorPruebasBs {
 					}
 				} else {
 					if (valorEntrada.getValido()) {
-						String valor = valorEntrada.getValor();
-						String valorEscCSV = org.apache.commons.lang.StringEscapeUtils.escapeCsv(valor);
-						valores.add(valorEscCSV);
+						if(valorEntrada.getCorrecto_prueba() || valorEntrada.getAleatoriocorrecto_prueba()){//editado
+							String valor = valorEntrada.getValor();
+							String valorEscCSV = org.apache.commons.lang.StringEscapeUtils.escapeCsv(valor);
+							valores.add(valorEscCSV);
+						}
 					} else if(new ValorEntradaDAO().consultarValorValido(entrada)==null){
 						buscarIncidencia=true;
 					}
 				}
 			}
 			if(buscarIncidencia){
-				if(new ValorDesconocidoDAO().consultarDesconocido(entrada)){
+				//Vamos a buscar el valorentrada correcto, relacionado con la entrada que tenemos, para meterlo en el csv.
+				for (ValorEntrada valorEntrada : entrada.getValores()) {
+					System.out.println("//////////////////////////////////");
+					System.err.println(valorEntrada.getValor()+" ID: "+valorEntrada.getId());
+					if(valorEntrada.getValido()){
+						if(valorEntrada.getCorrecto_prueba()){
+							String valor = valorEntrada.getValor();
+							String valorEscCSV = org.apache.commons.lang.StringEscapeUtils.escapeCsv(valor);
+							valores.add(valorEscCSV); 
+						}
+					}
+					
+				}
+				
+				
+				
+				/*if(new ValorDesconocidoDAO().consultarDesconocido(entrada)){
 					//Aquí aplicamos el algoritmo para el valor aleatorio.
 						
 					String ruta=new ValorDesconocidoDAO().obtenerRuta(entrada);
@@ -754,7 +774,7 @@ public class GeneradorPruebasBs {
 							 e.printStackTrace();
 						}
 			         }
-				}
+				}*/
 			}
 		}
 		return valores;

@@ -34,7 +34,7 @@
 		action="%{#pageContext.request.contextPath}/configuracion-caso-uso!configurar" method="post" onsubmit="return prepararEnvio();">
 		<s:hidden name="_method" value="put" />
 
-		<div class="formulario" id="formularioEntradas">
+		<!--<div class="formulario" id="formularioEntradas">
 			<div class="tituloFormulario">Configuración de las Entradas</div>
 			<div class="seccion">
 				<p class="instrucciones">Ingrese los valores de los atributos <i>name</i> y <i>value</i> de los input HTML de cada una de las Entradas. Los valores mostrados en
@@ -42,10 +42,9 @@
 			</div>
 			<div id="seccionEntradas">
 				<table class="seccion" id="tablaEntradas">
-				<!--  -->
 				</table>
 			</div>
-		</div>
+		</div>-->
 		<div class="formulario" id="formularioAcciones">
 			<div class="tituloFormulario">Configuración de las Acciones</div>
 			<div class="seccion">

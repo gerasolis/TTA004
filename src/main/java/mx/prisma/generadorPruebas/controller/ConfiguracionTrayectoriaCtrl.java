@@ -183,17 +183,6 @@ public class ConfiguracionTrayectoriaCtrl extends ActionSupportPRISMA {
 			
 			//Se arman los json con los campos que se mostrarán en pantalla
 			
-			
-			if(!listaIncidencias.isEmpty()){
-				System.out.println("Entra al if de listaIncidencias");
-				resultado="desconocido";
-				
-				for(Entrada entrada: listaIncidencias){
-					System.out.println("Nombre del atributo: "+entrada.getAtributo().getNombre());
-					listaAtributo.add(entrada.getAtributo());
-				}
-			}
-			else{	
 				if(jsonEntradas == null || jsonEntradas.isEmpty()) {
 				obtenerJsonCamposEntradas(casoUso, trayectoria);
 				}
@@ -213,7 +202,7 @@ public class ConfiguracionTrayectoriaCtrl extends ActionSupportPRISMA {
 					obtenerJsonCamposPantallas(trayectoria);
 				}
 				resultado = "pantallaConfiguracionTrayectoria";
-			}	
+
 				@SuppressWarnings("unchecked")
 				Collection<String> msjs = (Collection<String>) SessionManager
 						.get("mensajesAccion");
@@ -382,7 +371,7 @@ public class ConfiguracionTrayectoriaCtrl extends ActionSupportPRISMA {
 
 			}
 			System.out.println("Entra a método guardar");
-			ValorEntradaTrayectoriaBs.modificarEntradas(trayectoria, false, jsonEntradas);
+			//ValorEntradaTrayectoriaBs.modificarEntradas(trayectoria, false, jsonEntradas);
 			modificarAcciones(trayectoria, false);
 			modificarReferenciasReglasNegocio(false);
 			System.out.println("Antes de modificar Parametros");
@@ -1035,7 +1024,11 @@ public class ConfiguracionTrayectoriaCtrl extends ActionSupportPRISMA {
 			
 			Set<ValorEntrada> valores = new HashSet<ValorEntrada>(0);
 			
+			System.out.println(entrada.getAtributo().getId());
 			ValorEntrada valorValido = ValorEntradaBs.consultarValorValido(entrada);
+				/*System.out.println("*******************");
+				System.out.println(valorValido.getValor());*/
+
 			if(valorValido != null) {
 				valorValido.setEntrada(null);
 				valorValido.setReglaNegocio(null);
