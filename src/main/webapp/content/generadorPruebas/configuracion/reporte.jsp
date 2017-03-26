@@ -44,7 +44,6 @@
 						<th><s:text name="Trayectoria"/></th>
 						<th><s:text name="Paso"/></th>
 						<th><s:text name="Entrada"/></th>
-						<th><s:text name="Dato"/></th>
 						<th><s:text name="Mensaje"/></th>
 						<th><s:text name="Tipo de error"/></th>
 						<th style="width: 10%;"><s:text name="Núm de error"/></th>
@@ -83,7 +82,6 @@
 									</s:iterator>
 								</ul>
 							</td>
-							<td><s:property value="#e.pruebaid.casouso.id"/></td>
 							<td><s:property value="#e.mensajeid.clave + ' ' + #e.mensajeid.numero"/></td>
 							<!--<s:iterator value="ListMensajes2" var="m">
 								<td><s:property value="#m.redaccion"/></td>

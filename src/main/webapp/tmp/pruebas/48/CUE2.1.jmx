@@ -1,0 +1,1609 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
+<hashTree>
+<TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Plan de Pruebas" enabled="true">
+<stringProp name="TestPlan.comments"></stringProp>
+<boolProp name="TestPlan.functional_mode">false</boolProp>
+<boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+<elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="Variables definidas por el Usuario" enabled="true">
+<collectionProp name="Arguments.arguments"/>
+</elementProp>
+<stringProp name="TestPlan.user_define_classpath"></stringProp>
+</TestPlan>
+<hashTree>
+<ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TESTCUE2.1" enabled="true">
+<stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+<elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Controlador Bucle" enabled="true">
+<boolProp name="LoopController.continue_forever">false</boolProp>
+<stringProp name="LoopController.loops">1</stringProp>
+</elementProp>
+<stringProp name="ThreadGroup.num_threads">1</stringProp>
+<stringProp name="ThreadGroup.ramp_time">1</stringProp>
+<longProp name="ThreadGroup.start_time">1402974414000</longProp>
+<longProp name="ThreadGroup.end_time">1402974414000</longProp>
+<boolProp name="ThreadGroup.scheduler">false</boolProp>
+<stringProp name="ThreadGroup.duration"></stringProp>
+<stringProp name="ThreadGroup.delay"></stringProp>
+</ThreadGroup>
+<hashTree>
+<CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+<collectionProp name="CookieManager.cookies"/>
+<boolProp name="CookieManager.clearEachIteration">false</boolProp>
+</CookieManager>
+<hashTree/>
+<ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Default" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments"/>
+</elementProp>
+<stringProp name="HTTPSampler.domain">localhost</stringProp>
+<stringProp name="HTTPSampler.port">8080</stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path"></stringProp>
+<stringProp name="HTTPSampler.implementation">Java</stringProp>
+<stringProp name="HTTPSampler.concurrentPool">4</stringProp>
+</ConfigTestElement>
+<hashTree/>
+<JDBCDataSource guiclass="TestBeanGUI" testclass="JDBCDataSource" testname="JDBC-Default" enabled="true">
+<stringProp name="dataSource">JDBC Default</stringProp>
+<stringProp name="poolMax">10</stringProp>
+<stringProp name="timeout">10000</stringProp>
+<stringProp name="trimInterval">60000</stringProp>
+<boolProp name="autocommit">true</boolProp>
+<stringProp name="transactionIsolation">DEFAULT</stringProp>
+<boolProp name="keepAlive">true</boolProp>
+<stringProp name="connectionAge">5000</stringProp>
+<stringProp name="checkQuery">Select 1</stringProp>
+<stringProp name="dbUrl">jdbc:mysql://localhost:3306/PRISMA</stringProp>
+<stringProp name="driver">com.mysql.jdbc.Driver</stringProp>
+<stringProp name="username">root</stringProp>
+<stringProp name="password"></stringProp>
+</JDBCDataSource>
+<hashTree/>
+<ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true"> 
+ <boolProp name="ResultCollector.error_logging">false</boolProp> 
+ <objProp> 
+ <value class="SampleSaveConfiguration">
+ <time>true</time>
+<latency>true</latency> <timestamp>true</timestamp>
+<success>true</success>
+ <label>true</label>
+ <code>true</code>
+ <message>true</message>
+<threadName>true</threadName>
+<dataType>true</dataType>
+<encoding>false</encoding>
+<assertions>true</assertions>
+<subresults>true</subresults>
+<responseData>false</responseData>
+<samplerData>false</samplerData>
+<xml>false</xml>
+<fieldNames>false</fieldNames>
+<responseHeaders>false</responseHeaders>
+<requestHeaders>false</requestHeaders>
+<responseDataOnError>false</responseDataOnError>
+<saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+<assertionsResultsToSave>0</assertionsResultsToSave>
+<bytes>true</bytes>
+</value>
+</objProp>
+<objProp>
+<value class="SampleSaveConfiguration">
+<time>true</time>
+<latency>true</latency>
+<timestamp>true</timestamp>
+<success>true</success>
+<label>true</label>
+<code>true</code>
+<message>true</message>
+<threadName>true</threadName>
+<dataType>true</dataType>
+<encoding>false</encoding>
+<assertions>true</assertions>
+<subresults>true</subresults>
+<responseData>false</responseData>
+<samplerData>false</samplerData>
+<xml>false</xml>
+<fieldNames>false</fieldNames>
+<responseHeaders>false</responseHeaders>
+<requestHeaders>false</requestHeaders>
+ <responseDataOnError>false</responseDataOnError>
+<saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+<assertionsResultsToSave>0</assertionsResultsToSave>
+<bytes>true</bytes>
+<threadCounts>true</threadCounts>
+</value>
+</objProp>
+<stringProp name="filename"></stringProp>
+</ResultCollector>
+ <hashTree/>
+<ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+<boolProp name="ResultCollector.error_logging">false</boolProp>
+ <objProp>
+<value class="SampleSaveConfiguration">
+<latency>true</latency>
+<timestamp>true</timestamp>
+<success>true</success>
+<label>true</label>
+<code>true</code>
+<message>true</message>
+<threadName>true</threadName>
+<dataType>true</dataType>
+<encoding>false</encoding>
+<assertions>true</assertions>
+<subresults>true</subresults>
+<responseData>false</responseData>
+<samplerData>false</samplerData>
+ <xml>false</xml>
+<fieldNames>false</fieldNames>
+<responseHeaders>false</responseHeaders>
+<requestHeaders>false</requestHeaders>
+<responseDataOnError>false</responseDataOnError>
+<saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+<assertionsResultsToSave>0</assertionsResultsToSave>
+<bytes>true</bytes>
+</value>
+</objProp>
+<objProp>
+<value class="SampleSaveConfiguration">
+<time>true</time>
+<latency>true</latency>
+<timestamp>true</timestamp>
+<success>true</success>
+<label>true</label>
+<code>true</code>
+<message>true</message>
+<threadName>true</threadName>
+ <dataType>true</dataType>
+<encoding>false</encoding>
+<assertions>true</assertions>
+<subresults>true</subresults>
+ <responseData>false</responseData>
+<samplerData>false</samplerData>
+<xml>false</xml>
+<fieldNames>false</fieldNames>
+<responseHeaders>false</responseHeaders>
+<requestHeaders>false</requestHeaders>
+<responseDataOnError>false</responseDataOnError>
+<saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+<assertionsResultsToSave>0</assertionsResultsToSave>
+<bytes>true</bytes>
+<threadCounts>true</threadCounts>
+</value>
+</objProp>
+<stringProp name="filename"></stringProp>
+</ResultCollector>
+ <hashTree/>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE13-TP40" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="userName" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE13-TP40_userName}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">userName</stringProp>
+</elementProp>
+<elementProp name="password" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE13-TP40_password}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">password</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/access!login</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$el botón ACC·6 en la pantalla IU·38.</stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE13-TP40" enabled="true">
+<stringProp name="filename">entradas/CSVCUE13-TP40.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE13-TP40_userName,csv_PHCUE13-TP40_password</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$el botón ACC·6 en la pantalla IU·38.</stringProp>
+</CSVDataSet>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE1-TP10" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/proyectos-admin</stringProp>
+<stringProp name="HTTPSampler.method">GET</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$gestionar los ENT·40 presionando la opción ACC·9 del menú principal.</stringProp>
+</HTTPSamplerProxy>
+<hashTree/>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2-TP10" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">GET</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$gestionar el personal presionando la opción ACC·8 del menú principal.</stringProp>
+</HTTPSamplerProxy>
+<hashTree/>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP10" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP10_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP10_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP10_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP10_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP10_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP10_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal/new</stringProp>
+<stringProp name="HTTPSampler.method">GET</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$registrar una persona oprimiendo el botón ACC·12 de la pantalla IU·45.</stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-TP20" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$la pantalla IU·46 en la cual se realizará el registro.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP50model.curp" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.curp_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.curp_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.curp_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.curp_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.curp_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.curp_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP50model.curp" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP50model.curp.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP50model.curp_model.curp,csv_PHCUE2.1-TP4TP50model.curp_model.nombre,csv_PHCUE2.1-TP4TP50model.curp_model.apellidoPaterno,csv_PHCUE2.1-TP4TP50model.curp_model.apellidoMaterno,csv_PHCUE2.1-TP4TP50model.curp_model.correoElectronico,csv_PHCUE2.1-TP4TP50model.curp_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-B10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Dato obligatorio.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·14 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP50model.nombre" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.nombre_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.nombre_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.nombre_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.nombre_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.nombre_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.nombre_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP50model.nombre" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP50model.nombre.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP50model.nombre_model.curp,csv_PHCUE2.1-TP4TP50model.nombre_model.nombre,csv_PHCUE2.1-TP4TP50model.nombre_model.apellidoPaterno,csv_PHCUE2.1-TP4TP50model.nombre_model.apellidoMaterno,csv_PHCUE2.1-TP4TP50model.nombre_model.correoElectronico,csv_PHCUE2.1-TP4TP50model.nombre_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-B10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Dato obligatorio.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·14 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP50model.apellidoPaterno" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP50model.apellidoPaterno" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP50model.apellidoPaterno.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.curp,csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.nombre,csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.apellidoPaterno,csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.apellidoMaterno,csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.correoElectronico,csv_PHCUE2.1-TP4TP50model.apellidoPaterno_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-B10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Dato obligatorio.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·14 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP50model.correoElectronico" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.correoElectronico_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.correoElectronico_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.correoElectronico_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.correoElectronico_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.correoElectronico_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.correoElectronico_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP50model.correoElectronico" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP50model.correoElectronico.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP50model.correoElectronico_model.curp,csv_PHCUE2.1-TP4TP50model.correoElectronico_model.nombre,csv_PHCUE2.1-TP4TP50model.correoElectronico_model.apellidoPaterno,csv_PHCUE2.1-TP4TP50model.correoElectronico_model.apellidoMaterno,csv_PHCUE2.1-TP4TP50model.correoElectronico_model.correoElectronico,csv_PHCUE2.1-TP4TP50model.correoElectronico_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-B10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Dato obligatorio.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·14 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP50model.contrasenia" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.contrasenia_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.contrasenia_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.contrasenia_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.contrasenia_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.contrasenia_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP50model.contrasenia_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP50model.contrasenia" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP50model.contrasenia.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP50model.contrasenia_model.curp,csv_PHCUE2.1-TP4TP50model.contrasenia_model.nombre,csv_PHCUE2.1-TP4TP50model.contrasenia_model.apellidoPaterno,csv_PHCUE2.1-TP4TP50model.contrasenia_model.apellidoMaterno,csv_PHCUE2.1-TP4TP50model.contrasenia_model.correoElectronico,csv_PHCUE2.1-TP4TP50model.contrasenia_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-B10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Dato obligatorio.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·14 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP60model.curp" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.curp_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.curp_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.curp_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.curp_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.curp_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.curp_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP60model.curp" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP60model.curp.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP60model.curp_model.curp,csv_PHCUE2.1-TP4TP60model.curp_model.nombre,csv_PHCUE2.1-TP4TP60model.curp_model.apellidoPaterno,csv_PHCUE2.1-TP4TP60model.curp_model.apellidoMaterno,csv_PHCUE2.1-TP4TP60model.curp_model.correoElectronico,csv_PHCUE2.1-TP4TP60model.curp_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-D10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Escriba menos de 45 caracteres.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·16 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP60model.nombre" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.nombre_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.nombre_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.nombre_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.nombre_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.nombre_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.nombre_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP60model.nombre" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP60model.nombre.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP60model.nombre_model.curp,csv_PHCUE2.1-TP4TP60model.nombre_model.nombre,csv_PHCUE2.1-TP4TP60model.nombre_model.apellidoPaterno,csv_PHCUE2.1-TP4TP60model.nombre_model.apellidoMaterno,csv_PHCUE2.1-TP4TP60model.nombre_model.correoElectronico,csv_PHCUE2.1-TP4TP60model.nombre_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-D10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Escriba menos de 45 caracteres.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·16 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP60model.apellidoPaterno" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP60model.apellidoPaterno" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP60model.apellidoPaterno.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.curp,csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.nombre,csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.apellidoPaterno,csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.apellidoMaterno,csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.correoElectronico,csv_PHCUE2.1-TP4TP60model.apellidoPaterno_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-D10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Escriba menos de 45 caracteres.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·16 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP60model.apellidoMaterno" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP60model.apellidoMaterno" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP60model.apellidoMaterno.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.curp,csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.nombre,csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.apellidoPaterno,csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.apellidoMaterno,csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.correoElectronico,csv_PHCUE2.1-TP4TP60model.apellidoMaterno_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-D10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Escriba menos de 45 caracteres.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·16 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP60model.correoElectronico" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.correoElectronico_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.correoElectronico_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.correoElectronico_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.correoElectronico_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.correoElectronico_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.correoElectronico_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP60model.correoElectronico" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP60model.correoElectronico.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP60model.correoElectronico_model.curp,csv_PHCUE2.1-TP4TP60model.correoElectronico_model.nombre,csv_PHCUE2.1-TP4TP60model.correoElectronico_model.apellidoPaterno,csv_PHCUE2.1-TP4TP60model.correoElectronico_model.apellidoMaterno,csv_PHCUE2.1-TP4TP60model.correoElectronico_model.correoElectronico,csv_PHCUE2.1-TP4TP60model.correoElectronico_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-D10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Escriba menos de 45 caracteres.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·16 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP60model.contrasenia" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.contrasenia_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.contrasenia_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.contrasenia_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.contrasenia_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.contrasenia_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60model.contrasenia_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP60model.contrasenia" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP60model.contrasenia.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP60model.contrasenia_model.curp,csv_PHCUE2.1-TP4TP60model.contrasenia_model.nombre,csv_PHCUE2.1-TP4TP60model.contrasenia_model.apellidoPaterno,csv_PHCUE2.1-TP4TP60model.contrasenia_model.apellidoMaterno,csv_PHCUE2.1-TP4TP60model.contrasenia_model.correoElectronico,csv_PHCUE2.1-TP4TP60model.contrasenia_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-D10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">Escriba menos de 45 caracteres.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·16 y señala el campo que presenta el error en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<JDBCSampler guiclass="TestBeanGUI" testclass="JDBCSampler" testname="PJCUE2.1-TP60" enabled="true">
+<stringProp name="dataSource">JDBC Default</stringProp>
+<stringProp name="queryType">Select Statement</stringProp>
+<stringProp name="query">select * from Colaborador where CURP="SOGG950504HDFLRR07"</stringProp>
+<stringProp name="queryArguments"></stringProp>
+<stringProp name="queryArgumentsTypes"></stringProp>
+<stringProp name="variableNames">#PJCUE2.1-TP60</stringProp>
+<stringProp name="resultVariable"></stringProp>
+<stringProp name="queryTimeout"></stringProp>
+<stringProp name="TestPlan.comments">$que la ATR·11 no se encuentre registrada en el sistema con base en la regla de negocio RN·49. TRAY·24 </stringProp>
+<stringProp name="resultSetHandler">Store as String</stringProp>
+</JDBCSampler>
+<hashTree/>
+<IfController guiclass="IfControllerPanel" testclass="IfController" testname="CICUE2.1-TP60" enabled="true">
+<stringProp name="TestPlan.comments">$que la ATR·11 no se encuentre registrada en el sistema con base en la regla de negocio RN·49. TRAY·24 </stringProp>
+<stringProp name="IfController.condition">${#PJCUE2.1-TP60_#} > 0</stringProp>
+<boolProp name="IfController.evaluateAll">false</boolProp>
+</IfController>
+<hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP60" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP60" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP60.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP60_model.curp,csv_PHCUE2.1-TP4TP60_model.nombre,csv_PHCUE2.1-TP4TP60_model.apellidoPaterno,csv_PHCUE2.1-TP4TP60_model.apellidoMaterno,csv_PHCUE2.1-TP4TP60_model.correoElectronico,csv_PHCUE2.1-TP4TP60_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-C10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">El CURP SOGG950504HDFLRR07 que desea registrar ya existe.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·17 y señala el campo que presenta la duplicidad en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+</hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP90model.correoElectronico" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP90model.correoElectronico_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP90model.correoElectronico_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP90model.correoElectronico_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP90model.correoElectronico_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP90model.correoElectronico_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP90model.correoElectronico_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP90model.correoElectronico" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP90model.correoElectronico.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP90model.correoElectronico_model.curp,csv_PHCUE2.1-TP4TP90model.correoElectronico_model.nombre,csv_PHCUE2.1-TP4TP90model.correoElectronico_model.apellidoPaterno,csv_PHCUE2.1-TP4TP90model.correoElectronico_model.apellidoMaterno,csv_PHCUE2.1-TP4TP90model.correoElectronico_model.correoElectronico,csv_PHCUE2.1-TP4TP90model.correoElectronico_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-F10" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">El correo no puede contener coma, punto, punto medio, dos puntos o guión bajo.</stringProp>
+<stringProp name="873796163">Registrar Persona</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·18 y señala el campo que presenta el formato incorrecto en la pantalla IU·46.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+<IfController guiclass="IfControllerPanel" testclass="IfController" testname="CICUE2.1-TP60" enabled="true">
+<stringProp name="TestPlan.comments">$que la ATR·11 no se encuentre registrada en el sistema con base en la regla de negocio RN·49. TRAY·24 </stringProp>
+<stringProp name="IfController.condition">${#PJCUE2.1-TP60_#} == 0</stringProp>
+<boolProp name="IfController.evaluateAll">false</boolProp>
+</IfController>
+<hashTree>
+<HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PHCUE2.1-TP4TP60" enabled="true">
+<elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+<collectionProp name="Arguments.arguments">
+<elementProp name="model.curp" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.curp}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.curp</stringProp>
+</elementProp>
+<elementProp name="model.nombre" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.nombre}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.nombre</stringProp>
+</elementProp>
+<elementProp name="model.apellidoPaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.apellidoPaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoPaterno</stringProp>
+</elementProp>
+<elementProp name="model.apellidoMaterno" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.apellidoMaterno}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.apellidoMaterno</stringProp>
+</elementProp>
+<elementProp name="model.correoElectronico" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.correoElectronico}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.correoElectronico</stringProp>
+</elementProp>
+<elementProp name="model.contrasenia" elementType="HTTPArgument">
+<boolProp name="HTTPArgument.always_encode">true</boolProp>
+<stringProp name="Argument.value">${csv_PHCUE2.1-TP4TP60_model.contrasenia}</stringProp>
+<stringProp name="Argument.metadata">=</stringProp>
+<boolProp name="HTTPArgument.use_equals">true</boolProp>
+<stringProp name="Argument.name">model.contrasenia</stringProp>
+</elementProp>
+</collectionProp>
+</elementProp>
+<stringProp name="HTTPSampler.domain"></stringProp>
+<stringProp name="HTTPSampler.port"></stringProp>
+<stringProp name="HTTPSampler.connect_timeout"></stringProp>
+<stringProp name="HTTPSampler.response_timeout"></stringProp>
+<stringProp name="HTTPSampler.protocol"></stringProp>
+<stringProp name="HTTPSampler.contentEncoding"></stringProp>
+<stringProp name="HTTPSampler.path">prisma/personal</stringProp>
+<stringProp name="HTTPSampler.method">POST</stringProp>
+<boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+<boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+<boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+<boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+<boolProp name="HTTPSampler.monitor">false</boolProp>
+<stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</HTTPSamplerProxy>
+<hashTree>
+<CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSVCUE2.1-TP4TP60" enabled="true">
+<stringProp name="filename">entradas/CSVCUE2.1-TP4TP60.csv</stringProp>
+<stringProp name="fileEncoding"></stringProp>
+<stringProp name="variableNames">csv_PHCUE2.1-TP4TP60_model.curp,csv_PHCUE2.1-TP4TP60_model.nombre,csv_PHCUE2.1-TP4TP60_model.apellidoPaterno,csv_PHCUE2.1-TP4TP60_model.apellidoMaterno,csv_PHCUE2.1-TP4TP60_model.correoElectronico,csv_PHCUE2.1-TP4TP60_model.contrasenia</stringProp>
+<stringProp name="delimiter">,</stringProp>
+<boolProp name="quotedData">false</boolProp>
+<boolProp name="recycle">true</boolProp>
+<boolProp name="stopThread">false</boolProp>
+<stringProp name="shareMode">shareMode.all</stringProp>
+<stringProp name="TestPlan.comments">$guardar la información de la persona oprimiendo el botón ACC·11 de la pantalla IU·46. TRAY·22 </stringProp>
+</CSVDataSet>
+<hashTree/>
+<ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="ASCUE2.1-TP120" enabled="true"> 
+<collectionProp name="Asserion.test_strings">
+<stringProp name="873796163">La Persona ha sido registrada exitosamente.</stringProp>
+<stringProp name="873796163">Gestionar Personal</stringProp>
+</collectionProp>
+<stringProp name="TestPlan.comments">$el mensaje MSG·13 en la pantalla IU·45 para indicar al actor que el registro se ha realizado exitosamente.</stringProp>
+<stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+<boolProp name="Assertion.assume_success">false</boolProp>
+<intProp name="Assertion.test_type">16</intProp>
+</ResponseAssertion>
+<hashTree/>
+</hashTree>
+</hashTree>
+</hashTree>
+</hashTree>
+</hashTree>
+</jmeterTestPlan>

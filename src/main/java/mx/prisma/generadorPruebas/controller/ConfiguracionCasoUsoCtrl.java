@@ -301,7 +301,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 		        File doc = new File(ruta + filename);
 		        this.fileInputStream = new FileInputStream(doc);
 		        File pruebaCU = new File(ruta);
-		        FileUtil.delete(pruebaCU);
+		        //FileUtil.delete(pruebaCU);
 	        } catch (Exception e) {
 	        	ErrorManager.agregaMensajeError(this, e);
 	        	return "cu";
@@ -384,6 +384,10 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 									}
 									System.out.println("*********************************");
 									System.out.println("CADENA A USAR: "+cadenaUsar);
+									if(cadenaUsar.charAt(0) == '$'){
+										cadenaUsar = cadenaUsar.substring(1,cadenaUsar.length());
+										System.out.println("CADENA A USAR SIN $: "+cadenaUsar);
+									}
 									System.out.println("*********************************");
 									//Comparamos la cadena con las cadenas de los mensajes de error.
 									for (ErroresPrueba liste : listErrores){
@@ -412,6 +416,12 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 						
 								}else{
 									cadena = m.getRedaccion();
+									System.out.println("*********************************");
+									System.out.println("CADENA NO PARAMETRIZADA A USAR: "+cadena);
+									if(cadena.charAt(0) == '$'){
+										cadena = cadena.substring(1,cadena.length());
+										System.out.println("CADENA NO PARAMETRIZADA A USAR SIN $: "+cadena);
+									}
 									for (ErroresPrueba liste : listErrores){
 										//byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
 										//String value = new String(ptext, UTF_8); 
