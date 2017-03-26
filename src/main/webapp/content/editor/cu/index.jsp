@@ -185,10 +185,6 @@
 			onclick="location.href='${pageContext.request.contextPath}/cu/new'">
 			<s:text name="Registrar"></s:text>
 		</button>
-		<button class="boton" 
-			onclick="location.href='${pageContext.request.contextPath}/configuracion-casos-uso!ejecutarPruebaGeneral'">
-			<s:text name="Ejecutar prueba general"></s:text>
-		</button>
 	</div>
 	
 	<s:hidden name="pruebaGenerada" id="pruebaGenerada" value="%{pruebaGenerada}"/>
