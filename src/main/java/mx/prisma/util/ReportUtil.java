@@ -48,4 +48,34 @@ public class ReportUtil {
 
 	}
 
+	public static void crearGuion(String formato, String nombre, Integer idProyecto, String rutaJasper, String rutaTarget) throws JRException, SQLException {
+		String extension = "";
+		
+		@SuppressWarnings("deprecation")
+		JasperReport reporte = (JasperReport) JRLoader.loadObjectFromFile(rutaTarget + "guionprueba.jasper");
+		
+		Map<String, Object> param = new HashMap<String, Object>();
+		param.put("idProyecto", idProyecto);
+		param.put("p_contextPath", rutaTarget);
+		param.put("SUBREPORT_DIR", rutaTarget + "subreports/");
+		
+		JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, param, new GenericDAO().getConnection());
+		
+		JRExporter exporter = null;
+		
+		if(formato.equals("pdf")) {
+			extension = "pdf";
+			exporter = new JRPdfExporter();
+		} else if(formato.equals("docx")) {
+			extension = "docx";
+			exporter = new JRDocxExporter();
+		}
+		
+		
+		//Configuración genérica (no importa del formato)
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT,jasperPrint); 
+		exporter.setParameter(JRExporterParameter.OUTPUT_FILE,new java.io.File(rutaTarget + nombre));
+		exporter.exportReport();
+
+	}
 }
