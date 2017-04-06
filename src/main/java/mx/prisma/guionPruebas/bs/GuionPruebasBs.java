@@ -191,9 +191,7 @@ if (token.contains(TokenBs.tokenENT)) {
 		System.out.println(instruccion);
 	} else if (paso.getVerbo().getNombre().equals("Ingresa")
 		|| paso.getVerbo().getNombre().equals("Registra")) {
-instruccion = "Ingrese en la entidad " + entidad + " la siguiente información: ";// Falta
-// agregar
-// entrada:valor
+instruccion = "Ingrese en la entidad " + entidad + " la siguiente información: ";
 // Obtenemos el valor de las entradas
 for (Entrada e : entradas) {
 	instruccion += e.getAtributo().getNombre() + ":" + obtenerValorEntrada(e) + " ";
@@ -822,7 +820,7 @@ private static String obtenerValorEntrada(Entrada entrada) {
 	ValorEntradaDAO vedao = new ValorEntradaDAO();
 	List<ValorEntrada> valores = vedao.consultarValores(entrada);
 	for(ValorEntrada valorEntrada : valores){
-		if(valorEntrada.getEntrada().getId().equals(entrada.getId())){
+		if(valorEntrada.getEntrada().getId().equals(entrada.getId()) && (valorEntrada.getCorrecto_guion()==true || valorEntrada.getAleatoriocorrecto_guion()==true)){
 			valor = valorEntrada.getValor();
 		}
 	}
@@ -884,7 +882,7 @@ public static List<String> obtenerInstrucciones(CasoUso casoUso, List<Trayectori
 					if(tk.contains(TokenBs.tokenTray)){
 						//Obtemos el objeto de esa trayectoria y la comparamos con trayectoriaPrincipal
 						Trayectoria trayectoria = (Trayectoria) TokenBs.obtenerTokenObjeto(" "+tk);
-						if(trayectoria.getId()==tp.getId()){
+						if(trayectoria.getId()==trayectoriaPrincipal.getId()){
 							salir = 1;
 							break;
 						}
@@ -904,6 +902,8 @@ public static List<String> obtenerInstrucciones(CasoUso casoUso, List<Trayectori
 				int tpasos = pasos.size();
 				// Consultamos las entradas del caso de uso
 				Set<Entrada> entradas = casoUso.getEntradas();
+				if(!entradas.isEmpty())
+					System.out.println("*******************************OBTIENE ENTRADAS "+entradas.size());
 				
 				//Agregamos la instrucción la url del CU (Ingrese a la siguiente url ...)
 				//Pantalla pantalla = CasoUsoPantallaDAO.
@@ -933,10 +933,10 @@ public static List<String> obtenerInstrucciones(CasoUso casoUso, List<Trayectori
 						// Si el actor es el USUARIO
 						else*/ 
 						//Si es la trayectoria principal y el token es una RN
-						if(!trayectoriaPrincipal.isAlternativa() && token.contains(TokenBs.tokenRN)) {
+						/*if(!trayectoriaPrincipal.isAlternativa() && token.contains(TokenBs.tokenRN)) {
 							break;
 						}
-						else if (paso.isRealizaActor()) {
+						else*/ if (paso.isRealizaActor()) {
 							String comparacion = GuionPruebasBs.compararTokenUsuario(contextPath, paso, token, entradas);
 							String instruccionBD = GuionPruebasBs.compararTokenUsuarioBD(contextPath, paso, " "+token,
 									entradas);
