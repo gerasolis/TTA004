@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-29T23:54:48 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="capitulo2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5aebdf83-a53a-4a3f-8f18-69c337c245af">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
+	<parameter name="p_proyectoId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select e.clave, e.numero, e.nombre, e.descripcion,
+m.nombre as nombreMod, p.nombre as nombreProy, gp.idGuionPrueba, cu.elementoid as idCasoUso
+from proyecto p, modulo m, elemento e, casouso cu,
+guionprueba gp 
+where p.id = $P{p_proyectoId}
+and p.id = m.proyectoid
+and m.id = cu.moduloid
+and cu.elementoid = gp.casousoelementoid
+and cu.elementoid = e.id
+and gp.seleccionado = 1]]>
+	</queryString>
+	<field name="nombreProy" class="java.lang.String"/>
+	<field name="nombreMod" class="java.lang.String"/>
+	<field name="clave" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="idGuionPrueba" class="java.lang.Integer"/>
+	<field name="idCasoUso" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="0" y="0" width="304" height="30" forecolor="#5F5F5F" uuid="b7ac7a54-da52-41f0-890e-876067baab69"/>
+				<textElement>
+					<font fontName="SansSerif" size="20" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Guiones de prueba]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="39" width="500" height="1" forecolor="#5F5F5F" backcolor="#5F5F5F" uuid="47a3dfea-d4dd-470b-b00a-571b5cc667df"/>
+			</rectangle>
+		</band>
+	</title>
+	<detail>
+		<band height="72">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="18" y="11" width="464" height="19" uuid="5dac1dd5-f6f9-4509-a2ac-79c0ecdda1da"/>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["GP" + $F{numero} + " " + $F{nombre}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="14" y="34" width="473" height="1" forecolor="#BFBFBF" uuid="4b933474-925c-45bb-bddc-a7f469172e45"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="18" y="49" width="464" height="13" uuid="9cfb0428-3279-4646-bf8c-0947882fa85e"/>
+				<textElement textAlignment="Justified"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="81">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="14" y="10" width="526" height="50" forecolor="#000000" backcolor="#5C5A5A" uuid="0fbbd9a9-4b91-4415-87a1-a86d61f81b91"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Proyecto: "+$F{nombreProy}+"\n"+
+"Modulo: "+$F{nombreMod}+"\n"+
+"Caso de uso: "+$F{clave}+$F{numero}+$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="319" y="60" width="29" height="21" uuid="f30c6f68-c913-4a1e-bc55-e5e3a721e47f"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Sí]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="60" width="29" height="21" uuid="e060132f-f8ed-4b5d-a630-85a11896bee3"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="60" width="163" height="21" uuid="b494ab2a-8a11-4cc2-8819-5e3ed35a3798"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="39" y="60" width="280" height="21" uuid="beeff088-6735-4da3-a67b-35e8323041cc"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Pregunta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="60" width="25" height="21" uuid="9c8ba5f5-08a8-414d-9610-73a307a2692a"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[#]]></text>
+			</staticText>
+		</band>
+		<band height="100">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="14" y="0" width="526" height="100" uuid="d736ca71-1063-46f5-a376-dc4b719f373b">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="idGuionPrueba">
+					<subreportParameterExpression><![CDATA[$F{idGuionPrueba}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/instruccion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="80">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="22" y="10" width="208" height="17" uuid="770dbab3-0828-441d-86bf-3f71929ee06a"/>
+				<text><![CDATA[Comentarios adicionales:]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="75" width="552" height="1" uuid="f5905b5c-657e-4a44-9b83-96588f3c8feb">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</break>
+			<staticText>
+				<reportElement x="22" y="27" width="510" height="45" uuid="b89f56ce-94d6-4e58-929b-aaea61e87f6b"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#5F5F5F"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="210">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="0" y="139" width="550" height="59" uuid="b67cc7e2-2d19-4760-979b-4d84969ef3c4">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="idGuionPrueba">
+					<subreportParameterExpression><![CDATA[$F{idGuionPrueba}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idCasoUso">
+					<subreportParameterExpression><![CDATA[$F{idCasoUso}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/nombrePantalla.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="5" width="520" height="30" forecolor="#5F5F5F" uuid="b3bbca8f-65d1-4f5b-8d69-644396e21e9d"/>
+				<textElement>
+					<font fontName="SansSerif" size="20" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Evaluación de elementos de Interfaz]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="45" width="500" height="1" forecolor="#5F5F5F" backcolor="#5F5F5F" uuid="f0a2583d-0424-43d6-8bc8-0bb101d7c701"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="51" width="550" height="17" forecolor="#FEFEFE" backcolor="#828181" uuid="fc16b908-29c8-42f8-97a7-a9bfaabf7836"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Evaluación de interfaz de usuario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="70" width="230" height="69" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="908e05c5-d3f4-4ffc-ad97-1b9e99bce536"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Interfaz]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="230" y="70" width="29" height="69" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="ed101065-899f-4029-9b65-17d1644d63bd"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Distribución]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="259" y="70" width="29" height="69" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="dc0f39a2-8e68-4cbf-9050-7ae22c9a7de6"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Ortografía]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="288" y="70" width="29" height="69" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="92b58190-364a-465b-98ae-c9f581dbef8e"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tipografía]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="317" y="70" width="29" height="69" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="ad8c4079-8b8d-46ca-80fe-f77ac202ee1f"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Espacio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="346" y="70" width="29" height="69" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="cb349ca9-0172-46c9-9eb1-465396d83b9f"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Iconografía]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="375" y="70" width="29" height="69" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="685c4704-b9a5-480b-b676-6d4081b73da8"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" rotation="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Fondo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="404" y="70" width="146" height="69" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="9f4df256-8e53-4080-9bec-3fec66fe7793">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Observaciones]]></text>
+			</staticText>
+		</band>
+		<band height="80">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="22" y="10" width="208" height="17" uuid="7af07c30-3346-4863-a43e-2aec936ba3c0"/>
+				<text><![CDATA[Comentarios adicionales:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="27" width="510" height="45" uuid="3870e439-94a3-4a8f-b394-7c9b07f430da"/>
+				<box>
+					<pen lineWidth="1.0" lineColor="#5F5F5F"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<break>
+				<reportElement x="0" y="77" width="552" height="1" uuid="b3644748-515a-46f6-b433-e33fdb84165e">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</break>
+		</band>
+	</detail>
+	<summary>
+		<band height="50"/>
+	</summary>
+</jasperReport>

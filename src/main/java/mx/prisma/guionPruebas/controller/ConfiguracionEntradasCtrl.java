@@ -98,17 +98,17 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 			
 			if (casoUso == null) {
 				resultado = "cu";
-				System.out.println("CU");
+				//System.out.println("CU");
 				return resultado;
 			}
 			if (modulo == null) {
 				resultado = "modulos";
-				System.out.println("M");
+				//System.out.println("M");
 				return resultado;
 			}
 			if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
 				resultado = Action.LOGIN;
-				System.out.println("C");
+				//System.out.println("C");
 				return resultado;
 			}
 			
@@ -141,7 +141,7 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 					ValorEntradaDAO vedao = new ValorEntradaDAO();
 					listaValorEntrada.add(vedao.consultarValores(entrada));
 				}
-				resultado = "pantallaEntradas";
+				resultado = "pantallaVerbos";
 			//Si no
 			}else{
 				//Mostramos la pantalla para definir instrucciones de los verbos no conocidos
@@ -179,17 +179,17 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 			
 			if (casoUso == null) {
 				resultado = "cu";
-				System.out.println("CU");
+				//System.out.println("CU");
 				return resultado;
 			}
 			if (modulo == null) {
 				resultado = "modulos";
-				System.out.println("M");
+				//System.out.println("M");
 				return resultado;
 			}
 			if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
 				resultado = Action.LOGIN;
-				System.out.println("C");
+				//System.out.println("C");
 				return resultado;
 			}
 			
@@ -211,7 +211,7 @@ public class ConfiguracionEntradasCtrl extends ActionSupportPRISMA{
 		//for(int j=0; j<reglasNegocio.size(); j++){
 			//for(int i=0; i<entradasRN.size(); i++){
 				if(CuPruebasBs.entradaPerteneceReglaNegocioIncidencias(entradaRN, reglaNegocio)[0]){
-					//System.out.println("La entrada asociada a la RN "+reglasNegocio.get(j).getDescripcion()+
+					////System.out.println("La entrada asociada a la RN "+reglasNegocio.get(j).getDescripcion()+
 						//" es "+entradasRN.get(j).get(i).getAtributo().getNombre());
 					respuesta = true;
 				}

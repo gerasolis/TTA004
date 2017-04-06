@@ -108,17 +108,17 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 			
 			if (casoUso == null) {
 				resultado = "cu";
-				System.out.println("CU");
+				//System.out.println("CU");
 				return resultado;
 			}
 			if (modulo == null) {
 				resultado = "modulos";
-				System.out.println("M");
+				//System.out.println("M");
 				return resultado;
 			}
 			if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
 				resultado = Action.LOGIN;
-				System.out.println("C");
+				//System.out.println("C");
 				return resultado;
 			}
 			
@@ -137,7 +137,7 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 				Paso paso = pasos.get(i);
 				
 				//Verificamos si el paso contiene Otro verbo
-				System.out.println("-"+paso.getOtroVerbo()+"-");
+				//System.out.println("-"+paso.getOtroVerbo()+"-");
 				if(paso.getOtroVerbo()!=null){
 					sinonimo = paso.getOtroVerbo();
 					//Consultamos si existe en la tabla de sinónimos
@@ -157,18 +157,18 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 						for(String token : tokens){
 							//Si el actor es el USUARIO
 							if(paso.isRealizaActor()){
-								System.out.println("ACTOR");
+								//System.out.println("ACTOR");
 								if(!GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas).equals("")){
-									System.out.println("ACTOR");
+									//System.out.println("ACTOR");
 									instruccion.add(GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas));
 								}
 							}
 							//Si el actor es el SISTEMA
 							else{
-								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).isEmpty()){
-									System.out.println("SISTEMA "+GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso).get(0));
-									instruccion.addAll(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso));
-									System.out.println("INSTRUCCION"+instruccion);
+								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso, 0).isEmpty()){
+									//System.out.println("SISTEMA "+GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso, 0).get(0));
+									instruccion.addAll(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso, 0));
+									//System.out.println("INSTRUCCION"+instruccion);
 								}
 							}
 						}
@@ -188,7 +188,7 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 			}
 			
 			} catch(Exception e) {
-				System.out.println("Catch");
+				//System.out.println("Catch");
 				ErrorManager.agregaMensajeError(this, e);
 				SessionManager.set(this.getActionErrors(), "mensajesError");
 				resultado = "anterior";
@@ -219,17 +219,17 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 			
 			if (casoUso == null) {
 				resultado = "cu";
-				System.out.println("CU");
+				//System.out.println("CU");
 				return resultado;
 			}
 			if (modulo == null) {
 				resultado = "modulos";
-				System.out.println("M");
+				//System.out.println("M");
 				return resultado;
 			}
 			if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
 				resultado = Action.LOGIN;
-				System.out.println("C");
+				//System.out.println("C");
 				return resultado;
 			}
 			

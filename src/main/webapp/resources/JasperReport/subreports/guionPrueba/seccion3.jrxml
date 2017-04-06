@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-11T20:15:16 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="seccion3" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e81ebb2-835b-4794-bffe-aa80023c4cd7">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
+	<queryString language="SQL">
+		<![CDATA[select ve.*
+from valorentrada ve, reglanegocio rn, 
+atributo a, entrada e, casouso c, elemento el
+where ve.seleccionada = 1
+and rn.elementoid = ve.reglanegocioelementoid
+and ve.entradaid = e.id
+and e.casousoelementoid = c.elementoid
+and e.atributoid = a.id 
+and c.elementoid = el.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="Entradaid" class="java.lang.Integer"/>
+	<field name="ReglaNegocioElementoid" class="java.lang.Integer"/>
+	<field name="valor" class="java.lang.String"/>
+	<field name="valido" class="java.lang.Boolean"/>
+	<field name="correcto" class="java.lang.Integer"/>
+	<field name="registrado" class="java.lang.Integer"/>
+	<field name="aleatorio" class="java.lang.Integer"/>
+	<field name="insercion" class="java.lang.Integer"/>
+	<field name="modificacion" class="java.lang.Integer"/>
+	<field name="seleccionada" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="304" height="30" forecolor="#5F5F5F" uuid="2360509d-ef6f-445c-9150-3fc6199b9aeb"/>
+				<textElement>
+					<font fontName="SansSerif" size="20" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Datos de entrada de prueba]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="39" width="500" height="1" forecolor="#5F5F5F" backcolor="#5F5F5F" uuid="c1824f6a-a2f0-420a-a598-62e527926764"/>
+			</rectangle>
+		</band>
+	</columnHeader>
+</jasperReport>

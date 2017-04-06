@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-09T02:49:03 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="seccion2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ff7a7248-3648-4cc0-98cb-12a3a625b786">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
+	<parameter name="p_proyectoId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT p.*, m.*, cu.elementoid as cu_cuId
+		FROM Modulo m, Proyecto p, casouso cu, elemento e 
+		WHERE m.Proyectoid = $P{p_proyectoId} 
+		and m.proyectoid = p.id
+		and m.id = cu.moduloid
+		and cu.elementoid = e.id]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="cu_cuId" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="0" y="0" width="304" height="30" forecolor="#5F5F5F" uuid="e9f67ecc-a24f-47c4-b3a2-b319b4712eb0"/>
+				<textElement>
+					<font fontName="SansSerif" size="20" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Guiones de prueba]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="39" width="500" height="1" forecolor="#5F5F5F" backcolor="#5F5F5F" uuid="7d09c4cc-83f4-42ca-8173-dda03c2c879d"/>
+			</rectangle>
+		</band>
+	</title>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="0" y="0" width="550" height="100" uuid="b6957245-1860-4a89-8858-3215ed9e09ad">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$P{p_proyectoId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cu_cuId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/instruccion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="100">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="0" y="0" width="550" height="100" uuid="dc4e7056-7a1e-46b0-8763-5945440b84a5">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$P{p_proyectoId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_moduloId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/interfaz.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="100">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="0" y="0" width="550" height="100" uuid="bd29cb24-6bc9-4f28-acaa-7256c39f6a5f"/>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$P{p_proyectoId}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="p_moduloId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/nombreCU.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

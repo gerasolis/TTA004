@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-12T01:21:25 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="nombreCU" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="71051d89-365d-45a2-b533-6964ddb86c4c">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
+	<parameter name="p_proyectoId" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select DISTINCT e.clave, e.numero, e.nombre, e.descripcion, p.id
+from Elemento e, proyecto p, modulo m, casouso c, guionprueba gp
+where p.id = $P{p_proyectoId}
+and e.proyectoid = p.id
+and p.id = m.proyectoid 
+and m.id = c.moduloid
+and c.elementoid = e.id
+and gp.casousoelementoid = c.elementoid
+and gp.seleccionado = 1]]>
+	</queryString>
+	<field name="clave" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="id" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="100">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<staticText>
+				<reportElement x="0" y="5" width="304" height="30" forecolor="#5F5F5F" uuid="1663ac9d-f5bd-4f36-8970-594adcaefbde"/>
+				<textElement>
+					<font fontName="SansSerif" size="20" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Defectos encontrados]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement mode="Opaque" x="0" y="45" width="500" height="1" forecolor="#5F5F5F" backcolor="#5F5F5F" uuid="67a9138d-6a46-414c-a150-76edb43d7011"/>
+			</rectangle>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="64" width="550" height="17" forecolor="#FEFEFE" backcolor="#828181" uuid="4504f70b-fd4d-48e4-9a8a-310cbbaeb945"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Defectos encontrados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="81" width="250" height="17" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="a5d7ce49-e5e8-44a1-9820-2177af53fde2"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Caso de uso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="250" y="81" width="60" height="17" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="717c8516-c3f5-42a3-a773-484299cbcdcf"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Menores]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="310" y="81" width="60" height="17" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="79e5bcb0-b131-44fa-92ce-4eefc23577bf">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Medios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="370" y="81" width="60" height="17" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="caa00e98-ad15-4c34-8406-60b309ac15b6">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Serios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="430" y="81" width="60" height="17" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="827ee664-6e62-4e9e-be8a-db45a8fb2b03">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Severos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="490" y="81" width="60" height="17" forecolor="#FEFEFE" backcolor="#5C5A5A" uuid="437b7522-2260-486f-89fe-832402db9eb3">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="17">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="0" y="-1" width="250" height="17" uuid="fc336e4e-0df8-4e37-baec-b570c53b3051">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{clave}+$F{numero}+' '+$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="250" y="-1" width="60" height="17" forecolor="#FEFEFE" backcolor="#FFFFFF" uuid="79c4aa9e-2850-4aae-bb5c-e8867e26cdf7"/>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Menores]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="310" y="-1" width="60" height="17" forecolor="#FEFEFE" backcolor="#FFFFFF" uuid="763de7e6-1bdb-4d4e-b5ba-667dfb31b988">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Medios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="370" y="-1" width="60" height="17" forecolor="#FEFEFE" backcolor="#FFFFFF" uuid="9abaa357-3c21-4413-8979-c129b440b34b">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Serios]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="430" y="-1" width="60" height="17" forecolor="#FEFEFE" backcolor="#FFFFFF" uuid="99095eda-f978-4328-a946-ffbcd469c5b8">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Severos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="490" y="-1" width="60" height="17" forecolor="#FEFEFE" backcolor="#FFFFFF" uuid="0fe71c18-b03b-4409-9e5a-1e95a96c2590">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box topPadding="2" leftPadding="2" bottomPadding="2" rightPadding="2">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import mx.prisma.editor.model.Verbo;
-import mx.prisma.guionPruebas.dao.InstruccionDesconocidaDAO;
+import mx.prisma.guionPruebas.dao.InstruccionDAO;
 import mx.prisma.guionPruebas.dao.SinonimoDAO;
 import mx.prisma.guionPruebas.dao.VerboSinonimoDAO;
-import mx.prisma.guionPruebas.model.InstruccionDesconocida;
+import mx.prisma.guionPruebas.model.Instruccion;
 import mx.prisma.guionPruebas.model.Sinonimo;
 
 public class VerboSinonimoBs {
@@ -54,8 +54,8 @@ public class VerboSinonimoBs {
 				BufferedReader b = new BufferedReader(f);
 				//Mientras exista una línea nueva en el archivo
 				while((cadena = b.readLine())!=null){
-					InstruccionDesconocida id = new InstruccionDesconocida(cadena, idSinonimo, idPaso);
-					InstruccionDesconocidaDAO iddao = new InstruccionDesconocidaDAO();
+					Instruccion id = new Instruccion(cadena, idSinonimo, idPaso);
+					InstruccionDAO iddao = new InstruccionDAO();
 					iddao.agregarInstruccion(id);
 				}
 			} catch (FileNotFoundException e) {

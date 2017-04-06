@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-03-16T23:45:03 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instruccion" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="70b13ba0-b0f8-49bc-a39e-287befe75f2f">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
+	<subDataset name="instrucciones" uuid="ca047d74-ea40-44fe-b638-0c8317db3782">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
+		<queryString language="SQL">
+			<![CDATA[select i.instruccion, i.idInstruccion, e.nombre, e.numero, e.clave, p.nombre as nombreProy, 
+		p.clave as claveProy, m.nombre as nombreMod, m.clave as claveMod
+		from instruccion i, guionprueba gp, casouso cu, elemento e, proyecto p, modulo m
+		where i.GuionPrueba_idGuionPrueba = gp.idGuionPrueba
+		and gp.casousoelementoid = cu.elementoid
+		and cu.elementoid = e.id
+		and cu.moduloid = m.id
+		and m.proyectoid = p.id
+		and gp.seleccionado = 1]]>
+		</queryString>
+		<field name="instruccion" class="java.lang.String"/>
+		<field name="idInstruccion" class="java.lang.Integer"/>
+	</subDataset>
+	<parameter name="idGuionPrueba" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select i.instruccion, i.idInstruccion, e.nombre, e.numero, e.clave, p.nombre as nombreProy, 
+		p.clave as claveProy, m.nombre as nombreMod, m.clave as claveMod
+		from instruccion i, guionprueba gp, casouso cu, elemento e, proyecto p, modulo m
+		where gp.idGuionPrueba = $P{idGuionPrueba}
+		and i.GuionPrueba_idGuionPrueba = gp.idGuionPrueba
+		and gp.casousoelementoid = cu.elementoid
+		and cu.elementoid = e.id
+		and cu.moduloid = m.id
+		and m.proyectoid = p.id
+		and gp.seleccionado = 1]]>
+	</queryString>
+	<field name="instruccion" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="numero" class="java.lang.String"/>
+	<field name="clave" class="java.lang.String"/>
+	<field name="nombreMod" class="java.lang.String"/>
+	<field name="claveMod" class="java.lang.String"/>
+	<field name="nombreProy" class="java.lang.String"/>
+	<field name="claveProy" class="java.lang.String"/>
+	<field name="idInstruccion" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="25" height="20" uuid="c9a561cc-ac9a-49a7-b256-19c461cbe915">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{idInstruccion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="25" y="0" width="280" height="20" isPrintWhenDetailOverflows="true" uuid="cd4f1289-0e21-4c34-8d47-88f49907d690">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{instruccion}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="305" y="0" width="29" height="20" uuid="dc4b7051-a192-42e8-a70d-17dbf196221e">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#B3B3B3"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="334" y="0" width="29" height="20" uuid="12cc24a1-006c-42d0-a5e9-be4280a0f40b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#B3B3B3"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement stretchType="RelativeToTallestObject" x="363" y="0" width="162" height="20" uuid="d19239e4-bf34-4a60-8c69-aeceb3efba10">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<graphicElement>
+					<pen lineColor="#B3B3B3"/>
+				</graphicElement>
+			</rectangle>
+		</band>
+	</detail>
+</jasperReport>

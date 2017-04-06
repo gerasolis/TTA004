@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="guionprueba" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ae038b05-4679-425c-ac25-27ce50e55a3b">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
+	<parameter name="idProyecto" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[SELECT proy.id, proy.clave, proy.nombre as proyectoNombre, proy.fechaInicioProgramada, proy.fechaInicio, proy.fechaTerminoProgramada, proy.fechaTermino, proy.descripcion, proy.presupuesto, proy.contraparte, est.nombre as estadNombre
+FROM Proyecto proy
+INNER JOIN EstadoProyecto est ON proy.EstadoProyectoid = est.id
+where proy.id = $P{idProyecto}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="clave" class="java.lang.String"/>
+	<field name="proyectoNombre" class="java.lang.String"/>
+	<field name="fechaInicioProgramada" class="java.sql.Date"/>
+	<field name="fechaInicio" class="java.sql.Date"/>
+	<field name="fechaTerminoProgramada" class="java.sql.Date"/>
+	<field name="fechaTermino" class="java.sql.Date"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="presupuesto" class="java.lang.Double"/>
+	<field name="contraparte" class="java.lang.String"/>
+	<field name="estadNombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="150" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="2" y="40" width="550" height="30" uuid="bd097b65-5431-4d60-9f22-dc6c93eb4149"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{clave}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="75" width="550" height="30" uuid="0c3c4456-3ce7-4e6c-8ab9-70af836a124a"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Guión de Pruebas de Control]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2" y="110" width="550" height="30" uuid="3c2d549e-e093-4914-bab4-abaf6462bec5"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proyectoNombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="150" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="2" y="10" width="550" height="30" uuid="7d3cf786-aca4-48db-ba93-ef1eb2a04009"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="2" y="45" width="550" height="20" uuid="ab39e8a0-493c-47ce-9615-7aed0997cad3"/>
+				<textElement textAlignment="Center" markup="html"/>
+				<textFieldExpression><![CDATA["<b>Fecha de inicio programada: </b> " + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaInicioProgramada})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="2" y="65" width="550" height="20" uuid="a89784d4-4e87-4133-9c8e-636cfeae040e"/>
+				<textElement textAlignment="Center" markup="html"/>
+				<textFieldExpression><![CDATA["<b>Fecha de término programada: </b>" + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaTerminoProgramada})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="2" y="85" width="550" height="20" uuid="4a9086fb-ef41-48f0-b4c0-30092fec35bf"/>
+				<textElement textAlignment="Center" markup="html"/>
+				<textFieldExpression><![CDATA["<b>Fecha de inicio: </b>" + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaInicio})]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="2" y="105" width="550" height="20" uuid="8647c7dc-1493-475d-8a48-82a6f1497088"/>
+				<textElement textAlignment="Center" markup="html"/>
+				<textFieldExpression><![CDATA["<b>Fecha de término: </b>" + new SimpleDateFormat("dd/MM/yyyy").format($F{fechaTermino})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="125" width="550" height="20" uuid="3e2cdecc-56e2-4ad3-af5e-ddf07fe1438a"/>
+				<textElement textAlignment="Center" markup="html"/>
+				<textFieldExpression><![CDATA["<b>Contraparte: </b>" + $F{contraparte}]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement x="0" y="149" width="552" height="1" uuid="3b1a24f9-87dc-4814-a278-1c90363bb801"/>
+			</break>
+		</band>
+		<band height="90">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="0" y="20" width="552" height="59" uuid="94fc149d-d587-4540-ac7e-e238d99482fa"/>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/seccion1.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="89" width="550" height="1" uuid="bdcfae26-2eec-4aa6-bf0c-20619302f32c"/>
+			</break>
+		</band>
+		<band height="90">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement isPrintRepeatedValues="false" x="0" y="20" width="552" height="59" uuid="86e82091-1283-47d7-8f54-ab0b3f44840f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/capitulo2.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="89" width="553" height="1" uuid="d14db765-670c-4ae3-9201-fbefe74b7b90"/>
+			</break>
+		</band>
+		<band height="101">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="1" y="20" width="552" height="59" uuid="bd882ac6-66aa-4404-bdfb-4cec4bbbf6d9">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="p_proyectoId">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/nombreCU.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="99" width="552" height="1" uuid="f20f36a0-75ae-4c39-beab-7fab02e0d62c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</break>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<textField>
+				<reportElement x="2" y="22" width="428" height="28" uuid="9d57eeca-3ece-415b-94ee-7fcf77a18787"/>
+				<textFieldExpression><![CDATA[$F{clave} + '-' +  $F{proyectoNombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="22" width="108" height="28" uuid="1a85dfbc-fc76-4f37-9ad6-84fbbce04a9f">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

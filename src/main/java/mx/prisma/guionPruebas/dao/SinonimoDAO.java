@@ -27,11 +27,11 @@ public class SinonimoDAO extends GenericDAO{
  			
  			//Si no se encuentra en la lista de sinónimos
 			if(query.list().isEmpty()){
-				System.out.println("NO ENCONTRÓ SINÓNIMO");
+				//System.out.println("NO ENCONTRÓ SINÓNIMO");
 				result = false;
 			//Si se encuentra en la lista de sinónimos
 			}else{
-				System.out.println("ENCONTRÓ SINÓNIMO");
+				//System.out.println("ENCONTRÓ SINÓNIMO");
 				result = true;
 			}
 			session.getTransaction().commit();
