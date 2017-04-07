@@ -84,7 +84,29 @@ public static List<String> obtenerTokens(Paso paso) {
 	return tokens;
 }
 
-public static String compararTokenUsuario(String actionContext, Paso paso, String token, Set<Entrada> entradas) {
+public static List<String> obtenerTokens(Mensaje mensaje) {
+	// Creamos una lista para asignar los tokens encontrados
+		List<String> tokens = new ArrayList<String>();
+	// Arreglo de cadenas para las palabras de la redacción del paso
+		String[] palabrasRedaccion;
+
+	// Separamos las palabras de la redacción del paso
+		palabrasRedaccion = mensaje.getRedaccion().split(" ");
+
+		for (String token : palabrasRedaccion) {
+	// Si la palabra es un token
+			if (TokenBs.esToken_(token)) {
+	// Se agrega al arreglo de tokens
+				tokens.add(token);
+			}
+		}
+
+	// Regresamos los tokens
+		return tokens;
+	}
+
+/*********AGREGAR AL NUEVO***********/
+public static String compararTokenUsuario(String actionContext, Paso paso, String token, Set<Entrada> entradas, ReglaNegocio reglaNegocio) {
 	String instruccion = "";
 
 // Si es una acción (ACC·#)
@@ -109,7 +131,7 @@ if (token.contains(TokenBs.tokenRN)) {
 	instruccion = "Ingrese la siguiente información: ";
 // Obtenemos el valor de las entradas
 	for (Entrada e : entradas) {
-		instruccion += e.getAtributo().getNombre() + ":" + obtenerValorEntrada(e) + " ";
+		instruccion += e.getAtributo().getNombre() + ":" + obtenerValorEntrada(e, reglaNegocio) + " ";
 	}
 }
 // Si es un atributo
@@ -130,7 +152,7 @@ if (token.contains(TokenBs.tokenATR)) {
 		Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
 		for (Entrada e : entradas) {
 			if (e.getAtributo().getId() == a.getId()) {
-				instruccion += obtenerValorEntrada(e);
+				instruccion += obtenerValorEntrada(e, reglaNegocio);
 			}
 		}
 		System.out.println(instruccion);
@@ -146,7 +168,7 @@ if (token.contains(TokenBs.tokenATR)) {
 		Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
 		for (Entrada e : entradas) {
 			if (e.getAtributo().getId() == a.getId()) {
-				instruccion += obtenerValorEntrada(e);
+				instruccion += obtenerValorEntrada(e, reglaNegocio);
 			}
 		}
 		System.out.println(instruccion);
@@ -159,7 +181,7 @@ if (token.contains(TokenBs.tokenATR)) {
 		Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
 		for (Entrada e : entradas) {
 			if (e.getAtributo().getId() == a.getId()) {
-				instruccion += obtenerValorEntrada(e);
+				instruccion += obtenerValorEntrada(e, reglaNegocio);
 			}
 		}
 		System.out.println(instruccion);
@@ -169,7 +191,7 @@ if (token.contains(TokenBs.tokenATR)) {
 		Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
 		for (Entrada e : entradas) {
 			if (e.getAtributo().getId() == a.getId()) {
-				instruccion += obtenerValorEntrada(e);
+				instruccion += obtenerValorEntrada(e, reglaNegocio);
 			}
 		}
 		System.out.println(instruccion);
@@ -196,7 +218,7 @@ instruccion = "Ingrese en la entidad " + entidad + " la siguiente información: 
 // entrada:valor
 // Obtenemos el valor de las entradas
 for (Entrada e : entradas) {
-	instruccion += e.getAtributo().getNombre() + ":" + obtenerValorEntrada(e) + " ";
+	instruccion += e.getAtributo().getNombre() + ":" + obtenerValorEntrada(e, reglaNegocio) + " ";
 }
 System.out.println(instruccion);
 } else if (paso.getVerbo().getNombre().equals("Busca")) {
@@ -245,7 +267,8 @@ System.out.println("ANTES DEL RETURN: "+instruccion);
 return instruccion;
 }
 
-public static String compararTokenUsuarioBD(String actionContext, Paso paso, String token, Set<Entrada> entradas) {
+/*********AGREGAR AL NUEVO***********/
+public static String compararTokenUsuarioBD(String actionContext, Paso paso, String token, Set<Entrada> entradas, ReglaNegocio reglaNegocio) {
 	String instruccion = "";
 
 // Si es una acción (ACC·#)
@@ -270,7 +293,7 @@ if (token.contains(TokenBs.tokenRN)) {
 	instruccion = "Ingrese la siguiente información: ";
 // Obtenemos el valor de las entradas
 	for (Entrada e : entradas) {
-		instruccion += e.getAtributo().getNombre() + ":" + obtenerValorEntrada(e) + " ";
+		instruccion += e.getAtributo().getNombre() + ":" + obtenerValorEntrada(e, reglaNegocio) + " ";
 	}
 }	
 // Si es un atributo
@@ -290,7 +313,7 @@ if (token.contains(TokenBs.tokenATR)) {
 		Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
 		for (Entrada e : entradas) {
 			if (e.getAtributo().getId() == a.getId()) {
-				instruccion += obtenerValorEntrada(e);
+				instruccion += obtenerValorEntrada(e, reglaNegocio);
 			}
 		}
 		System.out.println(instruccion);
@@ -306,7 +329,7 @@ if (token.contains(TokenBs.tokenATR)) {
 		Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
 		for (Entrada e : entradas) {
 			if (e.getAtributo().getId() == a.getId()) {
-				instruccion += obtenerValorEntrada(e);
+				instruccion += obtenerValorEntrada(e, reglaNegocio);
 			}
 		}
 		System.out.println(instruccion);
@@ -319,7 +342,7 @@ if (token.contains(TokenBs.tokenATR)) {
 		Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
 		for (Entrada e : entradas) {
 			if (e.getAtributo().getId() == a.getId()) {
-				instruccion += obtenerValorEntrada(e);
+				instruccion += obtenerValorEntrada(e, reglaNegocio);
 			}
 		}
 		System.out.println(instruccion);
@@ -329,7 +352,7 @@ if (token.contains(TokenBs.tokenATR)) {
 		Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
 		for (Entrada e : entradas) {
 			if (e.getAtributo().getId() == a.getId()) {
-				instruccion += obtenerValorEntrada(e);
+				instruccion += obtenerValorEntrada(e, reglaNegocio);
 			}
 		}
 		System.out.println(instruccion);
@@ -355,7 +378,7 @@ instruccion = "Ingrese en la entidad " + entidad + " la siguiente información: 
 // entrada:valor
 // Obtenemos el valor de las entradas
 for (Entrada e : entradas) {
-	instruccion += e.getAtributo().getNombre() + ":" + obtenerValorEntrada(e) + " ";
+	instruccion += e.getAtributo().getNombre() + ":" + obtenerValorEntrada(e, reglaNegocio) + " ";
 }
 System.out.println(instruccion);
 } else if (paso.getVerbo().getNombre().equals("Busca")) {
@@ -581,9 +604,6 @@ public static List<String> compararTokenSistema(String actionContext, Paso paso,
 						System.out.println("CADENA A USAR SIN $: "+cadenaUsar);
 					}
 					System.out.println("*********************************");
-					//Comparamos la cadena con las cadenas de los mensajes de error.
-					cadenaUsar="";
-		
 				}else{
 					cadena = m.getRedaccion();
 					System.out.println("*********************************");
@@ -763,22 +783,92 @@ public static List<String> compararTokenSistemaBD(String actionContext, List<Tra
 			instruccion.add("¿Se cumple la regla de negocio " + rn + ": " + redaccionRN.getRedaccion() + "?");
 		}
 	}
-// Si es un mensaje (MSG·#)
+	// Si es un mensaje (MSG·#)
 	if (token.contains(TokenBs.tokenMSG)) {
-// Obtenemos el mensaje mediante el token
+		String resultado="";
+		int contador2=0;
+		String cadena="";
+		String cadenaUsar="";
+		// Obtenemos el mensaje mediante el token
 		String mensaje = TokenBs.decodificarCadenaSinToken(token);
-// Obtenemos la redacción del mensaje
-		Mensaje redaccionMensaje = (Mensaje) TokenBs.obtenerTokenObjeto(" " + token);
-// Comparamos el verbo
+		// Obtenemos la redacción del mensaje
+		for(ReferenciaParametro rp : PasoBs.obtenerReferencias(paso.getId())){
+			if(rp.getTipoParametro().getId() == 6){
+				Mensaje m = MensajeBs.consultarMensaje(rp.getElementoDestino().getId());
+				//System.out.println(m.getRedaccion());
+				//Aquí sustituyo los token y comparo con los mensajes de la prueba.
+				//primero cuento la cantidad de tokens sólo si es de tipo parametrizado.
+				if(m.isParametrizado()){
+					cadena = m.getRedaccion();
+					contador2=0;
+					while(cadena.indexOf("PARAM")!=-1){
+						cadena = cadena.substring(cadena.indexOf("PARAM")+"PARAM".length(),cadena.length());
+						contador2++;
+					}
+					System.out.println(contador2);
+					for(int z=0;z<contador2;z++){
+						if(z==0){
+							cadenaUsar = m.getRedaccion();
+						}
+						for(MensajeParametro mp : MensajeParametroBs.consultarMensajeParametro_(m.getId())){
+							for(ValorMensajeParametro v : ValorMensajeParametroBs.consultarValores_(mp.getId())){
+								if(v.getReferenciaParametro().getPaso().getRedaccion().equals(paso.getRedaccion())){
+									//System.out.println(v.getValor());
+									if(v.getMensajeParametro().getParametro().getNombre().equals("DETERMINADO")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"$PARAM·1", v.getValor());
+									}else if(v.getMensajeParametro().getParametro().getNombre().equals("ENTIDAD")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·2", v.getValor());	
+									}else if(v.getMensajeParametro().getParametro().getNombre().equals("OPERACIÓN")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·3", v.getValor());
+									}else if(v.getMensajeParametro().getParametro().getNombre().equals("TIPO_DATO")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·4", v.getValor());
+									}else if(v.getMensajeParametro().getParametro().getNombre().equals("TAMAÑO")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·5", v.getValor());
+									}else if(v.getMensajeParametro().getParametro().getNombre().equals("UNIDAD_TIPO_DATO")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·6", v.getValor());
+									}else if(v.getMensajeParametro().getParametro().getNombre().equals("VALOR")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·7", v.getValor());
+									}else if(v.getMensajeParametro().getParametro().getNombre().equals("ATRIBUTO")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·8", v.getValor());
+									}else if(v.getMensajeParametro().getParametro().getNombre().equals("CONTRASEÑA")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·9", v.getValor());
+									}else if(v.getMensajeParametro().getParametro().getNombre().equals("NOMBRE")){
+										cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·10", v.getValor());	
+									}
+								}
+							}
+							
+						}
+					}
+					System.out.println("*********************************");
+					System.out.println("CADENA A USAR: "+cadenaUsar);
+					if(cadenaUsar.charAt(0) == '$'){
+						cadenaUsar = cadenaUsar.substring(1,cadenaUsar.length());
+						System.out.println("CADENA A USAR SIN $: "+cadenaUsar);
+					}
+					System.out.println("*********************************");
+				}else{
+					cadena = m.getRedaccion();
+					System.out.println("*********************************");
+					System.out.println("CADENA NO PARAMETRIZADA A USAR: "+cadena);
+					if(cadena.charAt(0) == '$'){
+						cadena = cadena.substring(1,cadena.length());
+						System.out.println("CADENA NO PARAMETRIZADA A USAR SIN $: "+cadena);	
+					}
+				}//aquí acaba el else
+			}
+		}
+
+		// Comparamos el verbo
 		if (paso.getVerbo().getNombre().equals("Envía")) {
-			instruccion.add("¿Se envió correctamente el mensaje " + mensaje + ": " + redaccionMensaje.getRedaccion()
+			instruccion.add("¿Se envió correctamente el mensaje " + mensaje + ": " + cadenaUsar
 				+ "?");
 		} else if (paso.getVerbo().getNombre().equals("Muestra")) {
-			instruccion.add("¿Se muestra correctamente el mensaje " + mensaje + ": " + redaccionMensaje.getRedaccion()
-				+ "?");
+			instruccion.add("¿Se muestra correctamente el mensaje " + mensaje + ": " + cadenaUsar
+					+ "?");
 		}
 	}
-	/*if (token.contains(TokenBs.tokenTray)) {
+		/*if (token.contains(TokenBs.tokenTray)) {
 //Obtenemos la trayectoria
 		Trayectoria trayectoria = (Trayectoria) TokenBs.obtenerTokenObjeto(" "+token);
 //Consultamos los pasos de la trayectoria alternativa
@@ -816,14 +906,31 @@ public static List<String> compararTokenSistemaBD(String actionContext, List<Tra
 }
 
 // Función para obtener el valor de la entrada desde el archivo
-private static String obtenerValorEntrada(Entrada entrada) {
+private static String obtenerValorEntrada(Entrada entrada, ReglaNegocio reglaNegocio) {
 	String valor = "";
 
 	ValorEntradaDAO vedao = new ValorEntradaDAO();
 	List<ValorEntrada> valores = vedao.consultarValores(entrada);
 	for(ValorEntrada valorEntrada : valores){
 		if(valorEntrada.getEntrada().getId().equals(entrada.getId())){
-			valor = valorEntrada.getValor();
+			//Valor correcto
+			System.out.println("*********************************");
+			System.out.println(valorEntrada.getValor());
+			System.out.println(reglaNegocio.getId());
+			System.out.println(valorEntrada.getId());
+			System.out.println(valorEntrada.getCorrecto_guion());
+			System.out.println(valorEntrada.getAleatoriocorrecto_guion());
+			if(valorEntrada.getValido()==true && (valorEntrada.getCorrecto_guion()==true || valorEntrada.getAleatoriocorrecto_guion()==true)){
+				System.out.println("PINCHE VALIDO: "+valorEntrada.getValor());
+				valor = valorEntrada.getValor();
+				break;
+			}else if(valorEntrada.getValido()==false && reglaNegocio.getId()==valorEntrada.getReglaNegocio().getId()){
+				System.out.println("PINSHI NO VALIDO: "+valorEntrada.getValor());
+				System.out.println(reglaNegocio.getId()+"="+valorEntrada.getReglaNegocio().getId());
+				System.out.println(valorEntrada.getValor());
+				valor = valorEntrada.getValor();
+				break;
+			}
 		}
 	}
 
@@ -863,6 +970,11 @@ public static List<String> obtenerInstrucciones(CasoUso casoUso, List<Trayectori
 	/**CREAMOS EL GUIÓN**/
 	// Lista de las instrucciones
 	List<String> instrucciones = new ArrayList<String>();
+
+	ReglaNegocio reglaNegocio = new ReglaNegocio();
+	/*******AGREGAR AL NUEVO*******/
+	//Lista de Reglas de negocio 
+	List<ReglaNegocio> reglasNegocio = new ArrayList<ReglaNegocio>();
 	//Consultamos la trayectoria principal
 	//Trayectoria trayectoriaPrincipal = GuionPruebasBs.trayectoriaPrincipal(casoUso);
 	for(Trayectoria trayectoriaPrincipal:trayectorias){
@@ -884,10 +996,18 @@ public static List<String> obtenerInstrucciones(CasoUso casoUso, List<Trayectori
 					if(tk.contains(TokenBs.tokenTray)){
 						//Obtemos el objeto de esa trayectoria y la comparamos con trayectoriaPrincipal
 						Trayectoria trayectoria = (Trayectoria) TokenBs.obtenerTokenObjeto(" "+tk);
-						if(trayectoria.getId()==tp.getId()){
+						if(trayectoria.getId()==trayectoriaPrincipal.getId()){
 							salir = 1;
 							break;
 						}
+					/*******AGREGAR AL NUEVO*******/
+					}else if(tk.contains(TokenBs.tokenRN)){
+						//Obtenemos el objeto de la RN
+						ReglaNegocio rn = (ReglaNegocio) TokenBs.obtenerTokenObjeto(" "+tk);
+						System.out.println("----------------------------------------");
+						System.out.println(rn.getId());
+						System.out.println("----------------------------------------");
+						reglasNegocio.add(rn);
 					}
 				}
 				if(salir==1)
@@ -933,13 +1053,14 @@ public static List<String> obtenerInstrucciones(CasoUso casoUso, List<Trayectori
 						// Si el actor es el USUARIO
 						else*/ 
 						//Si es la trayectoria principal y el token es una RN
-						if(!trayectoriaPrincipal.isAlternativa() && token.contains(TokenBs.tokenRN)) {
+						if(token.contains(TokenBs.tokenRN)) {
+							reglaNegocio = (ReglaNegocio) TokenBs.obtenerTokenObjeto(" "+token);
 							break;
 						}
-						else if (paso.isRealizaActor()) {
-							String comparacion = GuionPruebasBs.compararTokenUsuario(contextPath, paso, token, entradas);
+						if (paso.isRealizaActor()) {
+							String comparacion = GuionPruebasBs.compararTokenUsuario(contextPath, paso, token, entradas, reglaNegocio);
 							String instruccionBD = GuionPruebasBs.compararTokenUsuarioBD(contextPath, paso, " "+token,
-									entradas);
+									entradas, reglaNegocio);
 							if (!comparacion.equals("")) {
 								instrucciones.add(comparacion);
 								Instruccion instruccion = new Instruccion(instruccionBD,

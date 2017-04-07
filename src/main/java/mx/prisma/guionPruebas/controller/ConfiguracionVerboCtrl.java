@@ -85,116 +85,53 @@ public class ConfiguracionVerboCtrl extends ActionSupportPRISMA{
 	private String similar;
 	private List<String> instruccion = new ArrayList<String>();;
 	
-    //Función para mostrar la pantalla de configuración de entradas o el guion de prueba
-	public String prepararConfiguracion() {
-		SessionManager.delete("mensajesAccion");
-        Map<String, Object> session = null;
-		String resultado="";
+	//Función para mostrar la pantalla de configuración de entradas o el guion de prueba
+		public String prepararConfiguracion() {
+			SessionManager.delete("mensajesAccion");
+	        Map<String, Object> session = null;
+			String resultado="";
 
-		try {
-			colaborador = SessionManager.consultarColaboradorActivo();
-			proyecto = SessionManager.consultarProyectoActivo();
-			modulo = SessionManager.consultarModuloActivo();
-			casoUso = SessionManager.consultarCasoUsoActivo();
-			
-			//Si el caso de uso es nulo
-			if (casoUso == null) {
-				//Obtiene el valor de idCU que se mandó como parámetro
-				session = ActionContext.getContext().getSession();
-				session.put("idCU", idCU);
-				//Consulta el caso de uso
+			try {
+				colaborador = SessionManager.consultarColaboradorActivo();
+				proyecto = SessionManager.consultarProyectoActivo();
+				modulo = SessionManager.consultarModuloActivo();
 				casoUso = SessionManager.consultarCasoUsoActivo();
-			}
-			
-			if (casoUso == null) {
-				resultado = "cu";
-				//System.out.println("CU");
-				return resultado;
-			}
-			if (modulo == null) {
-				resultado = "modulos";
-				//System.out.println("M");
-				return resultado;
-			}
-			if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
-				resultado = Action.LOGIN;
-				//System.out.println("C");
-				return resultado;
-			}
-			
-			//Consultamos la trayectoria principal
-			Trayectoria trayectoriaPrincipal = GuionPruebasBs.trayectoriaPrincipal(casoUso);
-			//Consultamos los pasos de la trayectoria principal
-			List<Paso> pasos = TrayectoriaBs.obtenerPasos_(trayectoriaPrincipal.getId());
-			//Obtenemos el total de pasos de la trayectora principal
-			int tpasos = pasos.size();
-			//Consultamos las entradas del caso de uso
-			Set<Entrada> entradas = casoUso.getEntradas();
-			
-			//Obtención de Otros verbos
-			for(int i=0; i<tpasos; i++){
-				//Consultamos el paso actual
-				Paso paso = pasos.get(i);
 				
-				//Verificamos si el paso contiene Otro verbo
-				//System.out.println("-"+paso.getOtroVerbo()+"-");
-				if(paso.getOtroVerbo()!=null){
-					sinonimo = paso.getOtroVerbo();
-					//Consultamos si existe en la tabla de sinónimos
-					//Si existe en la tabla de sinonimos
-					if(VerboSinonimoBs.esSinonimo(sinonimo)){
-						//Consultamos los verbos con los que tiene relación
-						otros = VerboSinonimoBs.verbos(VerboSinonimoBs.sinonimos(sinonimo));
-						//similar = otros.get(0).getNombre();
-						similar = "Enviar";
-						//Obtenemos los tokens del paso
-						List<String> tokens = GuionPruebasBs.obtenerTokens(paso);
-						
-						idPaso = paso.getId();
-						idSinonimo = VerboSinonimoBs.sinonimos(sinonimo).getIdSinonimo();
-						
-						//Comparación de los tokens
-						for(String token : tokens){
-							//Si el actor es el USUARIO
-							if(paso.isRealizaActor()){
-								//System.out.println("ACTOR");
-								if(!GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas).equals("")){
-									//System.out.println("ACTOR");
-									instruccion.add(GuionPruebasBs.compararTokenUsuario(request.getContextPath(), paso, token, entradas));
-								}
-							}
-							//Si el actor es el SISTEMA
-							else{
-								if(!GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso, 0).isEmpty()){
-									//System.out.println("SISTEMA "+GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso, 0).get(0));
-									instruccion.addAll(GuionPruebasBs.compararTokenSistema(request.getContextPath(), paso, token, casoUso, 0));
-									//System.out.println("INSTRUCCION"+instruccion);
-								}
-							}
-						}
-					}
+				//Si el caso de uso es nulo
+				if (casoUso == null) {
+					//Obtiene el valor de idCU que se mandó como parámetro
+					session = ActionContext.getContext().getSession();
+					session.put("idCU", idCU);
+					//Consulta el caso de uso
+					casoUso = SessionManager.consultarCasoUsoActivo();
 				}
-			}
-			
-			//Obtención de los sinónimos 
-			
-			
-			//Si se encontraron otros verbos, se envía al gestor de instrucciones
-			if(otros.size()>0){
-				resultado = "pantallaVerbos";
-			//Si no, se envía al guion de prueba
-			}else{
+				
+				if (casoUso == null) {
+					resultado = "cu";
+					//System.out.println("CU");
+					return resultado;
+				}
+				if (modulo == null) {
+					resultado = "modulos";
+					//System.out.println("M");
+					return resultado;
+				}
+				if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
+					resultado = Action.LOGIN;
+					//System.out.println("C");
+					return resultado;
+				}
+				
 				resultado = "pantallaGuionPruebas";
-			}
-			
-			} catch(Exception e) {
-				//System.out.println("Catch");
-				ErrorManager.agregaMensajeError(this, e);
-				SessionManager.set(this.getActionErrors(), "mensajesError");
-				resultado = "anterior";
-			}
-			return resultado; 
-	}
+				
+				} catch(Exception e) {
+					//System.out.println("Catch");
+					ErrorManager.agregaMensajeError(this, e);
+					SessionManager.set(this.getActionErrors(), "mensajesError");
+					resultado = "anterior";
+				}
+				return resultado; 
+		}
 	
 	//Función para agregar la instrucción del verbo y redireccionar al guion de prueba
 	public String anadirInstruccion(){
