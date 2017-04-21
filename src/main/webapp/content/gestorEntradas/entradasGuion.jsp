@@ -19,12 +19,13 @@ div.upload input {
     overflow: hidden !important;
     width: 40px !important;
 }
-.nogenerable_prueba,.correcto_prueba,.incorrecto_prueba{margin-left: 92px;margin-top: -16px;}
-.nogenerable_guion,.correcto_guion,.incorrecto_guion{margin-left: 10px;margin-top: -16px;}
-.correctoAleatorio_prueba{margin-top:-23px;}
+.nogenerable_prueba,.correcto_prueba,.incorrecto_prueba{/*margin-left: 92px;margin-top: -16px;*/}
+.nogenerable_guion,.correcto_guion,.incorrecto_guion{/*margin-left: 10px;*//*margin-top: -16px;*/}
+.correctoAleatorio_prueba{/*margin-top:-23px;*/}
 .correctoAleatorio_guion{margin-left: 10px;margin-top:-23px;}
 .incorrectoAleatorio_prueba,.incorrectoAleatorio_guion{margin-top: -23px;}
 .incorrectoAleatorio_guion{margin-left: 10px;}
+.f2,.p2,.g2{border: 0px;}
 </style>
 
 <jsp:text>
@@ -32,6 +33,7 @@ div.upload input {
     <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/cu/js/index.js"></script>	
 				<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/constructores.js"></script>	
 		<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/gestorEntradas/js/entradas2.js"></script>
+
     
 ]]>
 </jsp:text>
@@ -63,10 +65,22 @@ div.upload input {
 						<td></td>
 						<td><s:property value="%{#entrada.id + ' ' + #entrada.nombre}"/></td>
 						<s:set var = "breakLoop" value = "false" />
+						<s:set var = "bandera" value = "0" />
 						<s:iterator value="cadenasValidas" var="cadena">
 							<s:if test="%{#cadena.entrada.atributo.id == #entrada.id}">
-								<td><p align="left"><input type="hidden" value="${cadena.valor}" id="palabrasAleatorias-${cadena.entrada.atributo.id}"/><s:property value="%{#cadena.valor}"/></p><p align="right"><input id="aleatorioCorrectoPrueba-${cadena.entrada.atributo.id}" type="radio" name="prueba-${cadena.entrada.atributo.id}"  class="correctoAleatorio_prueba"/><input id="aleatorioCorrectoGuion-${cadena.entrada.atributo.id}" type="radio" name="guion-${cadena.entrada.atributo.id}" class="correctoAleatorio_guion"/></p></td>
-								<s:set var = "breakLoop" value = "true"/>							
+								<s:if test="%{#bandera == 0}">
+									<td>
+										<table border="0" class="validas">
+											<tr>
+												<td style="width: 64%;border: 0px;"><p align="left"><input type="hidden" value="${cadena.valor}" id="palabrasAleatorias-${cadena.entrada.atributo.id}"/><s:property value="%{#cadena.valor}"/></p></td>
+												<td style="border: 0px;"><p align="right">P <input id="aleatorioCorrectoPrueba-${cadena.entrada.atributo.id}" type="radio" name="prueba-${cadena.entrada.atributo.id}"  class="correctoAleatorio_prueba"/></p></td>							
+												<td style="border: 0px;"><p align="right">G <input id="aleatorioCorrectoPrueba-${cadena.entrada.atributo.id}" type="radio" name="prueba-${cadena.entrada.atributo.id}"  class="correctoAleatorio_prueba"/></p></td>
+											</tr>
+										</table>
+									</td>
+									<s:set var = "breakLoop" value = "true"/>
+									<s:set var = "bandera" value = "1"/>	
+								</s:if>						
 							</s:if>					
 						</s:iterator>
 						<s:if test="%{#breakLoop == false}">
@@ -75,10 +89,16 @@ div.upload input {
 						<s:set var = "breakLoop2" value = "false" />
 						<td>
 						
-						<select id="selectIncorrectos-${entrada.id}">
+						<select id="selectIncorrectos-${entrada.id}" size="1">
 							<s:iterator value="listAleatoriasIncorrectas" var="incorrecto">
 								<s:if test="%{#incorrecto.entrada.atributo.id == #entrada.id}">
-									<option><p align="left"><s:property value="%{#incorrecto.valor}"/></p></option>
+									<s:if test="%{#incorrecto.valor.length()>25}">
+										<option><p align="left"><s:property value="%{#incorrecto.valor.substring(0, 40)}"/></p></option>
+										
+									</s:if>
+									<s:else>
+										<option><p align="left"><s:property value="%{#incorrecto.valor}"/></p></option>
+									</s:else>
 									<s:set var = "breakLoop2" value = "true"/>	
 								</s:if>
 							</s:iterator>
@@ -94,10 +114,16 @@ div.upload input {
 						</s:if>
 						</td>
 						<td>
-							<input type="hidden" id="palabras-${entrada.id}"/>
+							<table>
+										<tr>
+											<td style="width: 38%;border: 0px;"><input type="hidden" id="palabras-${entrada.id}"/>
 						    <div class="upload" id="upload-${entrada.id}"><input type="file" name="vci"  id="files-${entrada.id}" label="File" value=""/>
-							<s:hidden name="idAtributo" value="%{#entrada.id}" /></div>	
-							<input id="checkbox-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="correcto_prueba"/><input id="checkbox2-${entrada.id}" type="radio"  class="correcto_guion" name="guion-${entrada.id}"/></td>
+							<s:hidden name="idAtributo" value="%{#entrada.id}" /></div>	</td>
+											<td style="border: 0px;"><p align="right">P <input id="checkbox-${entrada.id}" type="radio" name="prueba-${entrada.id}"  class="correcto_prueba"/></p></td>							
+											<td style="border: 0px;"><p align="right">G <input id="checkbox2-${entrada.id}" type="radio"  class="correcto_guion" name="guion-${entrada.id}"/></p></td>
+										</tr>
+							</table>
+						</td>
 					</tr>
 				</s:iterator>
 				</tbody>
