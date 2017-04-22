@@ -74,7 +74,7 @@ div.upload input {
 											<tr>
 												<td style="width: 64%;border: 0px;"><p align="left"><input type="hidden" value="${cadena.valor}" id="palabrasAleatorias-${cadena.entrada.atributo.id}"/><s:property value="%{#cadena.valor}"/></p></td>
 												<td style="border: 0px;"><p align="right">P <input id="aleatorioCorrectoPrueba-${cadena.entrada.atributo.id}" type="radio" name="prueba-${cadena.entrada.atributo.id}"  class="correctoAleatorio_prueba"/></p></td>							
-												<td style="border: 0px;"><p align="right">G <input id="aleatorioCorrectoPrueba-${cadena.entrada.atributo.id}" type="radio" name="prueba-${cadena.entrada.atributo.id}"  class="correctoAleatorio_prueba"/></p></td>
+												<td style="border: 0px;"><p align="right">G <input id="aleatorioCorrectoGuion-${cadena.entrada.atributo.id}" type="radio" name="guion-${cadena.entrada.atributo.id}"  class="correctoAleatorio_prueba"/></p></td>
 											</tr>
 										</table>
 									</td>

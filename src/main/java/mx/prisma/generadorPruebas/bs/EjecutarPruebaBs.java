@@ -35,6 +35,7 @@ public class EjecutarPruebaBs {
             String comando = "./jmeter -n -t "+rutaFolder+casoUso.getClave() + casoUso.getNumero()+".jmx -l Test.jtl -e -o "+rutaReporte;
             String[] cmd = { "/bin/sh", "-c", "cd /Users/gerasolis/Downloads/apache-jmeter-3.0/bin; "+comando};
             Process p = Runtime.getRuntime().exec(cmd);
+            System.out.println("CASO DE USO A PROBAR: "+casoUso.getNombre());
     		System.out.println("*******************************");
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));  
             String line = null;  

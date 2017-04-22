@@ -44,6 +44,8 @@ import mx.prisma.util.SessionManager;
 @ResultPath("/content/generadorPruebas/")
 @Results({
 	@Result(name = "pantallaReporteGeneral", type = "dispatcher", location = "configuracion/reporteGeneral.jsp"),
+	@Result(name = "cu", type = "redirectAction", params = {
+			"actionName", "cu" }),
 	@Result(name = "error", type = "redirectAction", params = {
 		"actionName", "cu" })})
 
@@ -60,6 +62,9 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	private List<Mensaje> listMensajes;
 	private List<Entrada> listEntradas;
 	private List<ValorMensajeParametro> listMensajeValorParametro;
+	private InputStream fileInputStream;
+	private String type;
+    private String filename;
 	
     public String generarReporteGeneral() {
 		int contador2=0;
@@ -214,9 +219,12 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
     	try {
 			modulo = SessionManager.consultarModuloActivo();
 			listCasosUso = EjecutarPruebaBs.consultarCasosUso(modulo);
-			int i=0;
+			int i=0;int bandera=0;
 			for (CasoUso casoUso : listCasosUso){
-				if (!casoUso.getEstadoElemento().getNombre().equals("Configurado")){
+				System.out.println(casoUso.getNombre()+" "+casoUso.getEstadoElemento().getNombre());
+				if (casoUso.getEstadoElemento().getNombre().equals("Configurado") || casoUso.getEstadoElemento().getNombre().equals("Liberado")){
+					bandera++;	
+				}else{
 					resultado = "error";
 					if (i==0){
 						addActionMessage(getText("MSG43", new String[] { "prueba",
@@ -227,12 +235,20 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 					addActionMessage(getText("MSG44", new String[] { casoUso.getNombre(),
 							"no", "configurado" }));
 					SessionManager.set(this.getActionMessages(), "mensajesAccion");
-				}else{
-				
-					//Empezamos a ejecutar la prueba para todos los casos de uso.
-					//Ejecutamos primero generarPrueba()
-					//Ejecutamos descargarPrueba()
+				}
+			}
+			System.out.println("Casos de uso configurados o liberados: "+bandera);
+			System.out.println("Total casos de uso: "+listCasosUso.size());
+			if(bandera == listCasosUso.size()){
+				System.out.println("Entra a la prueba general");
+				for (CasoUso casoUso : listCasosUso){
+					//Empezamos a ejecutar la prueba para todos los casos de uso. PENDIENTE.
+					
+					generarPrueba(casoUso);
+					System.out.println("Antes de entrar a descargarPrueba");
+					descargarPrueba(casoUso);
 					//Utilizar el método de ejecutarPruebaAutomática(), pero para todos los casos de uso de listCasoUso.
+					resultado = "cu";
 					
 				}
 			}
@@ -241,20 +257,22 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 			SessionManager.set(this.getActionErrors(), "mensajesError");
 			resultado = "cu";
 		}
-    	
+    	addActionMessage(getText("MSG45", new String[] { "prueba general",
+		"ejecutada"}));
+		SessionManager.set(this.getActionMessages(), "mensajesAccion");
     	return resultado;
     }
-    /*
-    public String generarPrueba() {
+    
+    public String generarPrueba(CasoUso casoUso) {
 		try {
 			@SuppressWarnings("deprecation")
 			String ruta = request.getRealPath("/") + "/tmp/pruebas/"; 
 			
 			SessionManager.set(ruta, "rutaPruebaGenerada");
-			SessionManager.set(idCU, "idCUPruebaGenerada");
+			//SessionManager.set(idCU, "idCUPruebaGenerada");
 			SessionManager.set(true, "pruebaGenerada");
 			
-			casoUso = CuBs.consultarCasoUso(idCU);
+			//casoUso = CuBs.consultarCasoUso(idCU);
 			
 			GeneradorPruebasBs.generarCasosPrueba(casoUso, ruta);
 			
@@ -267,9 +285,9 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 		}
 		return "cu";
 	}
-	public String descargarPrueba() {
-		int idCUPruebaGenerada = (Integer)SessionManager.get("idCUPruebaGenerada");
-		casoUso = CuBs.consultarCasoUso(idCUPruebaGenerada);
+	public String descargarPrueba(CasoUso casoUso) {
+		//int idCUPruebaGenerada = (Integer)SessionManager.get("idCUPruebaGenerada");
+		//casoUso = CuBs.consultarCasoUso(idCUPruebaGenerada);
 		String ruta = (String) SessionManager.get("rutaPruebaGenerada");
 		
 		System.out.println("RUTA: "+ruta);
@@ -290,7 +308,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 		file.getParentFile().mkdirs();
 		EjecutarPruebaBs.ejecutarPruebaAutomatica(rutaReporte,casoUso,rutaFolder);
 		
-			
+		System.out.println("Después de ejecutar prueba automática");	
 		try {
 				FileUtil.zipIt(rutaFolder, ruta + filename);
 		    	
@@ -304,8 +322,8 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	        }
 			
 		
-	    return "documento";
-	}*/
+	    return "cu";
+	}
    
 	public List<Entrada> getListEntradas(){
 		return listEntradas;
