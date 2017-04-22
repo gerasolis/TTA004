@@ -147,13 +147,18 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 											}
 											System.out.println("*********************************");
 											System.out.println("CADENA A USAR: "+cadenaUsar);
+											if(cadenaUsar.charAt(0) == '$'){
+												cadenaUsar = cadenaUsar.substring(1,cadenaUsar.length());
+												System.out.println("CADENA A USAR SIN $: "+cadenaUsar);
+											}
 											System.out.println("*********************************");
 											//Comparamos la cadena con las cadenas de los mensajes de error.
 											for (ErroresPrueba liste : listErrores){
-												byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
-												String value = new String(ptext, UTF_8); 
+												//byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
+												//String value = new String(ptext, UTF_8); 
 												try{
-													String[] prueba = value.split("/");
+													//String[] prueba = value.split("/");
+													String[] prueba = liste.getTipoError().split("/");
 													System.out.println("ERROR: "+prueba[1]);
 													if(cadenaUsar.equals(prueba[1])){
 														System.out.println("ENTRA");
@@ -163,7 +168,8 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 													}
 		
 												}catch(Exception e){
-													if(cadenaUsar.equals(value)){
+													//if(cadenaUsar.equals(value)){
+													if(cadenaUsar.equals(liste.getTipoError())){
 														System.out.println("ENTRA");
 														liste.setMensajeid(m);
 														liste.setPasoid(p);
@@ -175,11 +181,18 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 								
 										}else{
 											cadena = m.getRedaccion();
+											System.out.println("*********************************");
+											System.out.println("CADENA NO PARAMETRIZADA A USAR: "+cadena);
+											if(cadena.charAt(0) == '$'){
+												cadena = cadena.substring(1,cadena.length());
+												System.out.println("CADENA NO PARAMETRIZADA A USAR SIN $: "+cadena);
+											}
 											for (ErroresPrueba liste : listErrores){
-												byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
-												String value = new String(ptext, UTF_8); 
+												//byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
+												//String value = new String(ptext, UTF_8); 
 												try{
-													String[] prueba = value.split("/");
+													//String[] prueba = value.split("/");
+													String[] prueba = liste.getTipoError().split("/");
 													System.out.println("ERROR: "+prueba[1]);
 													if(cadena.equals(prueba[1])){
 														System.out.println("ENTRA");
@@ -189,7 +202,8 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 													}
 		
 												}catch(Exception e){
-													if(cadena.equals(value)){
+													//if(cadena.equals(value)){
+													if(cadena.equals(liste.getTipoError())){
 														System.out.println("ENTRA");
 														liste.setMensajeid(m);
 														liste.setPasoid(p);
