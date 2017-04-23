@@ -46,6 +46,16 @@ import mx.prisma.util.SessionManager;
 	@Result(name = "pantallaReporteGeneral", type = "dispatcher", location = "configuracion/reporteGeneral.jsp"),
 	@Result(name = "cu", type = "redirectAction", params = {
 			"actionName", "cu" }),
+	@Result(name = "documento", type = "stream", params = { 
+	        "contentType", "${type}", 
+	        "inputName", "fileInputStream", 
+	        "bufferSize", "1024", 
+	        "contentDisposition", "attachment;filename=\"${filename}\""}),
+	@Result(name = "documentoGeneral", type = "stream", params = { 
+	        "contentType", "${type}", 
+	        "inputName", "fileInputStreamGeneral", 
+	        "bufferSize", "1024", 
+	        "contentDisposition", "attachment;filename=\"${filenameGeneral}\""}),
 	@Result(name = "error", type = "redirectAction", params = {
 		"actionName", "cu" })})
 
@@ -63,8 +73,10 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	private List<Entrada> listEntradas;
 	private List<ValorMensajeParametro> listMensajeValorParametro;
 	private InputStream fileInputStream;
+	private InputStream fileInputStreamGeneral;
 	private String type;
     private String filename;
+    private String filenameGeneral;
 	
     public String generarReporteGeneral() {
 		int contador2=0;
@@ -230,6 +242,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
     
     public String ejecutarPruebaGeneral() {
     	String resultado="";
+    	List<File> listaArchivos = new ArrayList<File>();
     	try {
 			modulo = SessionManager.consultarModuloActivo();
 			listCasosUso = EjecutarPruebaBs.consultarCasosUso(modulo);
@@ -260,12 +273,23 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 					
 					generarPrueba(casoUso);
 					System.out.println("Antes de entrar a descargarPrueba");
-					descargarPrueba(casoUso);
+					listaArchivos.add(descargarPrueba(casoUso));
+					
 					//Utilizar el método de ejecutarPruebaAutomática(), pero para todos los casos de uso de listCasoUso.
-					resultado = "cu";
+					//resultado = "documento";
 					
 				}
+				
+					descargarPruebaGeneral();
+					for(File archivo : listaArchivos){
+						//FileUtil.delete(archivo);
+					}
+				
+				System.out.println("Después de generar el documento general");
+				return "documentoGeneral";
+				//return "cu";
 			}
+			
     	}catch (Exception e) {
 			ErrorManager.agregaMensajeError(this, e);
 			SessionManager.set(this.getActionErrors(), "mensajesError");
@@ -299,10 +323,12 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 		}
 		return "cu";
 	}
-	public String descargarPrueba(CasoUso casoUso) {
+	public File descargarPrueba(CasoUso casoUso) {
+		String rutaZIP= request.getRealPath("/") + "/tmp/zip/"; 
 		//int idCUPruebaGenerada = (Integer)SessionManager.get("idCUPruebaGenerada");
 		//casoUso = CuBs.consultarCasoUso(idCUPruebaGenerada);
-		String ruta = (String) SessionManager.get("rutaPruebaGenerada");
+		//String ruta = (String) SessionManager.get("rutaPruebaGenerada");
+		String ruta = request.getRealPath("/") + "/tmp/pruebas/"; 
 		
 		System.out.println("RUTA: "+ruta);
 		SessionManager.delete("rutaPruebaGenerada");
@@ -312,33 +338,62 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 		filename = casoUso.getClave() + casoUso.getNumero() + "_" + casoUso.getNombre().replace(" ", "_") + ".zip";
 
 		type = "application/zip";
-		
+
 		String rutaFolder = ruta + casoUso.getId() + "/";
 		System.out.println("RUTA_folder: "+rutaFolder);
-
 		
 		String rutaReporte = rutaFolder+"reporte/";
 		File file = new File(rutaReporte);
 		file.getParentFile().mkdirs();
+		
+		File file2 = new File(rutaZIP);
+		file2.getParentFile().mkdirs();
+		try{
+			String comando2 = "mkdir "+rutaZIP;
+	        Process p2 = Runtime.getRuntime().exec(comando2);
+		}catch(Exception e){System.out.println("No se pudo crear la carpeta.");}
+		
 		EjecutarPruebaBs.ejecutarPruebaAutomatica(rutaReporte,casoUso,rutaFolder);
 		
 		System.out.println("Después de ejecutar prueba automática");	
 		try {
-				FileUtil.zipIt(rutaFolder, ruta + filename);
+				FileUtil.zipIt(rutaFolder, rutaZIP + filename);
 		    	
-		        File doc = new File(ruta + filename);
+		        File doc = new File(rutaZIP + filename);
 		        this.fileInputStream = new FileInputStream(doc);
 		        File pruebaCU = new File(ruta);
 		        FileUtil.delete(pruebaCU);
+		        return pruebaCU;
 	        } catch (Exception e) {
 	        	ErrorManager.agregaMensajeError(this, e);
-	        	return "cu";
+	        	 File pruebaCU = null;
+	        	return pruebaCU;
 	        }
 			
 		
-	    return "cu";
+	   
 	}
    
+	public void descargarPruebaGeneral() {
+		String rutaZIP= request.getRealPath("/") + "/tmp/zip/"; 
+		try {
+				filenameGeneral = "PruebaGeneral.zip";
+				type = "application/zip";
+				FileUtil.zipIt(rutaZIP, rutaZIP + filenameGeneral);
+		    	
+		        File doc = new File(rutaZIP + filenameGeneral);
+		        this.fileInputStreamGeneral = new FileInputStream(doc);
+		        File pruebaCU = new File(rutaZIP);
+		        FileUtil.delete(pruebaCU);
+	        } catch (Exception e) {
+	        	ErrorManager.agregaMensajeError(this, e);
+	        	System.out.println("Error");
+	        }
+			
+		
+	   
+	}
+	
 	public List<Entrada> getListEntradas(){
 		return listEntradas;
 	}
@@ -392,4 +447,44 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	public void setProyecto(Proyecto proyecto) {
 		this.proyecto = proyecto;
 	}
+	
+	public InputStream getFileInputStream() {
+		return fileInputStream;
+	}
+
+	public void setFileInputStream(InputStream fileInputStream) {
+		this.fileInputStream = fileInputStream;
+	}
+	
+	public InputStream getFileInputStreamGeneral() {
+		return fileInputStreamGeneral;
+	}
+
+	public void setFileInputStreamGeneral(InputStream fileInputStreamGeneral) {
+		this.fileInputStreamGeneral = fileInputStreamGeneral;
+	}
+	
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	
+	public String getFilenameGeneral() {
+		return filenameGeneral;
+	}
+
+	public void setFilenameGeneral(String filenameGeneral) {
+		this.filenameGeneral = filenameGeneral;
+	}
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 }
