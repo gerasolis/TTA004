@@ -65,8 +65,10 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	private CasoUso casoUso;
 	private Modulo modulo;
 	private Proyecto proyecto;
+	private Boolean pruebaGeneradaS;
 	private List<ErroresPrueba> listErrores;
 	private List<CasoUso> listCasosUso;
+	private List<String> listPruebaGenerada;
 	private List<Prueba> listPruebas;
 	private List<Pantalla> listPantallas;
 	private List<Mensaje> listMensajes;
@@ -241,10 +243,11 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	}
     
     public String ejecutarPruebaGeneral() {
+    	listPruebaGenerada = new ArrayList<String>();
     	String resultado="";
     	List<File> listaArchivos = new ArrayList<File>();
-    	try {
-			modulo = SessionManager.consultarModuloActivo();
+    	try{
+	    	modulo = SessionManager.consultarModuloActivo();
 			listCasosUso = EjecutarPruebaBs.consultarCasosUso(modulo);
 			int i=0;int bandera=0;
 			for (CasoUso casoUso : listCasosUso){
@@ -269,49 +272,28 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 			if(bandera == listCasosUso.size()){
 				System.out.println("Entra a la prueba general");
 				for (CasoUso casoUso : listCasosUso){
-					//Empezamos a ejecutar la prueba para todos los casos de uso. PENDIENTE.
-					
 					generarPrueba(casoUso);
 					System.out.println("Antes de entrar a descargarPrueba");
 					listaArchivos.add(descargarPrueba(casoUso));
-					
-					//Utilizar el método de ejecutarPruebaAutomática(), pero para todos los casos de uso de listCasoUso.
-					//resultado = "documento";
-					
 				}
-				
-					descargarPruebaGeneral();
-					for(File archivo : listaArchivos){
-						//FileUtil.delete(archivo);
-					}
-				
+					//descargarPruebaGeneral();				
 				System.out.println("Después de generar el documento general");
-				return "documentoGeneral";
-				//return "cu";
+				SessionManager.set(true, "pruebaGenerada2");
 			}
+		}catch(Exception e){
 			
-    	}catch (Exception e) {
-			ErrorManager.agregaMensajeError(this, e);
-			SessionManager.set(this.getActionErrors(), "mensajesError");
-			resultado = "cu";
 		}
     	addActionMessage(getText("MSG45", new String[] { "prueba general",
 		"ejecutada"}));
 		SessionManager.set(this.getActionMessages(), "mensajesAccion");
-    	return resultado;
+    	return "cu";
     }
     
     public String generarPrueba(CasoUso casoUso) {
 		try {
 			@SuppressWarnings("deprecation")
 			String ruta = request.getRealPath("/") + "/tmp/pruebas/"; 
-			
 			SessionManager.set(ruta, "rutaPruebaGenerada");
-			//SessionManager.set(idCU, "idCUPruebaGenerada");
-			SessionManager.set(true, "pruebaGenerada");
-			
-			//casoUso = CuBs.consultarCasoUso(idCU);
-			
 			GeneradorPruebasBs.generarCasosPrueba(casoUso, ruta);
 			
 		} catch (Exception e) {
@@ -325,9 +307,6 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	}
 	public File descargarPrueba(CasoUso casoUso) {
 		String rutaZIP= request.getRealPath("/") + "/tmp/zip/"; 
-		//int idCUPruebaGenerada = (Integer)SessionManager.get("idCUPruebaGenerada");
-		//casoUso = CuBs.consultarCasoUso(idCUPruebaGenerada);
-		//String ruta = (String) SessionManager.get("rutaPruebaGenerada");
 		String ruta = request.getRealPath("/") + "/tmp/pruebas/"; 
 		
 		System.out.println("RUTA: "+ruta);
@@ -369,12 +348,10 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	        	 File pruebaCU = null;
 	        	return pruebaCU;
 	        }
-			
-		
-	   
 	}
    
-	public void descargarPruebaGeneral() {
+	public String descargarPruebaGeneral() {
+		System.out.println(SessionManager.get("pruebaGenerada2"));
 		String rutaZIP= request.getRealPath("/") + "/tmp/zip/"; 
 		try {
 				filenameGeneral = "PruebaGeneral.zip";
@@ -389,9 +366,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	        	ErrorManager.agregaMensajeError(this, e);
 	        	System.out.println("Error");
 	        }
-			
-		
-	   
+		return "documentoGeneral";
 	}
 	
 	public List<Entrada> getListEntradas(){
@@ -440,6 +415,14 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 	public void setListPruebas(List<Prueba> listPruebas){
 		this.listPruebas = listPruebas;
 	}
+	
+	public List<String> getListPruebaGenerada(){
+		return listPruebaGenerada;
+	}
+	public void setListPruebaGenerada( List<String> listPruebaGenerada){
+		this.listPruebaGenerada = listPruebaGenerada;
+	}
+	
 	public Proyecto getProyecto() {
 		return proyecto;
 	}
@@ -485,6 +468,20 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	public Boolean getPruebaGeneradaS() {
+		if(pruebaGeneradaS == null){
+			pruebaGeneradaS = (Boolean)SessionManager.get("pruebaGenerada2");
+		}
+		return pruebaGeneradaS;
+	}
+
+	public void setPruebaGeneradaS(Boolean pruebaGeneradaS) {
+		if(pruebaGeneradaS == null){
+			pruebaGeneradaS = (Boolean)SessionManager.get("pruebaGenerada2");
+		}
+		this.pruebaGeneradaS = pruebaGeneradaS;
+		
 	}
 
 }

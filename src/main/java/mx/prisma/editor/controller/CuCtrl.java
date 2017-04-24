@@ -116,6 +116,7 @@ public class CuCtrl extends ActionSupportPRISMA implements ModelDriven<CasoUso> 
 	private List<String> restriccionesTermino;
 	
 	private boolean pruebaGenerada;
+	private Boolean pruebaGenerada2;
 	
 	public String index() {
 		String resultado;
@@ -124,6 +125,12 @@ public class CuCtrl extends ActionSupportPRISMA implements ModelDriven<CasoUso> 
 				pruebaGenerada = true;
 				SessionManager.delete("pruebaGenerada");
 			} 
+			
+			if(SessionManager.get("pruebaGenerada2") != null && (Boolean) SessionManager.get("pruebaGenerada2")) {
+				pruebaGenerada2 = true;
+				SessionManager.delete("pruebaGenerada2");
+			} 
+			
 			SessionManager.delete("idCU");
 			
 			
@@ -1183,6 +1190,15 @@ public class CuCtrl extends ActionSupportPRISMA implements ModelDriven<CasoUso> 
 	public void setPruebaGenerada(boolean pruebaGenerada) {
 		this.pruebaGenerada = pruebaGenerada;
 	}
+	
+	public Boolean isPruebaGenerada2() {
+		return pruebaGenerada2;
+	}
+
+	public void setPruebaGenerada2(Boolean pruebaGenerada2) {
+		this.pruebaGenerada2 = pruebaGenerada2;
+	}
+	
 	
 	public void setListPasos(List<List<Paso>> listPasos){
 		this.listPasos=listPasos;
