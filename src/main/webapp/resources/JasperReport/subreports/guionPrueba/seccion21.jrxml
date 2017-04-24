@@ -11,8 +11,8 @@
 	</parameter>
 	<queryString>
 		<![CDATA[select distinct e.clave, e.numero, e.nombre, cu.elementoid as idCasoUso
-		from proyecto p, modulo m, elemento e, casouso cu, trayectoria t, 
-		valorpantallatrayectoria vpt, pantalla pa, guionprueba gp
+		from Proyecto p, Modulo m, Elemento e, CasoUso cu, Trayectoria t, 
+		valorPantallaTrayectoria vpt, Pantalla pa, GuionPrueba gp
 		where cu.elementoid = $P{idCasoUso}
 		and gp.idGuionPrueba = $P{idGuionPrueba}
 		and gp.seleccionado = 1

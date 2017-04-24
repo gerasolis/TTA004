@@ -1034,8 +1034,8 @@ public class TokenBs {
 					break;
 					
 				case PARAMETRO:
-					Parametro parametro = new ParametroDAO().consultarParametro(Integer
-							.parseInt(segmentos.get(1)));
+					System.out.println("segmento "+segmentos.get(1));
+					Parametro parametro = new ParametroDAO().consultarParametro(segmentos.get(1),2);
 					if (parametro == null) {
 						cadenaDecodificada = "";
 					}

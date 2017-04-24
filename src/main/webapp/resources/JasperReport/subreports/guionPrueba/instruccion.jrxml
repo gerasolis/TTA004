@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-03-16T23:45:03 -->
+<!-- 2017-04-21T19:31:33 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="instruccion" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="70b13ba0-b0f8-49bc-a39e-287befe75f2f">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
@@ -10,7 +10,7 @@
 		<queryString language="SQL">
 			<![CDATA[select i.instruccion, i.idInstruccion, e.nombre, e.numero, e.clave, p.nombre as nombreProy, 
 		p.clave as claveProy, m.nombre as nombreMod, m.clave as claveMod
-		from instruccion i, guionprueba gp, casouso cu, elemento e, proyecto p, modulo m
+		from Instruccion i, GuionPrueba gp, CasoUso cu, Elemento e, Proyecto p, Modulo m
 		where i.GuionPrueba_idGuionPrueba = gp.idGuionPrueba
 		and gp.casousoelementoid = cu.elementoid
 		and cu.elementoid = e.id
@@ -27,7 +27,7 @@
 	<queryString language="SQL">
 		<![CDATA[select i.instruccion, i.idInstruccion, e.nombre, e.numero, e.clave, p.nombre as nombreProy, 
 		p.clave as claveProy, m.nombre as nombreMod, m.clave as claveMod
-		from instruccion i, guionprueba gp, casouso cu, elemento e, proyecto p, modulo m
+		from Instruccion i, GuionPrueba gp, CasoUso cu, Elemento e, Proyecto p, Modulo m
 		where gp.idGuionPrueba = $P{idGuionPrueba}
 		and i.GuionPrueba_idGuionPrueba = gp.idGuionPrueba
 		and gp.casousoelementoid = cu.elementoid
@@ -60,7 +60,7 @@
 					<pen lineWidth="1.0" lineColor="#B3B3B3"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{idInstruccion}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{clave}+$F{numero}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="25" y="0" width="280" height="20" isPrintWhenDetailOverflows="true" uuid="cd4f1289-0e21-4c34-8d47-88f49907d690">

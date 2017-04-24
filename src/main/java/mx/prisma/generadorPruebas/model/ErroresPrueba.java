@@ -18,7 +18,7 @@ import mx.prisma.editor.model.Paso;
 import mx.prisma.editor.model.ReglaNegocio;
 
 @Entity
-@Table(name = "ErroresPrueba", catalog = "PRISMA")
+@Table(name = "erroresprueba", catalog = "PRISMA")
 public class ErroresPrueba implements java.io.Serializable{
 	
 	private static final long serialVersionUID = 1L;

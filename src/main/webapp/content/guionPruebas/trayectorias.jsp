@@ -19,9 +19,12 @@
 
 	<br />
 
-	<s:form autocomplete="off" theme="simple" action="%{#pageContext.request.contextPath}/guion-pruebas!seleccionarGuiones" onsubmit="prepararEnvio()" method="post">
+	<s:form autocomplete="off" theme="simple"
+		action="%{#pageContext.request.contextPath}/guion-pruebas!seleccionarGuiones"
+		onsubmit="prepararEnvio()" method="post">
 		<div class="form">
-			<table id="tablaGuionesPrueba" class="tablaGestion" cellspacing="0" width="100%">
+			<table id="tablaGuionesPrueba" class="tablaGestion" cellspacing="0"
+				width="100%">
 				<thead>
 					<th style="width: 5%;"><s:text name="colElegir" /></th>
 					<th></th>
@@ -31,13 +34,15 @@
 				<tbody>
 					<s:iterator value="casosUso" var="casoUso" status="indice">
 						<tr>
-							<td align="center"><s:checkbox id="checkbox-%{#casoUso.id}" name="%{#casoUso.id}" checked="false"/></td>
+							<td align="center"><s:checkbox id="checkbox-%{#casoUso.id}"
+									name="%{#casoUso.id}" checked="false" /></td>
 							<td><s:property value="%{#casoUso.id}" /></td>
-							<td><s:property value="%{#casoUso.clave + #casoUso.numero + ' ' +#casoUso.nombre}" /></td>
-							<td>
-								<s:select list="trayectorias" multiple="true" listValue="clave" cssClass="inputFormulario" name="valorSel" id="valor-%{#casoUso.id}" 
-		       						cssErrorClass="input-error" listKey="id"></s:select>
-							</td>
+							<td><s:property
+									value="%{#casoUso.clave + #casoUso.numero + ' ' +#casoUso.nombre}" /></td>
+							<td><s:select list="trayectorias" multiple="true"
+									listValue="clave" cssClass="inputFormulario" name="valorSel"
+									id="valor-%{#casoUso.id}" cssErrorClass="input-error"
+									listKey="id"></s:select></td>
 						</tr>
 					</s:iterator>
 				</tbody>
@@ -45,18 +50,13 @@
 		</div>
 		<br />
 		<div align="center">
-			<s:submit class="boton" value="Descargar" method="post" />
-			<s:url var="urlGestionarProyectos"
-				value="%{#pageContext.request.contextPath}/proyectos!descargarGuion?idSel=%{#proyecto.id}">
-				<s:param name="extension">pdf</s:param>
-			</s:url>
+			<s:submit class="boton" value="Descargar" />
 			<input class="boton" type="button"
 				onclick="location.href='${urlPrev}'" value="Cancelar" />
 		</div>
 		<s:hidden id="jsonGuionesTabla" name="jsonGuionesTabla"
 			value="%{jsonGuionesTabla}" />
-		<s:hidden id="idProyecto" name="idProyecto"
-			value="%{proyecto.id}" />
+		<s:hidden id="idProyecto" name="idProyecto" value="%{proyecto.id}" />
 	</s:form>
 </body>
 	</html>

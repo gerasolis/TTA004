@@ -9,7 +9,7 @@
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[select DISTINCT e.clave, e.numero, e.nombre, e.descripcion, p.id
-from Elemento e, proyecto p, modulo m, casouso c, guionprueba gp
+from Elemento e, Proyecto p, Modulo m, CasoUso c, GuionPrueba gp
 where p.id = $P{p_proyectoId}
 and e.proyectoid = p.id
 and p.id = m.proyectoid 

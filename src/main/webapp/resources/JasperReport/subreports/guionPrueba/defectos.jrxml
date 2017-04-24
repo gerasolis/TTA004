@@ -35,7 +35,7 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
 		<queryString language="SQL">
 			<![CDATA[select e.clave, e.numero, e.nombre 
-from elemento e, casouso cu, proyecto p, modulo m
+from Elemento e, CasoUso cu, Proyecto p, Modulo m
 where e.id = cu.elementoid
 and cu.moduloid = m.id
 and m.proyectoid = p.id

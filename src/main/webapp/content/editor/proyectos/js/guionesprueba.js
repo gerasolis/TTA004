@@ -10,7 +10,6 @@ $(document)
 				var parsedJson = JSON.parse(json);
 				$.each(parsedJson, function(i, item) {
 					var id = item.id;
-					document.getElementById("checkbox-" + id).checked = true;
 				});
 			}
 		});
@@ -36,6 +35,7 @@ function tablaToJson(idTable) {
 	for (var i = 0; i < table.fnSettings().fnRecordsTotal(); i++) {
 		console.log("Entra al for");
 		var id = table.fnGetData(i, 1);
+		console.log(id);
 		seleccionado = document.getElementById("checkbox-" + id).checked;
 		console.log(seleccionado);
 		if (seleccionado == true) {

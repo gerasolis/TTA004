@@ -43,7 +43,7 @@ div.upload input {
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 
-	<div class="form">
+	<div class="form-group col-md-12">
 		<s:form autocomplete="off" id="frmActor" theme="simple"
 		action="%{#pageContext.request.contextPath}/configurar-entradas!anadirValoresEntradas" enctype="multipart/form-data" onsubmit="prepararEnvio()" method="post">
 		<s:hidden name="_method" value="put" />

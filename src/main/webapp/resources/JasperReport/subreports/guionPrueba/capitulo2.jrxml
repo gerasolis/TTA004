@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-03-29T23:54:48 -->
+<!-- 2017-04-21T19:21:07 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="capitulo2" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5aebdf83-a53a-4a3f-8f18-69c337c245af">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
@@ -9,9 +9,9 @@
 	</parameter>
 	<queryString language="SQL">
 		<![CDATA[select e.clave, e.numero, e.nombre, e.descripcion,
-m.nombre as nombreMod, p.nombre as nombreProy, gp.idGuionPrueba, cu.elementoid as idCasoUso
-from proyecto p, modulo m, elemento e, casouso cu,
-guionprueba gp 
+m.nombre as nombreMod, m.id as idModulo, p.nombre as nombreProy, gp.idGuionPrueba, cu.elementoid as idCasoUso
+from Proyecto p, Modulo m, Elemento e, CasoUso cu,
+GuionPrueba gp 
 where p.id = $P{p_proyectoId}
 and p.id = m.proyectoid
 and m.id = cu.moduloid
@@ -27,6 +27,7 @@ and gp.seleccionado = 1]]>
 	<field name="descripcion" class="java.lang.String"/>
 	<field name="idGuionPrueba" class="java.lang.Integer"/>
 	<field name="idCasoUso" class="java.lang.Integer"/>
+	<field name="idModulo" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -159,8 +160,8 @@ and gp.seleccionado = 1]]>
 				<subreportParameter name="idGuionPrueba">
 					<subreportParameterExpression><![CDATA[$F{idGuionPrueba}]]></subreportParameterExpression>
 				</subreportParameter>
-				<subreportParameter name="idCasoUso">
-					<subreportParameterExpression><![CDATA[$F{idCasoUso}]]></subreportParameterExpression>
+				<subreportParameter name="idModulo">
+					<subreportParameterExpression><![CDATA[$F{idModulo}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/nombrePantalla.jasper"]]></subreportExpression>
