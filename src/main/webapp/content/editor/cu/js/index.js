@@ -1,9 +1,13 @@
 $(document).ready(function() {
 	contextPath = $("#rutaContexto").val();
-	
+
 	if(document.getElementById("pruebaGenerada").value == "true") {
 		window.location.href = contextPath + "/configuracion-caso-uso!descargarPrueba";
 		document.getElementById("pruebaGenerada").value = "false";
+	}
+	if(document.getElementById("pruebaGenerada2").value == "true") {
+		window.location.href = contextPath + "/configuracion-casos-uso!descargarPruebaGeneral";
+		document.getElementById("pruebaGenerada2").value = "false";
 	}
 	$('#gestion').DataTable().column(0).visible(false); 
 	

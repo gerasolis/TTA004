@@ -13,6 +13,7 @@
 <body>
 	<div class="modal" id="modal"><!-- Place at bottom of page --></div>
 	<h1>Gestionar Casos de uso</h1>
+
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 
@@ -196,6 +197,8 @@
 	</div>
 	
 	<s:hidden name="pruebaGenerada" id="pruebaGenerada" value="%{pruebaGenerada}"/>
+	<s:hidden name="pruebaGenerada2" id="pruebaGenerada2" value="%{pruebaGenerada2}"/>
+	
 	</s:form>
 	<div class = "invisible">
 	<!-- EMERGENTE CONFIRMAR ELIMINACIÓN -->
