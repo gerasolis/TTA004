@@ -36,6 +36,7 @@ import mx.prisma.generadorPruebas.bs.ValorMensajeParametroBs;
 import mx.prisma.generadorPruebas.model.ErroresPrueba;
 import mx.prisma.generadorPruebas.model.Prueba;
 import mx.prisma.generadorPruebas.model.ValorMensajeParametro;
+import mx.prisma.guionPruebas.bs.GuionPruebasBs;
 import mx.prisma.util.ActionSupportPRISMA;
 import mx.prisma.util.ErrorManager;
 import mx.prisma.util.FileUtil;
@@ -85,6 +86,8 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 		String cadena="";
 		String cadenaUsar="";
 		String resultado="";
+		String cadenaOriginal="";
+		int z=0;
 		listEntradas = new ArrayList<Entrada>();
 		try {
 			modulo = SessionManager.consultarModuloActivo();
@@ -113,87 +116,98 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 								for(ReferenciaParametro rp : PasoBs.obtenerReferencias(p.getId())){
 									if(rp.getTipoParametro().getId() == 6){
 										Mensaje m = MensajeBs.consultarMensaje(rp.getElementoDestino().getId());
-										//System.out.println(m.getRedaccion());
-										//Aquí sustituyo los token y comparo con los mensajes de la prueba.
-										//primero cuento la cantidad de tokens sólo si es de tipo parametrizado.
-										if(m.isParametrizado()){
-											cadena = m.getRedaccion();
-											contador2=0;
-											while(cadena.indexOf("PARAM")!=-1){
-												cadena = cadena.substring(cadena.indexOf("PARAM")+"PARAM".length(),cadena.length());
-												contador2++;
-											}
-											System.out.println(contador2);
-											for(int z=0;z<contador2;z++){
-												if(z==0){
-													cadenaUsar = m.getRedaccion();
-												}
-												for(MensajeParametro mp : MensajeParametroBs.consultarMensajeParametro_(m.getId())){
-													for(ValorMensajeParametro v : ValorMensajeParametroBs.consultarValores_(mp.getId())){
-														if(v.getReferenciaParametro().getPaso().getRedaccion().equals(p.getRedaccion())){
-															//System.out.println(v.getValor());
-															
-															if(v.getMensajeParametro().getParametro().getNombre().equals("DETERMINADO")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"$PARAM·1", v.getValor());
-															}else if(v.getMensajeParametro().getParametro().getNombre().equals("ENTIDAD")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·2", v.getValor());	
-															}else if(v.getMensajeParametro().getParametro().getNombre().equals("OPERACIÓN")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·3", v.getValor());
-															}else if(v.getMensajeParametro().getParametro().getNombre().equals("TIPO_DATO")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·4", v.getValor());
-															}else if(v.getMensajeParametro().getParametro().getNombre().equals("TAMAÑO")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·5", v.getValor());
-															}else if(v.getMensajeParametro().getParametro().getNombre().equals("UNIDAD_TIPO_DATO")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·6", v.getValor());
-															}else if(v.getMensajeParametro().getParametro().getNombre().equals("VALOR")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·7", v.getValor());
-															}else if(v.getMensajeParametro().getParametro().getNombre().equals("ATRIBUTO")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·8", v.getValor());
-															}else if(v.getMensajeParametro().getParametro().getNombre().equals("CONTRASEÑA")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·9", v.getValor());
-															}else if(v.getMensajeParametro().getParametro().getNombre().equals("NOMBRE")){
-																cadenaUsar = TokenBs.remplazoToken(cadenaUsar,"PARAM·10", v.getValor());	
-															}
-														}
-													}
-													
-												}
-											}
-											System.out.println("*********************************");
-											System.out.println("CADENA A USAR: "+cadenaUsar);
-											if(cadenaUsar.charAt(0) == '$'){
-												cadenaUsar = cadenaUsar.substring(1,cadenaUsar.length());
-												System.out.println("CADENA A USAR SIN $: "+cadenaUsar);
-											}
-											System.out.println("*********************************");
+										cadena = m.getRedaccion();
+										z=0;
+						                if(cadena.charAt(0) == '$'){
+						                    cadena = cadena.substring(1,cadena.length());
+						                }
+						                cadenaUsar = cadena;
+						                //System.out.println(m.getRedaccion());
+						                //Aquí sustituyo los token y comparo con los mensajes de la prueba.
+						                //primero cuento la cantidad de tokens sólo si es de tipo parametrizado.
+						                if(m.isParametrizado()){
+						                	
+						                	//Obtenemos la lista de paramentros del mensaje
+						                    List<String> parametros = GuionPruebasBs.obtenerTokens(m);
+						                    for(String param : parametros){
+						                    	System.out.println("Param: "+param);
+						                    	if(param.charAt(0) == '$'){
+						                            param = param.substring(1,param.length());
+						                        }
+						                    	
+						                    	for(MensajeParametro mp : MensajeParametroBs.consultarMensajeParametro_(m.getId())){
+						                    		for(ValorMensajeParametro v : ValorMensajeParametroBs.consultarValores_(mp.getId())){
+						                    			if(v.getReferenciaParametro().getPaso().getRedaccion().equals(p.getRedaccion())){
+						                    				String paramOriginal = TokenBs.decodificarCadenasToken(" "+param);
+						                    				System.out.println("paramOriginal: "+paramOriginal);
+						                    				System.out.println("Antes de entrar al if");
+						                    				System.out.println(v.getMensajeParametro().getParametro().getNombre());
+						                    				System.out.println(paramOriginal.substring(paramOriginal.indexOf("·")+1, paramOriginal.length()));
+						                    				String cadenaParam = paramOriginal.substring(paramOriginal.indexOf("·")+1, paramOriginal.length());
+						                    				System.out.println("cadenaParam: "+cadenaParam);
+						                    				if(cadenaParam.charAt(cadenaParam.length()-1) == '.'){
+						                    					System.out.println("sÍ TIENE PUNTO");
+						                    					cadenaParam = cadenaParam.replace(".", "");
+						                    				}
+						                    				
+						                    				if(v.getMensajeParametro().getParametro().getNombre().equals(cadenaParam)){
+						                    					System.out.println("DespuÉs de entrar al if");
+						                    					System.out.println("**************** PARAMETRO DE V EN PARAMETRO MENSAJE *****************");
+						                    					System.out.println("**************** "+cadena+" *****************");
+						                    					if(z==0){
+						                    						cadenaOriginal = cadena;
+						                    					}
+						                    					paramOriginal = paramOriginal.substring(paramOriginal.indexOf("·")+1, paramOriginal.length());
+						                    					cadena = TokenBs.remplazoToken(cadena,param, v.getValor());
+						                    					System.out.println("**************** "+cadena+" *****************");
+						                    					if(cadena.charAt(0) == '$'){
+						        				                    cadena = cadena.substring(1,cadena.length());
+						        				                }
+						                    					if(cadenaOriginal.charAt(0) == '$'){
+						                    						cadenaOriginal = cadenaOriginal.substring(1,cadenaOriginal.length());
+						        				                }
+						                    					System.out.println("**************** "+cadenaOriginal+" *****************");
+						                    					break;
+						                    				}
+						                    			}
+						                    		}
+						                    	}
+						                    	z++;
+						                      }
+											
+						                    System.out.println("*********************************");
+											System.out.println("Cadena convertida: "+cadena);
+											System.out.println("Cadena original: "+cadenaOriginal);
 											//Comparamos la cadena con las cadenas de los mensajes de error.
 											for (ErroresPrueba liste : listErrores){
 												//byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
 												//String value = new String(ptext, UTF_8); 
 												try{
-													//String[] prueba = value.split("/");
 													String[] prueba = liste.getTipoError().split("/");
 													System.out.println("ERROR: "+prueba[1]);
-													if(cadenaUsar.equals(prueba[1])){
+													if(cadenaOriginal.equals(prueba[1])){
 														System.out.println("ENTRA");
 														liste.setMensajeid(m);
 														liste.setPasoid(p);
+														liste.setTipoError("Test failed: text expected to contain /" +cadena+"/");
 														EjecutarPruebaBs.modificarError(liste);
 													}
-		
+
 												}catch(Exception e){
-													//if(cadenaUsar.equals(value)){
-													if(cadenaUsar.equals(liste.getTipoError())){
+													if(cadenaOriginal.equals(liste.getTipoError())){
 														System.out.println("ENTRA");
 														liste.setMensajeid(m);
 														liste.setPasoid(p);
+														liste.setTipoError("Test failed: text expected to contain /" +cadena+"/");
 														EjecutarPruebaBs.modificarError(liste);
 													}
 												} 
 											}
-											cadenaUsar="";
-								
+											//cadenaUsar="";
+						                    
+						                    
 										}else{
+											System.out.println("Entra al else");
 											cadena = m.getRedaccion();
 											System.out.println("*********************************");
 											System.out.println("CADENA NO PARAMETRIZADA A USAR: "+cadena);
@@ -205,7 +219,6 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 												//byte ptext[] = liste.getTipoError().getBytes(ISO_8859_1); 
 												//String value = new String(ptext, UTF_8); 
 												try{
-													//String[] prueba = value.split("/");
 													String[] prueba = liste.getTipoError().split("/");
 													System.out.println("ERROR: "+prueba[1]);
 													if(cadena.equals(prueba[1])){
@@ -214,9 +227,8 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 														liste.setPasoid(p);
 														EjecutarPruebaBs.modificarError(liste);
 													}
-		
+
 												}catch(Exception e){
-													//if(cadena.equals(value)){
 													if(cadena.equals(liste.getTipoError())){
 														System.out.println("ENTRA");
 														liste.setMensajeid(m);
