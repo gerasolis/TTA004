@@ -142,9 +142,26 @@ public class MensajesCtrl extends ActionSupportPRISMA implements
 			model.setProyecto(proyecto);
 			model.setEstadoElemento(ElementoBs
 					.consultarEstadoElemento((Estado.EDICION)));
-
+			System.out.println("entra a create");
 			agregarParametros();
-
+			model.setRedaccion('$'+model.getRedaccion());
+			System.out.println(model.isParametrizado());
+			
+			int contador2=0;
+			System.out.println(model.getRedaccion());
+			while(model.getRedaccion().indexOf("PARAM")!=-1){
+				System.out.println("entra al while");
+				contador2++;
+				break;
+			}
+			if(contador2==0){
+				System.out.println("entra al if");
+				model.setParametrizado(false);
+			}
+		
+			
+			
+			
 			MensajeBs.registrarMensaje(model);
 			resultado = SUCCESS;
 
@@ -349,7 +366,15 @@ public class MensajesCtrl extends ActionSupportPRISMA implements
 	}
 
 	private void agregarParametros() throws Exception {
+		int contador2=0;
 		model.setParametrizado(true);
+		/*while(model.getRedaccion().indexOf("PARAM")!=-1){
+			contador2++;
+		}
+		if(contador2==0){
+			model.setParametrizado(false);
+		}*/
+		
 		if (jsonParametros != null && !jsonParametros.equals("")) {
 			Set<Parametro> parametros = JsonUtil.mapJSONToSet(jsonParametros,
 					Parametro.class);

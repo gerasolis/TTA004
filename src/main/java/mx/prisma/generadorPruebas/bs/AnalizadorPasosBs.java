@@ -287,6 +287,7 @@ public class AnalizadorPasosBs {
 	
 	public static Paso calcularPasoAlternativo(Paso paso) {
 		ReferenciaParametro referenciaTrayectoria = obtenerPrimerReferencia(paso, TipoReferencia.TRAYECTORIA);
+		System.out.println(referenciaTrayectoria.getId());
 		Trayectoria trayectoriaRef = referenciaTrayectoria.getTrayectoria();
 		if(trayectoriaRef.isAlternativa()) {
 			return buscarPaso(1, trayectoriaRef);
@@ -308,12 +309,16 @@ public class AnalizadorPasosBs {
 	public static ReferenciaParametro obtenerPrimerReferencia(Paso paso, ReferenciaEnum.TipoReferencia tipoReferencia) {
 		ReferenciaParametro referencia = null;
 		paso = new PasoDAO().consultarPaso(paso.getId());
+		
+		System.out.println(paso.getId()+": "+paso.getRedaccion());
 		for(ReferenciaParametro rp : paso.getReferencias()) {
 			if(ReferenciaEnum.getTipoReferenciaParametro(rp).equals(tipoReferencia)) {
 				referencia = rp;
+				System.out.println("Referencia: "+referencia.getTipoParametro());
 				break;
 			}
 		}
+		System.out.println("Antes de regresar");
 		return referencia;
 	}
 	

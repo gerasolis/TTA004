@@ -97,7 +97,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 			listPruebas = PruebaBs.consultarPruebas();
 			//listErrores = EjecutarPruebaBs.consultarErroresCasosUso(modulo);
 			listErrores = EjecutarPruebaBs.consultarErrores();
-			listPantallas = EjecutarPruebaBs.consultarPantallas();
+			listPantallas = EjecutarPruebaBs.consultarPantallas(modulo);
 			listMensajes = EjecutarPruebaBs.consultarMensajes();
 			listMensajeValorParametro = EjecutarPruebaBs.consultarValorMensajeParametros();
 			listEntradas = EjecutarPruebaBs.consultarEntradas(); //Sacar toda la lista de entradas y hacer la relación en el front.

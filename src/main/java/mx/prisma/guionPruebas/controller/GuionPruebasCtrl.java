@@ -1,6 +1,7 @@
 package mx.prisma.guionPruebas.controller;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.ResultPath;
 import org.apache.struts2.convention.annotation.Results;
+import org.hibernate.Hibernate;
 
 import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionContext;
@@ -20,6 +22,7 @@ import com.opensymphony.xwork2.ActionContext;
 import mx.prisma.admin.model.Colaborador;
 import mx.prisma.admin.model.Proyecto;
 import mx.prisma.bs.AccessBs;
+import mx.prisma.bs.AnalisisEnum.CU_CasosUso;
 import mx.prisma.editor.bs.CuBs;
 import mx.prisma.editor.bs.ElementoBs;
 import mx.prisma.editor.bs.ModuloBs;
@@ -86,6 +89,7 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 	private ConfiguracionBaseDatos cbd;
 	private ConfiguracionHttp chttp;
 	private Proyecto model;
+	private String jsonPasosTabla;
 	
 	//Variable del guion
 	List<String> instrucciones = new ArrayList<String>();
@@ -126,19 +130,51 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 			resultado = "modulos";
 			return resultado;
 		}
-		if (!AccessBs.verificarPermisos(modulo.getProyecto(), colaborador)) {
-			resultado = Action.LOGIN;
-			return resultado;
-		}
+		
 		
 		//Obtenemos la lista de los casos de uso  
 		CasoUsoDAO cudao = new CasoUsoDAO();
 		casosUso = cudao.consultarCasosUso(modulo.getId());
 		
+		Modulo moduloAux = new Modulo();
+		moduloAux.setId(modulo.getId());
+		moduloAux.setNombre(modulo.getNombre());
+		moduloAux.setClave(modulo.getClave());
+		moduloAux.setDescripcion(modulo.getDescripcion());
+		
+		ArrayList<CasoUso> cusTabla = new ArrayList<CasoUso>();
+		CasoUso cuAux;
+		List<CasoUso>casosUso = CuBs.consultarCasosUso(proyecto);
+		for (int i=0; i<casosUso.size(); i++) {
+			cuAux = new CasoUso();
+			cuAux.setId(casosUso.get(i).getId());
+			cuAux.setClave(casosUso.get(i).getClave());
+			cuAux.setNumero(casosUso.get(i).getNumero());
+			cuAux.setNombre(casosUso.get(i).getNombre());
+			cuAux.setModulo(moduloAux);
+			Set<Trayectoria> trayectorias = casosUso.get(i).getTrayectorias();
+			List<Trayectoria> list = new ArrayList<Trayectoria>(trayectorias);
+			trayectorias = new HashSet<Trayectoria>();
+			Trayectoria tAux;
+			for(int j=0; j<list.size(); j++){
+				tAux = new Trayectoria();
+				tAux.setId(list.get(j).getId());
+				tAux.setClave(list.get(j).getClave());
+				trayectorias.add(tAux);
+			}
+			cuAux.setTrayectorias(trayectorias);
+			cusTabla.add(cuAux);
+		}
+
+		this.jsonPasosTabla = JsonUtil.mapListToJSON(cusTabla);
+		
+		System.out.println(jsonPasosTabla);
+		
 		//Obtenemos la lista de las trayectorias de los casos de uso 
 		for(int i=0; i<casosUso.size(); i++){
 			List<Trayectoria> t = new ArrayList<Trayectoria>();
 			Set<Trayectoria> tray = casosUso.get(i).getTrayectorias();
+		
 			for(Trayectoria tr : tray){
 				if(tr.isAlternativa()){ //Solo se agregan las trayectorias alternativas, la principal es forzosa
 					t.add(tr);
@@ -252,20 +288,34 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 		Set<CasoUso> cuSeleccionados = new HashSet<CasoUso>(0);
 		
 		//Obtenemos los guiones de prueba selecionados
-		if (jsonGuionesTabla != null
-				&& !jsonGuionesTabla.equals("")) {
-			//System.out.println("Entró al if de  seleccionarGuion");
+		if (jsonPasosTabla != null
+				&& !jsonPasosTabla.equals("")) {
+			System.out.println("Entró al if de  seleccionarGuion");
 			cuSeleccionados = JsonUtil.mapJSONToSet(
-					jsonGuionesTabla, CasoUso.class);
-			//System.out.println("JSON: "+jsonGuionesTabla);
+					jsonPasosTabla, CasoUso.class);
+			System.out.println("JSON: "+jsonPasosTabla);
 		}else{
-			//System.out.println("JSON vacío");
+			System.out.println("JSON vacío");
 		}
 		
-		List<Trayectoria> trayectoriasSeleccionadas = new ArrayList<Trayectoria>();
+		GuionPruebaDAO gpdao = new GuionPruebaDAO();
+		List<GuionPrueba> todosgp = gpdao.selectAll();
+		
+		int j=0;
+		for(CasoUso cuSeleccionado : cuSeleccionados){
+			j++;
+			for(GuionPrueba gp : todosgp){
+				if(gp.getCasoUsoElementoid()==cuSeleccionado.getId()){
+					gp.setOrden(j);
+					gpdao = new GuionPruebaDAO();
+					gpdao.update(gp);
+				}
+			}			
+		}
 		
 		//Creamos el guion de prueba para el cu seleccionado
 		for(CasoUso cuSeleccionado : cuSeleccionados){
+			List<Trayectoria> trayectoriasSeleccionadas = new ArrayList<Trayectoria>();
 			//Obtenemos las trayectorias seleccionadas del caso de uso
 				CasoUsoDAO cudao = new CasoUsoDAO();
 				cuSeleccionado = cudao.consultarCasoUso(cuSeleccionado.getId());
@@ -275,6 +325,8 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 					//Consultamos las trayectorias del caso de uso 
 					for(Trayectoria trayCU : cuSeleccionado.getTrayectorias()){
 						if(trayCU.getId()==t.getId()){
+							System.out.println("Caso de Uso: "+cuSeleccionado.getNombre());
+							System.out.println("Trayectoria: "+t.getClave());
 							trayectoriasSeleccionadas.add(t);
 						}
 					}
@@ -282,9 +334,6 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 				//Debemos enviarle también las trayectorias seleccionadas
 				GuionPruebasBs.obtenerInstrucciones(cuSeleccionado, trayectoriasSeleccionadas, request.getContextPath());
 		}
-		
-		GuionPruebaDAO gpdao = new GuionPruebaDAO();
-		List<GuionPrueba> todosgp = gpdao.selectAll();
 		
 		for(GuionPrueba gp : todosgp){
 			for(CasoUso cuSeleccionado : cuSeleccionados){
@@ -302,7 +351,6 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 			gpdao = new GuionPruebaDAO();
 			gpdao.update(gp);
 		}
-		
 		
 		return descargarGuion(idProyecto);
 	}
@@ -326,16 +374,22 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 		}*/
 				
 		try {
+				System.out.println("ENTRA AL TRY DE DESCARGAR");
 				ReportUtil.crearGuion("pdf", filename, idProyecto, rutaSrc, rutaTarget);
+				System.out.println("DESPUÉS DEL REPORT..TUL");
 		        File doc = new File(rutaTarget + filename);
+		        System.out.println("CREA FILE DOC");
 		        this.fileInputStream = new FileInputStream(doc);
+		        System.out.println("FILEINPUTSTRAM");
 		        FileUtil.delete(doc);
 	        } catch (Exception e) {
+	        	System.out.println(e);
 	        	ErrorManager.agregaMensajeError(this, e);
 	        	try {
 					return configuracionTrayectoriasCasosUso();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
+					System.out.println(e);
 					e1.printStackTrace();
 				}
 	        }
@@ -492,6 +546,14 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 	
 	public void setIdProyecto(int idProyecto) {
 		this.idProyecto = idProyecto;
+	}
+	
+	public String getJsonPasosTabla() {
+		return jsonPasosTabla;
+	}
+	
+	public void setJsonPasosTabla(String jsonPasosTabla) {
+		this.jsonPasosTabla = jsonPasosTabla;
 	}
 	
 }

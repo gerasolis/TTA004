@@ -6,7 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 
 import mx.prisma.dao.GenericDAO;
-import mx.prisma.editor.model.Verbo;
+import mx.prisma.guionPruebas.model.VerboSinonimo;
 
 public class VerboSinonimoDAO extends GenericDAO{
 	
@@ -16,8 +16,8 @@ public class VerboSinonimoDAO extends GenericDAO{
 	
 	//Función para saber a qué verbos pertenece la palabra asignada a "Otro"
 	@SuppressWarnings("unchecked")
-	public List<Verbo> verbosSimilares(int idSinonimo){
-		List<Verbo> verbos = null;
+	public List<VerboSinonimo> verbosSimilares(int idSinonimo){
+		List<VerboSinonimo> verbos = null;
 			
 		try {
 			//HAcemos la consulta

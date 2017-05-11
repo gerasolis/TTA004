@@ -24,11 +24,15 @@ import net.sf.json.JSONObject;
 import java.util.HashSet;
 
 public class ValorEntradaBs {
-	public static void guardarValores(List<File> entradas, List<String> idAtributos, int tipoEntrada,String jsonEntradasTabla,CasoUso casoUso) throws IOException{
+	public static void guardarValores(List<File> entradas, List<String> idAtributos, int tipoEntrada,String jsonEntradasTabla,String jsonEntradasTabla2_1,CasoUso casoUso) throws IOException{
 		 		
 		 		Set<ValorEntrada> entradasSeleccionadas = new HashSet<ValorEntrada>(0);
 		 		entradasSeleccionadas = JsonUtil.mapJSONToSet(
 		 				jsonEntradasTabla, ValorEntrada.class);
+		 		
+		 		Set<Entrada> entradasSeleccionadas2 = new HashSet<Entrada>(0);
+		 		entradasSeleccionadas2 = JsonUtil.mapJSONToSet(
+		 				jsonEntradasTabla2_1, Entrada.class);
 		 		
 		 		//ANTES DE REGISTRAR ENTRADA, TENEMOS QUE BORRAR LAS QUE YA EXISTEN.
 		 		/*ValorEntradaDAO edaox1 = new ValorEntradaDAO();
@@ -44,7 +48,30 @@ public class ValorEntradaBs {
 		 			vedao.borrarValorEntrada(ex);
 		 			ValorEntradaDAO vedao2 = new ValorEntradaDAO();
 		 			vedao2.registrarValorEntrada(x);
+		 			System.out.println(ex.getId());
+		 			for(Entrada e : entradasSeleccionadas2){
+			 			EntradaDAO edao = new EntradaDAO();
+			 			try{
+				 			Entrada ep = edao.consultarEntradaxAtributo(e.getId(),casoUso.getId(),ex.getId());
+				 			ep.setNombreHTML(e.getNombreHTML());
+				 			ep.setCasoUso(casoUso);
+				 			EntradaDAO edao2 = new EntradaDAO();
+				 			edao2.modificarEntrada(ep);
+			 			}catch(Exception eop){}
+			 		}
 		 		}
+		 		
+		 		
+			 		/*for(Entrada e : entradasSeleccionadas2){
+			 			EntradaDAO edao = new EntradaDAO();
+			 			Entrada ep = edao.consultarEntradaxAtributo(e.getId(),casoUso.getId());
+			 			ep.setNombreHTML(e.getNombreHTML());
+			 			ep.setCasoUso(casoUso);
+			 			EntradaDAO edao2 = new EntradaDAO();
+			 			edao2.modificarEntrada(ep);
+			 		}*/
+
+		 		
 	}
 	
 	

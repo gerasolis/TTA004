@@ -133,7 +133,7 @@
 							<!-- Descargar pruebas -->			
 								<s:url var="urlGenerarReporte" value="%{#pageContext.request.contextPath}/configuracion-caso-uso!generarReporte?idCU=%{#cu.id}" method="post"/>
 								<s:a href="%{urlGenerarReporte}" onclick="mostrarMensajeCargando();">
-								<img id="" class="button" title="Generar Reporte"
+								<img id="" class="button" title="Visualizar reporte individual"
 										src="${pageContext.request.contextPath}/resources/images/icons/bar-chart.png" /></s:a>	
 								${blanks}
 							</s:if>
@@ -154,7 +154,7 @@
 									<s:url var="urlGuionPrueba" value="%{#pageContext.request.contextPath}/configuracion-entradas!prepararConfiguracion">
 										<s:param name="idCU" value="%{#cu.id}"/>
 									</s:url>
-									<s:a href="%{urlGuionPrueba}">
+									<s:a href="%{urlGuionPrueba}" onclick="mostrarMensajeCargando();">
 										<img id="" class="button" title="Guion de Prueba"
 												src="${pageContext.request.contextPath}/resources/images/icons/guion.png" />
 										${blanks}
@@ -180,7 +180,7 @@
 	<div align="center">
 		<button class="boton" 
 			onclick="mostrarMensajeCargando();location.href='${pageContext.request.contextPath}/configuracion-casos-uso!generarReporteGeneral'">
-			<s:text name="Ver reporte general"></s:text>
+			<s:text name="VIsualizar reporte general"></s:text>
 		</button>
 		<button class="boton" 
 			onclick="location.href='${pageContext.request.contextPath}/cu/new'">

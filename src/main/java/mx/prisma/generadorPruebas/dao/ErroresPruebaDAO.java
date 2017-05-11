@@ -67,13 +67,13 @@ public class ErroresPruebaDAO extends GenericDAO{
 					
 		}
 
-	public List<Pantalla> consultarPantallas(){
+	public List<Pantalla> consultarPantallas(Modulo modulo){
 		List<Pantalla> results = null;
 		String valor = null;
 
 		try{
 			session.beginTransaction();
-			Query query = session.createQuery("from Pantalla");
+			Query query = session.createQuery("from Pantalla where Moduloid="+modulo.getId());
 			results = query.list();
 			session.getTransaction().commit();
 		}catch(HibernateException he){

@@ -23,6 +23,7 @@ public class GuionPrueba implements java.io.Serializable {
 	private Integer idGuionPrueba;
 	private Integer CasoUsoElementoid;
 	private Boolean seleccionado;
+	private Integer orden;
 	
 	public GuionPrueba() {
 	}
@@ -59,5 +60,14 @@ public class GuionPrueba implements java.io.Serializable {
 	
 	public void setSeleccionado(Boolean seleccionado) {
 		this.seleccionado = seleccionado;
+	}
+	
+	@Column(name = "orden")
+	public Integer getOrden() {
+		return orden;
+	}
+	
+	public void setOrden(Integer orden) {
+		this.orden = orden;
 	}
 }

@@ -20,6 +20,10 @@ function probarConexion() {
 	var driver = $('#driver').val();
 	var usuario = $('#usuario').val();
 	var contrasenia = $("#contrasenia").val();
+	console.log(contrasenia);
+	console.log(url);
+	console.log(driver);
+	console.log(usuario);
 		
 	$.ajax({
 		dataType : 'json',

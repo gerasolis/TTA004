@@ -43,6 +43,7 @@ function prepararEnvio() {
 function tablaToJson(idTable) {
 	var table = $("#" + idTable).dataTable();
 	var arregloColaboradores = [];
+	var arregloEntradas = [];
 	var seleccionado;
 	var cadena="";
 	for (var i = 0; i < table.fnSettings().fnRecordsTotal(); i++) {	    
@@ -50,6 +51,8 @@ function tablaToJson(idTable) {
 		var id = entrada.split(" ");
 		//seleccionado = document.getElementById("checkbox-" + id[0]).checked;
 		//seleccionado2 = document.getElementById("checkbox2-" + id[0]).checked;
+		
+		nombreHTML = $('input[id=nombreHTML-'+id[0]+']').val();
 		seleccionado = $('input[id=checkbox-'+id[0]+']').filter(':checked').val();
 		seleccionado2 = $('input[id=checkbox2-'+id[0]+']').filter(':checked').val();
 		aleatorioCorrectoPrueba = $('input[id=aleatorioCorrectoPrueba-'+id[0]+']').filter(':checked').val();
@@ -61,28 +64,35 @@ function tablaToJson(idTable) {
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó prueba");
 		    arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,1,0,0,0));
+		    //arregloEntradas.push(new Entrada(id[0],nombreHTML));
 		}else if(seleccionado != null && seleccionado2 != null){	
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó ambas");
 			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,1,1,0,0));
+			//arregloEntradas.push(new Entrada(id[0],nombreHTML));
 		}else if(seleccionado == null && seleccionado2 != null){
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó guión");
 			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,1,0,0));
+			//arregloEntradas.push(new Entrada(id[0],nombreHTML));
 		}
 		if(aleatorioCorrectoPrueba != null && aleatorioCorrectoGuion == null){
 			var cadena = $('#palabrasAleatorias-'+id[0]).val();
 			console.log("se seleccionó guión");
 			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,0,1,0));
+			//arregloEntradas.push(new Entrada(id[0],nombreHTML));
 		}else if(aleatorioCorrectoPrueba == null && aleatorioCorrectoGuion != null){
 			var cadena = $('#palabrasAleatorias-'+id[0]).val();
 			console.log("se seleccionó guión");
 			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,0,0,1));
+			//arregloEntradas.push(new Entrada(id[0],nombreHTML,));
 		}else if(aleatorioCorrectoPrueba != null && aleatorioCorrectoGuion != null){
 			var cadena = $('#palabrasAleatorias-'+id[0]).val();
 			console.log("se seleccionó guión");
 			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,0,1,1));
+			//arregloEntradas.push(new Entrada(id[0],nombreHTML));
 		}
+		arregloEntradas.push(new Entrada(id[0],nombreHTML));
 		/*if(aleatorioIncorrectoPrueba != null && aleatorioIncorrectoGuion == null){
 			var selectIncorrectosArray = $('#selectIncorrectos-'+id[0]).val();
 			console.log("se seleccionó guión");
@@ -98,7 +108,9 @@ function tablaToJson(idTable) {
 		}*/
 	}
 	var jsonColaboradores = JSON.stringify(arregloColaboradores);
+	var jsonEntradas2_1 = JSON.stringify(arregloEntradas);
 	document.getElementById("jsonEntradasTabla").value = jsonColaboradores;
+	document.getElementById("jsonEntradasTabla2_1").value = jsonEntradas2_1;
 }
 
 function guardarCadena(id){

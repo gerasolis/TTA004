@@ -51,7 +51,7 @@
 				</tr>
 				<tr>
 					<td class="label"><s:text name="labelContrasenia" /></td>
-					<td><s:password name="cbd.contrasenia" maxlength="50" url="contrasenia"
+					<td><s:password name="cbd.contrasenia" id="contrasenia" maxlength="50" url="contrasenia"
 							cssErrorClass="input-error" cssClass="inputFormulario ui-widget" />
 						<s:fielderror fieldName ="cbd.contrasenia" cssClass="error"
 							theme="jquery" /></td>

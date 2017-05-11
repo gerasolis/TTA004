@@ -42,6 +42,12 @@ div.upload input {
 <body>
 	<div class="modal" id="modal"><!-- Place at bottom of page --></div>
 	<h1>Gestor de Entradas</h1>
+	<p class="instrucciones">Ingrese los valores que van a utilizar las entradas del caso de uso en la prueba automática y en el guión de pruebas, así como el formato html con el que se identifican.</p>
+	<p class="instrucciones">Antes de iniciar, tome en cuenta la siguiente nomenclatura:</p>
+	<ul>
+		<li><p class="instrucciones"><b>P:</b> Valores que se van a utilizar en la prueba.</p></li> 
+		<li><p class="instrucciones"><b>G:</b> Valores que se van a utilizar en el guión de pruebas.</p></li> 
+	</ul>
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 
@@ -54,6 +60,7 @@ div.upload input {
 					<tr>
 						<th><!-- Número del Caso de uso --></th>
 						<th style="width: 15%;"><s:text name="colEntradas"/></th>
+						<th style="width: 15%;"><s:text name="colNombreHTML"/></th>
 						<th style="width: 15%;"><s:text name="colValorAleatorioCorrecto"/></th>
 						<th style="width: 20%;"><s:text name="colValorAleatorioIncorrecto"/></th>
 						<th style="width: 5%;"><s:text name="colValorCorrectoInsertar"/></th>
@@ -64,6 +71,15 @@ div.upload input {
 					<tr class="${'filaEntrada'}${entrada.id}">
 						<td></td>
 						<td><s:property value="%{#entrada.id + ' ' + #entrada.nombre}"/></td>
+						<!-- <td><p>Nada</p></td>-->
+						<s:iterator value="listEntradas_2" var="entrada_2">
+							<!--<s:property value="%{#entrada_2.atributo.id}"/>-->
+							<s:if test="%{#entrada_2.atributo.id == #entrada.id}">
+								<td style=""><p align="center"><input style="width: 132px;" type="text" name="nombreHTML-${entrada.id}" id="nombreHTML-${entrada.id}" value="${entrada_2.nombreHTML}"/></p></td>
+							</s:if>
+						</s:iterator>
+						
+						
 						<s:set var = "breakLoop" value = "false" />
 						<s:set var = "bandera" value = "0" />
 						<s:iterator value="cadenasValidas" var="cadena">
@@ -149,10 +165,12 @@ div.upload input {
 				</div>
 			</div>
 			<s:hidden id="jsonEntradasTabla" name="jsonEntradasTabla" value="%{jsonEntradasTabla}" />
+			<s:hidden id="jsonEntradasTabla2_1" name="jsonEntradasTabla2_1" value="%{jsonEntradasTabla2_1}" />
 		</s:form>
 	</div>
 	
 	<s:hidden name="pruebaGenerada" id="pruebaGenerada" value="%{pruebaGenerada}"/>
+	<s:hidden name="pruebaGenerada2" id="pruebaGenerada2" value="%{pruebaGenerada2}"/>
 	<div class = "invisible">
 	<!-- EMERGENTE CONFIRMAR ELIMINACIÓN -->
 	<sj:dialog id="confirmarEliminacionDialog" title="Confirmación" autoOpen="false"

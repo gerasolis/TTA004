@@ -14,6 +14,7 @@ import mx.prisma.guionPruebas.dao.SinonimoDAO;
 import mx.prisma.guionPruebas.dao.VerboSinonimoDAO;
 import mx.prisma.guionPruebas.model.Instruccion;
 import mx.prisma.guionPruebas.model.Sinonimo;
+import mx.prisma.guionPruebas.model.VerboSinonimo;
 
 public class VerboSinonimoBs {
 	
@@ -32,8 +33,8 @@ public class VerboSinonimoBs {
 		return s;
 	}
 	
-	public static List<Verbo> verbos(Sinonimo s){
-		List<Verbo> verbosSimilares = new ArrayList<Verbo>();
+	public static List<VerboSinonimo> verbos(Sinonimo s){
+		List<VerboSinonimo> verbosSimilares = new ArrayList<VerboSinonimo>();
 		VerboSinonimoDAO vsdao = new VerboSinonimoDAO();
 		
 		//Obtenemos los verbos similares

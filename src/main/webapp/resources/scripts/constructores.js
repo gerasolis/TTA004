@@ -194,6 +194,16 @@ function Entrada(id, etiqueta, valoresEntrada, atributo, terminoGlosario) {
 	this.terminoGlosario = terminoGlosario;
 }
 
+/*function Entrada(etiqueta, atributo) {
+	this.nombreHTML = etiqueta;
+	this.atributo = atributo;
+}*/
+
+function Entrada(id,nombreHTML) {
+	this.id = id;
+	this.nombreHTML = etiqueta;
+}
+
 function Entrada(id, etiqueta, valoresEntradaTrayectoria, atributo, terminoGlosario) {
 	this.id = id;
 	this.nombreHTML = etiqueta;

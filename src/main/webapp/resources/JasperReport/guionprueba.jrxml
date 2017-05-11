@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-04-21T19:05:24 -->
+<!-- 2017-04-25T19:16:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="guionprueba" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ae038b05-4679-425c-ac25-27ce50e55a3b">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="prisma"/>
@@ -119,6 +119,25 @@ where proy.id = $P{idProyecto}]]>
 			</subreport>
 			<break>
 				<reportElement x="0" y="89" width="553" height="1" uuid="d14db765-670c-4ae3-9201-fbefe74b7b90"/>
+			</break>
+		</band>
+		<band height="100">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="0" y="10" width="552" height="59" uuid="18cf3980-864b-483b-b7d1-150e3886b038">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="idProyecto">
+					<subreportParameterExpression><![CDATA[$F{id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["src/main/webapp/resources/JasperReport/subreports/guionPrueba/evaluacionInterfaz.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="99" width="552" height="1" uuid="7cdeaebf-db50-4b04-8db8-7ece0701b7f0">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 			</break>
 		</band>
 		<band height="101">

@@ -33,7 +33,7 @@ public class ValorEntradaDAO extends GenericDAO {
 		try {
 			session.beginTransaction();
 			Query query = session
-					.createQuery("from valorentrada where Entradaid = :entrada AND valido = true");
+					.createQuery("from ValorEntrada where Entradaid = :entrada AND valido = true");
 			query.setParameter("entrada", entrada);
 
 			results = query.list();
@@ -58,7 +58,7 @@ public class ValorEntradaDAO extends GenericDAO {
 		try {
 			session.beginTransaction();
 			Query query = session
-					.createQuery("from valorentrada where Entradaid = :entrada AND valido = false");
+					.createQuery("from ValorEntrada where Entradaid = :entrada AND valido = false");
 			query.setParameter("entrada", entrada);
 
 			results = query.list();

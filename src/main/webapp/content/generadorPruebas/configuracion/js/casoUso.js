@@ -18,7 +18,6 @@ function agregarCamposEntradasSeccion() {
 		$("#tablaEntradas").append("<tr>"
 				+ "<td> <!-- --> </td>"
 				+ "<td class='ui-widget'><center>Name</center></td>"
-				+ "<td class='ui-widget'><center>Value</center></td>"
 			+"</tr>");
 		
 		$.each(
@@ -52,14 +51,13 @@ function agregarCamposEntradasSeccion() {
 					$("#tablaEntradas").append("<tr>"
 									+ "<td class='label obligatorio'>" + labelEntrada + "</td>"
 									+ "<td>" + inputEtiqueta + "</td>"
-									+ "<td>" + inputValor + "</td>"
 									+ "<td class='hide'>" + item.id + "</td>"
 									+ "<td class='hide'>" + idValor + "</td>"
 									+ "<td class='hide'>" + item.nombreHTML + "</td>"
 									+ "<td class='hide'>" + nombreAtributo + "</td>"
 									+ "<td class='hide'>" + nombreTermino + "</td>"
-								+"</tr>");
-					*/
+								+"</tr>");*/
+					
 		});
 		
 	} else {

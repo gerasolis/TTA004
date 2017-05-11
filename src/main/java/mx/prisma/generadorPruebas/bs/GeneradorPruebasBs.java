@@ -997,8 +997,10 @@ public class GeneradorPruebasBs {
 		archivo += GeneradorPruebasBs.grupoHilos(casoUso.getClave() + casoUso.getNumero());
 		archivo += GeneradorPruebasBs.cookieManager();
 		confHTTP = new ConfiguracionDAO().consultarConfiguracionHttpByCasoUso(casoUso);
+		System.out.println(confHTTP.getIp()+", "+confHTTP.getPuerto());
 		archivo += GeneradorPruebasBs.configuracionHTTP(confHTTP.getIp(), confHTTP.getPuerto().toString());
 		confJDBC = new ConfiguracionDAO().consultarConfiguracionBaseDatosByCasoUso(casoUso);
+		System.out.println(confJDBC.getUrlBaseDatos()+", "+confJDBC.getDriver()+", "+confJDBC.getUsuario()+", "+confJDBC.getContrasenia());
 		archivo += GeneradorPruebasBs.configuracionJDBC(confJDBC.getUrlBaseDatos(), confJDBC.getDriver(), confJDBC.getUsuario(), confJDBC.getContrasenia());
 		archivo += GeneradorPruebasBs.estadisticas();
 		archivo += prepararPrueba(casoUso);
@@ -1012,15 +1014,19 @@ public class GeneradorPruebasBs {
 			trayectoriaActual = trayectorias2.get(i);
 			System.out.println("La trayectoria actual es: " + trayectoriaActual.getClave() + "  "  +trayectoriaActual.getId());
 			*/for (Trayectoria trayectoria : casoUso.getTrayectorias()) {
-				
+				System.out.println(1);
 				if (!trayectoria.isAlternativa()) {
+					System.out.println(2);
 					List<Paso>pasosaux = new ArrayList<Paso>();
 					pasosaux = TrayectoriaBs.obtenerPasos(trayectoria.getId());
 					pasos.addAll(pasosaux);				//pasos = AnalizadorPasosBs.ordenarPasos(trayectoria);
-					
+					System.out.println(3);
 					for (Paso paso : pasosaux) {
+						System.out.println(4);
 						if (paso.getNumero() == 1) {
+							System.out.println(5);
 							archivo += generarPrueba(paso, pasos);
+							System.out.println(6);
 						}
 					}
 				}
@@ -1060,8 +1066,10 @@ public class GeneradorPruebasBs {
 		archivo += GeneradorPruebasBs.grupoHilos(casoUso.getClave() + casoUso.getNumero());
 		archivo += GeneradorPruebasBs.cookieManager();
 		confHTTP = new ConfiguracionDAO().consultarConfiguracionHttpByCasoUso(casoUso);
+		System.out.println(confHTTP.getIp()+", "+confHTTP.getPuerto());
 		archivo += GeneradorPruebasBs.configuracionHTTP(confHTTP.getIp(), confHTTP.getPuerto().toString());
 		confJDBC = new ConfiguracionDAO().consultarConfiguracionBaseDatosByCasoUso(casoUso);
+		System.out.println(confJDBC.getUrlBaseDatos()+", "+confJDBC.getDriver()+", "+confJDBC.getUsuario()+", "+confJDBC.getContrasenia());
 		archivo += GeneradorPruebasBs.configuracionJDBC(confJDBC.getUrlBaseDatos(), confJDBC.getDriver(), confJDBC.getUsuario(), confJDBC.getContrasenia());
 		archivo += GeneradorPruebasBs.estadisticas();
 		archivo += prepararPrueba(casoUso);

@@ -72,6 +72,7 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	
 	// Lista de registros
 	private List<Atributo> listEntradas = new ArrayList<Atributo>();
+	private List<Entrada> listEntradas_2 = new ArrayList<Entrada>();
 	private List<String> entradas;
 	private List<File> vci;
 	private List<File> vi;
@@ -84,6 +85,7 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	private List<String> checkbox3;
 	private List<String> checkbox4;
 	private String jsonEntradasTabla;
+	private String jsonEntradasTabla2_1;
 	private List<JSONObject> listJson = new ArrayList<JSONObject>();
 	
 	
@@ -133,8 +135,14 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 			for(Entrada entrada: casoUso.getEntradas()){
 				System.out.println(entrada.getNombreHTML());
 				listEntradas.add(entrada.getAtributo());
+				listEntradas_2.add(entrada);
 			}
-		
+			System.out.println(1);
+			for(Entrada e : listEntradas_2){
+				System.out.println(2);
+				System.out.println(e.getNombreHTML());
+				System.out.println(e.getAtributo().getId());
+			}
 			for(Atributo a : listEntradas){
 			  JSONObject obj = new JSONObject();
 			  obj.put("id", a.getId());
@@ -172,7 +180,6 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 			for(ValorEntrada v : listAleatoriasIncorrectas){
 				System.out.println("Valor: "+v.getValor()+", Id: "+v.getEntrada().getAtributo().getId());
 			}
-			
 			resultado = "pantallaEntradas";
 				
 			} catch(Exception e) {
@@ -233,6 +240,8 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 					return resultado;
 				}
 				System.out.println("famoso JSON: "+jsonEntradasTabla);
+				System.out.println("famoso JSON: "+jsonEntradasTabla2_1);
+				
 				//Guardamos los valores correctos (insertar) los que se insertan por txt
 				/*if(getVci()==null){
 					resultado="error_1";
@@ -246,7 +255,7 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 					SessionManager.set(this.getActionMessages(), "mensajesAccion");
 				}*/
 				
-				ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),2,jsonEntradasTabla,casoUso);
+				ValorEntradaBs.guardarValores(getVci(),getIdAtributo(),2,jsonEntradasTabla,jsonEntradasTabla2_1,casoUso);
 				resultado="cu";
 				addActionMessage(getText("MSG41", new String[] { "Los",
 						"txt", "valores correctos", "registrado", casoUso.getClave()+casoUso.getNumero()+" "+casoUso.getNombre()}));
@@ -392,6 +401,13 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 		this.listEntradas = listEntradas;
 	}
 	
+	public void setListEntradas_2(List<Entrada> listEntradas_2) {
+		this.listEntradas_2 = listEntradas_2;
+	}
+	public List<Entrada> getListEntradas_2(){
+		return listEntradas_2;
+	}
+	
 	public List<Entrada> getListaIncidencias(){
 		return listaIncidencias;
 	}
@@ -448,6 +464,15 @@ public class ConfigurarEntradasCtrl extends ActionSupportPRISMA {
 	public void setJsonEntradasTabla(String jsonEntradasTabla) {
 		this.jsonEntradasTabla = jsonEntradasTabla;
 	}
+	
+	public String getJsonEntradasTabla2_1() {
+		return jsonEntradasTabla2_1;
+	}
+
+	public void setJsonEntradasTabla2_1(String jsonEntradasTabla2_1) {
+		this.jsonEntradasTabla2_1 = jsonEntradasTabla2_1;
+	}
+	
 	public List<JSONObject> getListJson() {
 		return listJson;
 	}
