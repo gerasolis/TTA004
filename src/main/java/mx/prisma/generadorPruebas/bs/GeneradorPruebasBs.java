@@ -158,8 +158,11 @@ public class GeneradorPruebasBs {
 				+ "<elementProp name=\"HTTPsampler.Arguments\" elementType=\"Arguments\" guiclass=\"HTTPArgumentsPanel\" testclass=\"Arguments\" testname=\"User Defined Variables\" enabled=\"true\">" + "\n"
 				+ "<collectionProp name=\"Arguments.arguments\">" + "\n";
 				
-		bloque += parametrosHTTP(id, parametros);
-			
+		bloque += parametrosHTTP(id, parametros, metodo);
+		//Para la convención de REST para metodos PUYT y DELETE
+		if ("PUT".equals(metodo) || "DELETE".equals(metodo)){
+			metodo = "POST";
+		}
 		bloque += 				
 				"</collectionProp>" + "\n"
 				+ "</elementProp>" + "\n"
@@ -188,7 +191,7 @@ public class GeneradorPruebasBs {
 		
 	}
 	
-	public static String parametrosHTTP(String id, ArrayList<String> parametros) {
+	public static String parametrosHTTP(String id, ArrayList<String> parametros, String metodo) {
 		String bloque = "";
 		
 		for (String parametro : parametros) {
@@ -199,6 +202,16 @@ public class GeneradorPruebasBs {
 					+ "<stringProp name=\"Argument.metadata\">=</stringProp>" + "\n"
 					+ "<boolProp name=\"HTTPArgument.use_equals\">true</boolProp>" + "\n"
 					+ "<stringProp name=\"Argument.name\">"+ parametro +"</stringProp>" + "\n"
+					+ "</elementProp>" + "\n"; 
+		}
+		if ("PUT".equals(metodo) || "DELETE".equals(metodo)){
+			bloque += 
+					"<elementProp name=\"_method\" elementType=\"HTTPArgument\">" + "\n"
+					+ "<boolProp name=\"HTTPArgument.always_encode\">true</boolProp>" + "\n"
+					+ "<stringProp name=\"Argument.value\">"+metodo+"</stringProp>" + "\n"
+					+ "<stringProp name=\"Argument.metadata\">=</stringProp>" + "\n"
+					+ "<boolProp name=\"HTTPArgument.use_equals\">true</boolProp>" + "\n"
+					+ "<stringProp name=\"Argument.name\">_method</stringProp>" + "\n"
 					+ "</elementProp>" + "\n"; 
 		}
 		return bloque;
@@ -297,13 +310,14 @@ public class GeneradorPruebasBs {
 		return bloque;
 	}
 	
-	public static String cerrar() {
+	public static String cerrar(CasoUso casoUso) {
 		String bloque = 
-				"</hashTree>" + "\n"
-				+ "</hashTree>" + "\n"
-				+ "</hashTree>" + "\n"
-				+ "</jmeterTestPlan>" + "\n"; 
-	
+					"</hashTree>" + "\n"
+					+ "</hashTree>" + "\n"
+					+ "</hashTree>" + "\n"
+					+ "</hashTree>" + "\n"
+					+ "</jmeterTestPlan>" + "\n"; 
+		
 		return bloque;
 	}
 	
@@ -578,22 +592,18 @@ public class GeneradorPruebasBs {
 			} else {
 				patron = mensaje.getRedaccion();
 			}
-			System.out.println("Patrón1: "+patron);
 			for (MensajeParametro mensajeParametro : mensaje.getParametros()) {
 				for (ValorMensajeParametro valor : refParam.getValoresMensajeParametro()) {
 					if (mensajeParametro.getId().equals(valor.getMensajeParametro().getId())) {
-						System.out.println("Patrón_LAU: "+patron);
-						System.out.println("token: "+TokenBs.tokenPARAM
-								+ mensajeParametro.getParametro().getId());
-						System.out.println("getValor: "+valor.getValor());
+						System.err.println(patron + "<-Patron dentro del if - valor: " + valor.getValor());
+						System.err.println("Cadena sustituta ->"+ TokenBs.tokenPARAM + mensajeParametro.getParametro().getId());
 						patron = TokenBs.remplazoToken(patron, TokenBs.tokenPARAM
-								+ mensajeParametro.getParametro().getId(), valor.getValor());
-						System.out.println("Patrón_Betty: "+patron);
+								+ mensajeParametro.getParametro().getNombre(), valor.getValor());
 					}
 				}
 			}
-			System.out.println("Patrón: "+patron);
 			patron = patron.substring(1,patron.length());
+			System.err.println(patron + "<-Patron mensaje");
 			break;
 		case PANTALLA:
 			pantalla = (Pantalla) refParam.getElementoDestino();
@@ -1033,7 +1043,7 @@ public class GeneradorPruebasBs {
 				System.out.println("EL TAMAÑO DEL ARCHIVO ES DESPUES DE CADA TRAYECTORIA " + archivo.length());
 			}
 		//}
-		archivo += GeneradorPruebasBs.cerrar();
+		archivo += GeneradorPruebasBs.cerrar(casoUso);
 		/*byte ptext[] = archivo.getBytes(ISO_8859_1); 
 		String archivo_utf8 = new String(ptext, UTF_8); */
 		
@@ -1088,7 +1098,7 @@ public class GeneradorPruebasBs {
 			}
 		}
 		
-		archivo += GeneradorPruebasBs.cerrar();
+		archivo += GeneradorPruebasBs.cerrar(casoUso);
 		
 		crearArchivo(casoUso.getClave() + casoUso.getNumero() + ".jmx", casoUsoTesting + "/", archivo);
 		

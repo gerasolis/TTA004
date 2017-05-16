@@ -43,6 +43,7 @@ public class GeneradorCadenasUtil {
 		}
 		Generex generex = new Generex(expReg);
 		String cadena = generex.random();
+		cadena = cadena + cadena + cadena;
 		if(cadena.length() > longitud) {
 			cadena = cadena.substring(0, longitud);
 		}

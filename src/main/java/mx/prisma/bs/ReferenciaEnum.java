@@ -142,6 +142,7 @@ public class ReferenciaEnum {
 	}
 	
 	public static TipoReferencia getTipoReferencia(Object objeto){
+		System.out.println(objeto);
 		if (objeto instanceof Actor){
 			return TipoReferencia.ACTOR;
 		}

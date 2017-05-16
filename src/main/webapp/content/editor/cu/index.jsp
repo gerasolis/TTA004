@@ -180,7 +180,7 @@
 	<div align="center">
 		<button class="boton" 
 			onclick="mostrarMensajeCargando();location.href='${pageContext.request.contextPath}/configuracion-casos-uso!generarReporteGeneral'">
-			<s:text name="VIsualizar reporte general"></s:text>
+			<s:text name="Visualizar reporte general"></s:text>
 		</button>
 		<button class="boton" 
 			onclick="location.href='${pageContext.request.contextPath}/cu/new'">

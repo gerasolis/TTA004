@@ -409,7 +409,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 										try{
 											String[] prueba = liste.getTipoError().split("/");
 											System.out.println("ERROR: "+prueba[1]);
-											if(cadenaOriginal.equals(prueba[1])){
+											if(cadena.equals(prueba[1])){
 												System.out.println("ENTRA");
 												liste.setMensajeid(m);
 												liste.setPasoid(p);
@@ -418,7 +418,7 @@ public class ConfiguracionCasoUsoCtrl extends ActionSupportPRISMA {
 											}
 
 										}catch(Exception e){
-											if(cadenaOriginal.equals(liste.getTipoError())){
+											if(cadena.equals(liste.getTipoError())){
 												System.out.println("ENTRA");
 												liste.setMensajeid(m);
 												liste.setPasoid(p);

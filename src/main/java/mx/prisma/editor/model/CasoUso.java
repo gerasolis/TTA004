@@ -58,6 +58,7 @@ public class CasoUso extends Elemento implements java.io.Serializable {
 
 	
 	public CasoUso() {
+		super();
 	}
 
 	public CasoUso(String clave, String numero, String nombre,

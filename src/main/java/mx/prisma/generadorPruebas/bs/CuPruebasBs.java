@@ -113,14 +113,11 @@ public static Set<ValorEntrada> generarValoresIncorectos(Set<Entrada> entradas,
 		for(Entrada en : entradas){
 			if(!ReglaNegocioBs.esGlobal(curn.getReglaNegocio().getTipoReglaNegocio())) {
 				if(CuPruebasBs.entradaPerteneceReglaNegocio(en, curn.getReglaNegocio())) {
-					System.out.println("Entra if1");
 					valorCadenaInvalido = CuPruebasBs.generarValor(en, curn.getReglaNegocio(), reglasN, false);
 				}
 			} else {
-				System.out.println("Entra if2");
 				valorCadenaInvalido = generarValor(en, curn.getReglaNegocio(), reglasN, false);
 			}
-			System.out.println(valorCadenaInvalido);
 			if(valorCadenaInvalido != null) { 
 				valorInvalidoBD = new ValorEntrada();
 				valorInvalidoBD.setValor(valorCadenaInvalido);

@@ -31,29 +31,34 @@ div.upload input {
 <jsp:text>
 <![CDATA[                 
     <script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/editor/cu/js/index.js"></script>	
-				<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/constructores.js"></script>	
-		<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/gestorEntradas/js/entradas2.js"></script>
-
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/resources/scripts/constructores.js"></script>	
+	<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/gestorEntradas/js/entradas2.js"></script>
+	<!--<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/gestorEntradas/js/jquery.validate.min.js"></script>-->
+	<!--<script type="text/javascript" charset="utf8" src="${pageContext.request.contextPath}/content/gestorEntradas/js/form-validation-md.min_es.js"></script>-->
     
 ]]>
 </jsp:text>
 
 </head>
 <body>
+<div id="errorEntradas1"></div>
 	<div class="modal" id="modal"><!-- Place at bottom of page --></div>
 	<h1>Gestor de Entradas</h1>
+	<div id="errorEntradas1"></div>
 	<p class="instrucciones">Ingrese los valores que van a utilizar las entradas del caso de uso en la prueba automática y en el guión de pruebas, así como el formato html con el que se identifican.</p>
 	<p class="instrucciones">Antes de iniciar, tome en cuenta la siguiente nomenclatura:</p>
 	<ul>
 		<li><p class="instrucciones"><b>P:</b> Valores que se van a utilizar en la prueba.</p></li> 
 		<li><p class="instrucciones"><b>G:</b> Valores que se van a utilizar en el guión de pruebas.</p></li> 
 	</ul>
+	
 	<s:actionmessage theme="jquery" />
 	<s:actionerror theme="jquery" />
 
 	<div class="form-group col-md-12">
+		
 		<s:form autocomplete="off" id="frmActor" theme="simple"
-		action="%{#pageContext.request.contextPath}/configurar-entradas!anadirValoresEntradas" enctype="multipart/form-data" onsubmit="prepararEnvio()" method="post">
+		action="%{#pageContext.request.contextPath}/configurar-entradas!anadirValoresEntradas" enctype="multipart/form-data" method="post">
 		<s:hidden name="_method" value="put" />
 			<table id="gestion" class="tablaGestion" cellspacing="0" width="100%"> 
 				<thead>
@@ -68,6 +73,7 @@ div.upload input {
 				</thead>
 				<tbody>
 				<s:iterator value="listEntradas" var="entrada">
+				<div id="errorEntrada-${entrada.id}"></div>
 					<tr class="${'filaEntrada'}${entrada.id}">
 						<td></td>
 						<td><s:property value="%{#entrada.id + ' ' + #entrada.nombre}"/></td>
@@ -75,7 +81,7 @@ div.upload input {
 						<s:iterator value="listEntradas_2" var="entrada_2">
 							<!--<s:property value="%{#entrada_2.atributo.id}"/>-->
 							<s:if test="%{#entrada_2.atributo.id == #entrada.id}">
-								<td style=""><p align="center"><input style="width: 132px;" type="text" name="nombreHTML-${entrada.id}" id="nombreHTML-${entrada.id}" value="${entrada_2.nombreHTML}"/></p></td>
+								<td style=""><p align="center"><input style="width: 132px;" type="text" name="nombreHTML-${entrada.id}" id="nombreHTML-${entrada.id}" value="${entrada_2.nombreHTML}"/></p><div id="errorHTML-${entrada.id}"></div></td>
 							</s:if>
 						</s:iterator>
 						
@@ -149,7 +155,9 @@ div.upload input {
 			<div align="center">
 				<div align="center">
 					
-					<s:submit class="boton" value="Aceptar"/>
+					<!--<s:submit class="boton" value="Aceptar"/>-->
+					
+					<input class="boton" type="submit" value="Aceptar" />
 					
 					<!--  <input class="boton" type="button"
 						onclick="siguiente();"

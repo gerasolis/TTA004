@@ -48,6 +48,7 @@ public class EjecutarPruebaBs {
 				//a cada línea, se le sustituye el MIDDOT por un guión
 				cadena = cadena.replaceAll("&middot;","·");
 				w.write(cadena);
+				System.out.println(cadena);
 			}
 			w.close();
             String comando = "./jmeter -n -t "+rutaFolder+casoUso.getClave() + casoUso.getNumero()+"_2.jmx -l Test.jtl -e -o "+rutaReporte;
@@ -178,6 +179,12 @@ public class EjecutarPruebaBs {
 	public static List<CasoUso> consultarCasosUso(Modulo modulo){
 		List<CasoUso> listCasosUso=null;
 		listCasosUso = new ErroresPruebaDAO().consultarCasosUso(modulo);
+		return listCasosUso;
+	}
+	
+	public static List<CasoUso> consultarCasosUsoOrdenados(Modulo modulo){
+		List<CasoUso> listCasosUso=null;
+		listCasosUso = new ErroresPruebaDAO().consultarCasosUsoOrdenados(modulo);
 		return listCasosUso;
 	}
 	

@@ -1036,10 +1036,17 @@ public class TokenBs {
 				case PARAMETRO:
 					System.out.println("segmento "+segmentos.get(1));
 					Parametro parametro = new ParametroDAO().consultarParametro(segmentos.get(1),2);
+					System.out.println("parametro.getNombre(): "+parametro.getNombre());
 					if (parametro == null) {
 						cadenaDecodificada = "";
 					}
+					System.out.println("cadenaDecodificada: "+cadenaDecodificada);
+					System.out.println("token: "+token);
+					System.out.println("tokenPARAM: "+tokenPARAM);
+					//System.out.println("parametro.getNombre(): "+parametro.getNombre());
+					 
 					cadenaDecodificada = remplazoToken(cadenaDecodificada, token, tokenPARAM + parametro.getNombre());
+					System.out.println("cadenaDecodificada2: "+cadenaDecodificada);
 					break;
 				default:
 					break;
@@ -1214,7 +1221,7 @@ public class TokenBs {
 	
 	//Función que retorna el objeto con su id
 	public static Object obtenerTokenObjeto(String redaccion) {
-		System.out.println("ENTRA AL OBTENER TOKEN OBJETO");
+		System.out.println("ENTRA AL OBTENER TOKEN OBJETO "+redaccion);
 		if (redaccion == null || redaccion.isEmpty()) {
 			System.out.println("ENTRA AL SIN INFO");
 			return "Sin información";
@@ -1429,8 +1436,8 @@ public class TokenBs {
 				cadena = cadenaFinal;
 			} else {
 				indiceInicial = cadena.indexOf(cadena_sustituir, indiceInicial + 1);
-				System.out.println("IndiceInicialElse: "+indiceInicial);
 			}
+			System.out.println("Valor cadena en while: "+cadena);
 		}
 		return cadena;
 	}

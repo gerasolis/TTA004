@@ -123,6 +123,14 @@ p.main {
     border-collapse: collapse; 
 }
 
+.tablaGuion {
+	max-width: 600px;
+	white-space: nowrap;
+}
+
+.a{
+	max-width: 100px;
+}
 .tablaGestion td, .tablaGestion th {
     padding: 5px;
     font-size: 12px;
@@ -130,7 +138,8 @@ p.main {
     /*border-radius: 10px;*/
 }
 .tdDescripcion td{
-	width: 200px;
+	max-width: 15% !important;
+	white-space: nowrap;
 }
 
 /*Formularios*/

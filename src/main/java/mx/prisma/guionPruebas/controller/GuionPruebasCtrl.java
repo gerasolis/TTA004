@@ -298,11 +298,16 @@ public class GuionPruebasCtrl extends ActionSupportPRISMA{
 			System.out.println("JSON vacío");
 		}
 		
+		//Ordenar el arreglo 
+		ArrayList<CasoUso> casosUsos = (ArrayList<CasoUso>) JsonUtil.mapJSONToArrayList(
+				jsonPasosTabla, CasoUso.class);
+		
 		GuionPruebaDAO gpdao = new GuionPruebaDAO();
 		List<GuionPrueba> todosgp = gpdao.selectAll();
 		
 		int j=0;
-		for(CasoUso cuSeleccionado : cuSeleccionados){
+		for(CasoUso cuSeleccionado : casosUsos){
+			System.out.println("CU SELECCIONADO: "+cuSeleccionado.getNombre());
 			j++;
 			for(GuionPrueba gp : todosgp){
 				if(gp.getCasoUsoElementoid()==cuSeleccionado.getId()){

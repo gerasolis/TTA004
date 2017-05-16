@@ -96,6 +96,8 @@ function agregarCamposAccionesSeccion() {
 					inputMetodo = " <select id='input-metodo-accion-" + item.id  + "'> "
 									  + "<option value='GET'>GET</option>"
 									  + "<option value='POST'>POST</option>"
+									  + "<option value='PUT'>PUT</option>"
+									  +"<option value='DELETE'>DELETE</option>"
 									+ "</select> ";
 					
 					label = item.tipoAccion.nombre + " " + item.nombre;

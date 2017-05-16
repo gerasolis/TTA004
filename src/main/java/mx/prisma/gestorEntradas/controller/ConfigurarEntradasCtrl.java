@@ -47,6 +47,7 @@ import net.sf.json.JSONObject;
 			"actionName", "cu" }),
 	@Result(name = "cu", type = "redirectAction", params = {
 			"actionName", "cu" }),
+	@Result(name = "anterior", type = "dispatcher", location = "entradasGuion.jsp"),
 	@Result(name = "modulos", type = "redirectAction", params = {
 			"actionName", "modulos" }),
 	@Result(name = "documento", type = "stream", params = { 

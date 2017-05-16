@@ -178,7 +178,7 @@ public class ElementoDAO extends GenericDAO{
 		try {
 			session.beginTransaction();
 			Query query = session
-					.createQuery("from Elemento as elem where elem.proyecto.id = :proyecto");
+					.createQuery("from Elemento as elem where elem.proyecto.id = :proyecto ORDER BY clave, numero ");
 			query.setParameter("proyecto", proyecto.getId());
 			results = (ArrayList<Elemento>) query.list();
 			session.getTransaction().commit();

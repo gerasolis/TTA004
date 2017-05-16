@@ -22,44 +22,65 @@ $(document)
 				$("#upload-"+uploadFiles[1]).css("background","no-repeat url('/prisma/resources/images/icons/checked.png')");
 				guardarCadena(id);
 				
-			});			
-		});
+			});		
+			
+			$("#frmActor").submit(function (event) {
+				var k=0;
+			    var form = $(this);
+			    event.preventDefault();
+			    prepararEnvio(k,form);
+			   
+			    
+			});
 
+		});
+	
 
 
 function agregarMensaje(mensaje) {
 	alert(mensaje);
 };
 
-function prepararEnvio() {
+function prepararEnvio(k,form) {
 	try {
-		tablaToJson("gestion");
-		return true;
+		
+		tablaToJson("gestion",k,form);
+		//return true;
 	} catch (err) {
 		alert("Ha ocurrido un error." + err);
 	}
 }
 
-function tablaToJson(idTable) {
+
+
+
+
+function tablaToJson(idTable,k,form) {
 	var table = $("#" + idTable).dataTable();
 	var arregloColaboradores = [];
 	var arregloEntradas = [];
 	var seleccionado;
 	var cadena="";
+	
+	
 	for (var i = 0; i < table.fnSettings().fnRecordsTotal(); i++) {	    
 		var entrada = table.fnGetData(i, 1);
 		var id = entrada.split(" ");
-		//seleccionado = document.getElementById("checkbox-" + id[0]).checked;
-		//seleccionado2 = document.getElementById("checkbox2-" + id[0]).checked;
+		$('#errorHTML-'+id[0]).empty();
+		$('#errorEntrada-'+id[0]).empty();
+	
 		
 		nombreHTML = $('input[id=nombreHTML-'+id[0]+']').val();
+		
+		if(nombreHTML==""){
+			$('#errorHTML-'+id[0]).append('<p align="center">Complete el campo</p>');
+			k++;
+		}
 		seleccionado = $('input[id=checkbox-'+id[0]+']').filter(':checked').val();
 		seleccionado2 = $('input[id=checkbox2-'+id[0]+']').filter(':checked').val();
 		aleatorioCorrectoPrueba = $('input[id=aleatorioCorrectoPrueba-'+id[0]+']').filter(':checked').val();
 		aleatorioCorrectoGuion = $('input[id=aleatorioCorrectoGuion-'+id[0]+']').filter(':checked').val();
-		/*aleatorioIncorrectoPrueba = $('input[id=incorrectoP-'+id[0]+']').filter(':checked').val();
-		aleatorioIncorrectoGuion = $('input[id=incorrectoG-'+id[0]+']').filter(':checked').val();
-		*/
+
 		if (seleccionado != null && seleccionado2 == null ) {
 			var cadena = $('#palabras-'+id[0]).val();
 			console.log("se seleccionó prueba");
@@ -92,25 +113,22 @@ function tablaToJson(idTable) {
 			arregloColaboradores.push(new ValorEntrada(id[0],cadena,1,0,0,1,1));
 			//arregloEntradas.push(new Entrada(id[0],nombreHTML));
 		}
+		else if(seleccionado == null && seleccionado2 == null && aleatorioCorrectoPrueba == null && aleatorioCorrectoGuion == null){
+			$("#errorEntrada-"+id[0]).append('<p class="instrucciones">Inserte los valores de la entrada '+id[1]+'</p>');
+			k++;
+			//return false;
+		}
 		arregloEntradas.push(new Entrada(id[0],nombreHTML));
-		/*if(aleatorioIncorrectoPrueba != null && aleatorioIncorrectoGuion == null){
-			var selectIncorrectosArray = $('#selectIncorrectos-'+id[0]).val();
-			console.log("se seleccionó guión");
-			arregloColaboradores.push(new ValorEntrada(id[0],selectIncorrectosArray,1,0,0,0,0,1,0));
-		}else if(aleatorioIncorrectoPrueba == null && aleatorioIncorrectoGuion != null){
-			var selectIncorrectosArray = $('#selectIncorrectos-'+id[0]).val();
-			console.log("se seleccionó guión");
-			arregloColaboradores.push(new ValorEntrada(id[0],selectIncorrectosArray,1,0,0,0,0,0,1));
-		}else if(aleatorioIncorrectoPrueba != null && aleatorioIncorrectoGuion != null){
-			var selectIncorrectosArray = $('#selectIncorrectos-'+id[0]).val();
-			console.log("se seleccionó guión");
-			arregloColaboradores.push(new ValorEntrada(id[0],selectIncorrectosArray,1,0,0,0,0,1,1));
-		}*/
+
 	}
 	var jsonColaboradores = JSON.stringify(arregloColaboradores);
 	var jsonEntradas2_1 = JSON.stringify(arregloEntradas);
 	document.getElementById("jsonEntradasTabla").value = jsonColaboradores;
 	document.getElementById("jsonEntradasTabla2_1").value = jsonEntradas2_1;
+	 if(k==0){
+	    	form[0].submit();
+	    }
+
 }
 
 function guardarCadena(id){

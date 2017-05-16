@@ -216,6 +216,21 @@ public class ErroresPruebaDAO extends GenericDAO{
 		}
 		return c;
 	}
+	
+	public List<CasoUso> consultarCasosUsoOrdenados(Modulo modulo){
+		 List<CasoUso> c = null;
+		try{
+			session.beginTransaction();
+			Query query = session.createSQLQuery("select c.*, e.* from Elemento e join CasoUso c on e.id = c.Elementoid  where c.Moduloid = 2 and e.clave='CUSPR1' AND e.EstadoElementoid=7 order by numero").addEntity(CasoUso.class);
+			c = query.list();
+			session.getTransaction().commit();
+		}catch(HibernateException he){
+			he.printStackTrace();
+			session.getTransaction().rollback();
+			throw he;
+		}
+		return c;
+	}
 	/*
 	public void eliminarErrores(ErroresPrueba error){
 		try{

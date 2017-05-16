@@ -124,7 +124,7 @@ public static List<String> obtenerTokens(Mensaje mensaje) {
 /*********AGREGAR AL NUEVO***********/
 public static String compararTokenUsuario(String actionContext, Paso paso, String token, Set<Entrada> entradas, ReglaNegocio reglaNegocio) {
     String instruccion = "";
-
+    token = token.replace("$", "");
 // Si es una acción (ACC·#)
     if (token.contains(TokenBs.tokenACC)) {
         String accion = TokenBs.agregarReferencias(actionContext, token,"_blank");
@@ -158,8 +158,7 @@ if (token.contains(TokenBs.tokenRN)) {
 }
 // Si es un atributo
 if (token.contains(TokenBs.tokenATR)) {
-    
-    String atributo = TokenBs.agregarReferencias(actionContext, token,"_blank");
+	String atributo = TokenBs.agregarReferencias(actionContext, token,"_blank");
 // Comparamos el verbo
     if (paso.getVerbo().getNombre().equals("Mueve")) {
         instruccion = "Mueva el campo " + atributo;
@@ -171,7 +170,7 @@ if (token.contains(TokenBs.tokenATR)) {
         || paso.getVerbo().getNombre().equals("Registra")) {
         instruccion = "Ingrese en el campo " + atributo + ": ";
 // Obtenemos el valor de las entradas
-        Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
+        Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(" "+token);
         for (Entrada e : entradas) {
             if (e.getAtributo().getId() == a.getId()) {
                 instruccion += obtenerValorEntrada(e, reglaNegocio);
@@ -289,7 +288,8 @@ return instruccion;
 
 /*********AGREGAR AL NUEVO***********/
 public static String compararTokenUsuarioBD(String actionContext, Paso paso, String token, Set<Entrada> entradas, ReglaNegocio reglaNegocio) {
-    String instruccion = "";
+	token = token.replace("$", "");
+	String instruccion = "";
 
 // Si es una acción (ACC·#)
     if (token.contains(TokenBs.tokenACC)) {
@@ -323,7 +323,7 @@ if (token.contains(TokenBs.tokenRN)) {
 }    
 // Si es un atributo
 if (token.contains(TokenBs.tokenATR)) {
-    String atributo = TokenBs.decodificarCadenaSinToken(token);
+	String atributo = TokenBs.decodificarCadenaSinToken(token);
 // Comparamos el verbo
     if (paso.getVerbo().getNombre().equals("Mueve")) {
         instruccion = "Mueva el campo " + atributo;
@@ -335,7 +335,8 @@ if (token.contains(TokenBs.tokenATR)) {
         || paso.getVerbo().getNombre().equals("Registra")) {
         instruccion = "Ingrese en el campo " + atributo + ": ";
 // Obtenemos el valor de las entradas
-        Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(token);
+        
+        Atributo a = (Atributo) TokenBs.obtenerTokenObjeto(" "+token);
         for (Entrada e : entradas) {
             if (e.getAtributo().getId() == a.getId()) {
                 instruccion += obtenerValorEntrada(e, reglaNegocio);
@@ -949,7 +950,7 @@ private static String obtenerValorEntrada(Entrada entrada, ReglaNegocio reglaNeg
     	valor = "no inserte información";
     }
 
-    return valor;
+    return valor+"<br>";
 }
 
 public static List<String> obtenerInstrucciones(CasoUso casoUso, List<Trayectoria> trayectorias, String contextPath) {
@@ -1049,10 +1050,34 @@ public static List<String> obtenerInstrucciones(CasoUso casoUso, List<Trayectori
                 //}
             }
         }
+      //Si es la trayectoria principal, eliminamos la regla de negocio guardada
+        if(!trayectoriaPrincipal.isAlternativa()){
+	        int k=0;
+	        if(a>0 && trayectorias.get(a-1).isAlternativa() && trayectorias.get(a-1).isFinCasoUso()){
+	        	k=0;
+	        }else if(a>0){
+	        	Trayectoria trayectoriaAnterior = new Trayectoria();
+	        	trayectoriaAnterior.setId(trayectorias.get(a-1).getId());
+	        	trayectoriaAnterior.setPasos(trayectorias.get(a-1).getPasos());
+	        	int ultimoPasoIndex = TrayectoriaBs.obtenerPasos_(trayectoriaAnterior.getId()).size()-1;
+	        	int idTrayectoriaAnteior = trayectoriaAnterior.getId();
+	        	//Obtenemos el último paso de la trayectoria alternativa anterior
+	        	Paso ultimoPaso = TrayectoriaBs.obtenerPasos_(idTrayectoriaAnteior).get(ultimoPasoIndex);
+	        	List<String> tokens = GuionPruebasBs.obtenerTokens(ultimoPaso);
+	        	for(String tk : tokens){
+	        		if(tk.contains(TokenBs.tokenP)){
+	        			ultimoPaso = (Paso) TokenBs.obtenerTokenObjeto(" "+tk);
+	        			k = ultimoPaso.getNumero()-1;
+	        		}
+	        	}
+	        }
+	        for(int i=k; i<TrayectoriaBs.obtenerPasos_(trayectoriaPrincipal.getId()).size(); i++){
+	        	pasos.add(TrayectoriaBs.obtenerPasos_(trayectoriaPrincipal.getId()).get(i));
+	        }
         
-        //Agregamos los pasos de la trayectoria (principal o alternativa)
-        pasos.addAll(TrayectoriaBs.obtenerPasos_(trayectoriaPrincipal.getId()));
-                
+        	reglaNegocio = new ReglaNegocio();
+        }
+        
                 // Obtenemos el total de pasos de la trayectora principal
                 int tpasos = pasos.size();
                 // Consultamos las entradas del caso de uso

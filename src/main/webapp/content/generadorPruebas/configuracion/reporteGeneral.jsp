@@ -125,7 +125,7 @@
 			</s:url>
 			<input class="boton" type="button"
 				onclick="location.href='${urlGestionarCU}'"
-				value="Listo" />
+				value="Aceptar" />
 		</div>
 	<!--</s:form>-->
 </body>

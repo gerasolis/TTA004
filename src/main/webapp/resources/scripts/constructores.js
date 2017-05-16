@@ -23,7 +23,6 @@ function CasoUso (id, nombreModulo, numero, nombre) {
 	this.numero = numero;
 	this.nombre = nombre;
 }
-
 /*
  * Constructor del objeto Trayectoria
  */

@@ -453,6 +453,7 @@ public class CuCtrl extends ActionSupportPRISMA implements ModelDriven<CasoUso> 
 		if (listElementos != null && !listElementos.isEmpty()) {
 			// Se clasifican los conjuntos
 			for (Elemento el : listElementos) {
+				System.out.println(ReferenciaEnum.getTipoReferencia(el));
 				switch (ReferenciaEnum.getTipoReferencia(el)) {
 
 				case ACTOR:

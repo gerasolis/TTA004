@@ -185,7 +185,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 												try{
 													String[] prueba = liste.getTipoError().split("/");
 													System.out.println("ERROR: "+prueba[1]);
-													if(cadenaOriginal.equals(prueba[1])){
+													if(cadena.equals(prueba[1])){
 														System.out.println("ENTRA");
 														liste.setMensajeid(m);
 														liste.setPasoid(p);
@@ -194,7 +194,7 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 													}
 
 												}catch(Exception e){
-													if(cadenaOriginal.equals(liste.getTipoError())){
+													if(cadena.equals(liste.getTipoError())){
 														System.out.println("ENTRA");
 														liste.setMensajeid(m);
 														liste.setPasoid(p);
@@ -260,9 +260,10 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
     	List<File> listaArchivos = new ArrayList<File>();
     	try{
 	    	modulo = SessionManager.consultarModuloActivo();
-			listCasosUso = EjecutarPruebaBs.consultarCasosUso(modulo);
+			//listCasosUso = EjecutarPruebaBs.consultarCasosUso(modulo);
+			listCasosUso = EjecutarPruebaBs.consultarCasosUsoOrdenados(modulo);
 			int i=0;int bandera=0;
-			for (CasoUso casoUso : listCasosUso){
+			/*for (CasoUso casoUso : listCasosUso){
 				System.out.println(casoUso.getNombre()+" "+casoUso.getEstadoElemento().getNombre());
 				if (casoUso.getEstadoElemento().getNombre().equals("Configurado") || casoUso.getEstadoElemento().getNombre().equals("Liberado")){
 					bandera++;	
@@ -291,7 +292,18 @@ public class ConfiguracionCasosUsoCtrl extends ActionSupportPRISMA{
 					//descargarPruebaGeneral();				
 				System.out.println("Después de generar el documento general");
 				SessionManager.set(true, "pruebaGenerada2");
+			}*/
+			
+			for (CasoUso casoUso : listCasosUso){
+				//System.err.println("sdsczxczxczx: "+casoUso.getNombre());
+				if(casoUso.getEstadoElemento().getNombre().equals("Configurado")){
+					generarPrueba(casoUso);
+					listaArchivos.add(descargarPrueba(casoUso));
+				}
 			}
+			
+			System.out.println("Después de generar el documento general");
+			SessionManager.set(true, "pruebaGenerada2");
 		}catch(Exception e){
 			
 		}
